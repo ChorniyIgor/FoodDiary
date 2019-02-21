@@ -9,3 +9,21 @@
   height: 100px;
   cursor: pointer;
 }
+
+.main_container {
+  display: flex;
+  padding: 20px;
+}
+
+.main_container > div {
+  border: 1px solid #ccc;
+  flex-grow: 1;
+  background: white;
+  padding: 20px;
+  box-sizing: border-box;
+  border-radius: 25px;
+}
+
+.main_container > div:first-child {
+  margin-right: 3%;
+}
