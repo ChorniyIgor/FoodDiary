@@ -1,5 +1,5 @@
 const initialState = {
-  test: true
+  test: "test"
 };
 
 export default function(state = initialState, actions) {
