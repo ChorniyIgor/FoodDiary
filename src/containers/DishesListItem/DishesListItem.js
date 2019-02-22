@@ -1,9 +1,9 @@
 import React from "react";
+import styles from "./DishesListItem.css";
 
 const DishesListItem = props => {
-  console.dir("work");
   return (
-    <li>
+    <li className={styles.DishItem}>
       {props.dish.dishName} : {props.dish.dishWeight} грам
     </li>
   );

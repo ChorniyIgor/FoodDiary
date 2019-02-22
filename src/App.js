@@ -3,6 +3,7 @@ import styles from "./App.css";
 import { connect } from "react-redux";
 import lightBulb from "./img/lightBulb.svg";
 import MainDiaryBoard from "./containers/MainDiaryBoard/MainDiaryBoard";
+import FoodCatalog from "./containers/FoodCatalog/FoodCataloge";
 
 class App extends Component {
   render() {
@@ -13,7 +14,9 @@ class App extends Component {
           <div>
             <MainDiaryBoard />
           </div>
-          <div />
+          <div>
+            <FoodCatalog />
+          </div>
         </div>
       </div>
     );

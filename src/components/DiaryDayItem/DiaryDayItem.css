@@ -1,0 +1,47 @@
+.DayItem {
+  margin-bottom: 10px;
+}
+
+.DayToggle {
+  width: 100%;
+  background: #0076ff;
+  color: white;
+  outline: none;
+  border: none;
+  padding: 10px 0;
+  cursor: pointer;
+  position: relative;
+}
+
+.DayToggle::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  width: 20px;
+  height: 20px;
+  transform: translateY(-50%);
+  background: url("./angle-down-solid.svg") center no-repeat;
+  transition: all 0.2s ease-in;
+}
+
+.DayToggleOpen.DayToggle::before {
+  transform: rotate(180deg) translateY(50%);
+}
+
+.DishList {
+  list-style: none;
+  padding: 0;
+}
+
+.DishListHide {
+  max-height: 0;
+  overflow: hidden;
+}
+
+.DishListOpen {
+  max-height: 500px;
+  overflow: hidden;
+  transition: all 0.5s ease-in;
+}
