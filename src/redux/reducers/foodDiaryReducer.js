@@ -1,3 +1,5 @@
+import { ADD_DISH_TO_DIARY } from "../actions/foodDiaryActionCreators";
+
 const initialState = {
   [new Date().toDateString()]: {
     dishes: [
@@ -42,6 +44,10 @@ const initialState = {
 
 export default function(state = initialState, actions) {
   switch (actions.type) {
+    case ADD_DISH_TO_DIARY:
+      return {
+        ...state
+      };
     default:
       return state;
   }

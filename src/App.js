@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import lightBulb from "./img/lightBulb.svg";
 import MainDiaryBoard from "./containers/MainDiaryBoard/MainDiaryBoard";
 import FoodCatalog from "./containers/FoodCatalog/FoodCataloge";
+import AddDishModall from "./containers/AddDishModal/AddDishModal";
+import AddDishToDiaryModall from "./containers/AddDishToDiaryModal/AddDishToDiaryModal";
 
 class App extends Component {
   render() {
@@ -18,6 +20,8 @@ class App extends Component {
             <FoodCatalog />
           </div>
         </div>
+        <AddDishModall />
+        <AddDishToDiaryModall />
       </div>
     );
   }

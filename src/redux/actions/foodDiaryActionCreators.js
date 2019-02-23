@@ -1,17 +1,8 @@
-import { FOODSERCH } from "./actionTypes";
+export const ADD_DISH_TO_DIARY = "ADD_DISH_TO_DIARY";
 
-export function FoodCatalogSerch(serchVal) {
-  return (dispatch, getState) => {
-    const state = getState();
-    const foodCatalog = state.foodCatalog.dishes;
-
-    const serchDish = foodCatalog.filter(dish => {
-      return dish.toUpperCase().indexOf(serchVal.toUpperCase()) >= 0;
-    });
-
-    dispatch({
-      type: FOODSERCH,
-      serchDish
-    });
+export function addDishToDiary(dishName) {
+  return {
+    type: ADD_DISH_TO_DIARY,
+    dishName
   };
 }

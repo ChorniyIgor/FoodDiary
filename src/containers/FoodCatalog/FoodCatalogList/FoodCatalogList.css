@@ -10,6 +10,7 @@
   background: #54c7fc;
   color: white;
   font-size: 16px;
+  line-height: 20px;
   transition: font-size 0.1s;
 }
 
@@ -19,4 +20,5 @@
 
 .FoodList li:hover {
   font-size: 18px;
+  font-weight: bold;
 }

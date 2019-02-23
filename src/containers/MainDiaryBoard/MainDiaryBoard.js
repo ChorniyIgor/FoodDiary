@@ -4,7 +4,7 @@ import DiaryDayItem from "../../components/DiaryDayItem/DiaryDayItem";
 import styles from "./MainDiaryBoard.css";
 
 const MainBoard = props => {
-  console.log(props);
+  console.log(props.foodDiary);
   return (
     <section>
       <h2>Board</h2>

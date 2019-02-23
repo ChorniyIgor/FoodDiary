@@ -1,5 +1,5 @@
 import React from "react";
-import DishesListItem from "../../containers/DishesListItem/DishesListItem";
+import DishesListItem from "../../containers/MainDiaryBoard/DishesListItem/DishesListItem";
 import styles from "./DiaryDayItem.css";
 
 class DiaryItem extends React.Component {
