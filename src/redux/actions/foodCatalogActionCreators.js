@@ -20,7 +20,7 @@ export function FoodCatalogUpdate() {
   return FoodCatalogSerch("");
 }
 
-export function addUserDish(dishName) {
+export function AddUserDish(dishName) {
   return {
     type: ADD_USER_DISH,
     dishName

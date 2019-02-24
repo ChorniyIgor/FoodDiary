@@ -3,7 +3,8 @@ import { FOOD_SERCH, ADD_USER_DISH } from "../actions/actionTypes";
 const initialState = {
   dishes: ["Арахіс", "Борщ", "Кукурудза", "Каша", "Суп", "Овочі", "Помідори", "Яблука"],
   userDishes: [],
-  serchVal: []
+  serchVal: [],
+  modal: false
 };
 
 export default function(state = initialState, actions) {
@@ -21,5 +22,4 @@ export default function(state = initialState, actions) {
     default:
       return state;
   }
-  
 }

@@ -13,7 +13,7 @@ const store = createStore(rootReduser, composeWithDevTools(applyMiddleware(redux
 
 const app = (
   <Provider store={store}>
-    <App className={styles.body} />
+    <App className={styles.body} />=
   </Provider>
 );
 ReactDOM.render(app, document.getElementById("root"));

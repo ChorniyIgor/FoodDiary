@@ -1,7 +1,7 @@
-import { ADD_DISH_TO_DIARY } from "../actions/foodDiaryActionCreators";
+import { ADD_DISH_TO_DIARY, ADD_DAY_TO_DIARY } from "../actions/foodDiaryActionCreators";
 
 const initialState = {
-  [new Date().toDateString()]: {
+  [new Date(2019, 1, 21).toDateString()]: {
     dishes: [
       {
         dishName: "Періжок",
@@ -46,7 +46,19 @@ export default function(state = initialState, actions) {
   switch (actions.type) {
     case ADD_DISH_TO_DIARY:
       return {
-        ...state
+        ...state,
+        [actions.dateNow]: {
+          dishes: [...state[actions.dateNow].dishes, actions.dishProps],
+          showDishesList: false
+        }
+      };
+    case ADD_DAY_TO_DIARY:
+      return {
+        ...state,
+        [actions.date]: {
+          dishes: [],
+          showDishesList: false
+        }
       };
     default:
       return state;

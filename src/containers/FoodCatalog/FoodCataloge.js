@@ -2,12 +2,15 @@ import React from "react";
 import FoodCatalogList from "./FoodCatalogList/FoodCatalogList";
 import { connect } from "react-redux";
 import { FoodCatalogSerch, FoodCatalogUpdate } from "../../redux/actions/foodCatalogActionCreators";
-import { openModal } from "../../hoc/Modal/modalActions";
+import AddDishModal from "./AddDishModal/AddDishModal";
+import AddDishToDiaryBoardModal from "./AddToDiaryBoardModal/AddToDiaryBoardModal";
+import { openModal } from "../../redux/actions/modalActionCreators";
 
 class FoodCatalog extends React.Component {
   componentDidMount = () => {
     this.props.foodCatalogUpdate();
   };
+
   render() {
     return (
       <section>
@@ -19,7 +22,15 @@ class FoodCatalog extends React.Component {
           }}
         />
         <FoodCatalogList serchRes={this.props.serchRes} />
-        <button onClick={this.props.addNewDish}>Додати нову страву</button>
+        <button
+          onClick={() => {
+            this.props.modalOpen();
+          }}
+        >
+          Додати нову страву
+        </button>
+        <AddDishModal />
+        <AddDishToDiaryBoardModal />
       </section>
     );
   }
@@ -37,8 +48,8 @@ function mapDispatchToProps(dispatch) {
     onInput: serchString => {
       dispatch(FoodCatalogSerch(serchString));
     },
-    addNewDish: () => {
-      dispatch(openModal());
+    modalOpen: () => {
+      dispatch(openModal("AddDishModal"));
     },
     foodCatalogUpdate: () => {
       dispatch(FoodCatalogUpdate());

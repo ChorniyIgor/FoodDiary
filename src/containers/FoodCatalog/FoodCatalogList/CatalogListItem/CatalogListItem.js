@@ -1,23 +1,23 @@
 import React from "react";
 import { connect } from "react-redux";
-import { addDishToDiary } from "../../../../redux/actions/foodDiaryActionCreators";
+import { openModalWithProps } from "../../../../redux/actions/modalActionCreators";
 
 const CatalogListItem = props => {
-  return (
-    <li
-      onClick={() => {
-        props.addDishToDiary(props.itemName);
-      }}
-    >
-      {props.itemName}
-    </li>
-  );
+  function onListItemClickHendler() {
+    const info = {
+      dishName: props.itemName,
+      dishWeight: "500g"
+    };
+    props.modalOpen(info);
+  }
+
+  return <li onClick={onListItemClickHendler}>{props.itemName}</li>;
 };
 
-function mapDispatchToProps(disapatch) {
+function mapDispatchToProps(dispatch) {
   return {
-    addDishToDiary: dishName => {
-      disapatch(addDishToDiary(dishName));
+    modalOpen: props => {
+      dispatch(openModalWithProps("AddDishToDiaryBoardModal", props));
     }
   };
 }
