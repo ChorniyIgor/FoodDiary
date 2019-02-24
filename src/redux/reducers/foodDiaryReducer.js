@@ -5,11 +5,19 @@ const initialState = {
     dishes: [
       {
         dishName: "Періжок",
-        dishWeight: 150
+        dishWeight: 150,
+        kkal: 100,
+        proteins: 18,
+        fats: 10,
+        carbohydrates: 40
       },
       {
         dishName: "Суп",
-        dishWeight: 100
+        dishWeight: 100,
+        kkal: 100,
+        proteins: 18,
+        fats: 10,
+        carbohydrates: 40
       }
     ],
     showDishesList: false
@@ -18,11 +26,19 @@ const initialState = {
     dishes: [
       {
         dishName: "Гречка",
-        dishWeight: 350
+        dishWeight: 350,
+        kkal: 200,
+        proteins: 218,
+        fats: 210,
+        carbohydrates: 240
       },
       {
         dishName: "Картопля",
-        dishWeight: 120
+        dishWeight: 120,
+        kkal: 100,
+        proteins: 18,
+        fats: 10,
+        carbohydrates: 40
       }
     ],
     showDishesList: false
@@ -31,11 +47,19 @@ const initialState = {
     dishes: [
       {
         dishName: "Гречка",
-        dishWeight: 350
+        dishWeight: 350,
+        kkal: 100,
+        proteins: 18,
+        fats: 10,
+        carbohydrates: 40
       },
       {
         dishName: "Картопля",
-        dishWeight: 120
+        dishWeight: 120,
+        kkal: 100,
+        proteins: 18,
+        fats: 10,
+        carbohydrates: 40
       }
     ],
     showDishesList: false

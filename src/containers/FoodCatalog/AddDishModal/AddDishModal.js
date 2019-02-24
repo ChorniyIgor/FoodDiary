@@ -3,17 +3,59 @@ import Modal from "../../../hoc/Modal/Modal";
 import { connect } from "react-redux";
 import { openModal, closeModal } from "../../../redux/actions/modalActionCreators";
 import { AddUserDish, FoodCatalogUpdate } from "../../../redux/actions/foodCatalogActionCreators";
+import InputLabel from "../../../UI/InputLabel/InputLabel";
 
 const AddDishModal = props => {
-  const inputRef = React.createRef();
+  const inputNameRef = React.createRef();
+  const inputCaloriesRef = React.createRef();
+  const inputProteinsRef = React.createRef();
+  const inputFatsRef = React.createRef();
+  const inputCarbohydratesRef = React.createRef();
+
   const addUserDish = () => {
-    props.addUserDish(inputRef.current.value);
+    /*Арахіс: {
+      kkal: 100,
+      proteins: 18,
+      fats: 10,
+      carbohydrates: 40
+    },*/
+    const dishName = inputNameRef.current.value;
+
+    const kkal = inputCaloriesRef.current.value;
+    const proteins = inputProteinsRef.current.value;
+    const fats = inputFatsRef.current.value;
+    const carbohydrates = inputCarbohydratesRef.current.value;
+
+    const newDish = {
+      [dishName]: {
+        kkal,
+        proteins,
+        fats,
+        carbohydrates
+      }
+    };
+    props.addUserDish(newDish);
     props.FoodCatalogUpdate();
   };
   return props.show ? (
     <Modal onClose={props.modalClose}>
       <h1>Додати нову страву</h1>
-      <input type="text" ref={inputRef} />
+      <InputLabel labelText="Назва страви">
+        <input type="text" autoFocus ref={inputNameRef} />
+      </InputLabel>
+      <InputLabel labelText="Калорійність">
+        <input type="text" ref={inputCaloriesRef} />
+      </InputLabel>
+      <InputLabel labelText="Білки">
+        <input type="text" ref={inputProteinsRef} />
+      </InputLabel>
+      <InputLabel labelText="Жири">
+        <input type="text" ref={inputFatsRef} />
+      </InputLabel>
+      <InputLabel labelText="Вуглеводи">
+        <input type="text" ref={inputCarbohydratesRef} />
+      </InputLabel>
+
       <button onClick={addUserDish}>Зберегти</button>
       <button onClick={props.modalClose}>Закрити</button>
     </Modal>

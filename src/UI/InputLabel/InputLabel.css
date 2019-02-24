@@ -1,0 +1,23 @@
+.Input {
+  display: block;
+  padding: 0;
+  margin: auto;
+  max-width: 300px;
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+.Input p {
+  margin: 0;
+  margin-bottom: 5px;
+  font-size: 20px;
+}
+
+.Input input {
+  width: 100%;
+  box-sizing: border-box;
+  outline: none;
+  border: 1px solid #ccc;
+  font-size: 20px;
+  padding: 2px 5px;
+}
