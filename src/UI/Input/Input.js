@@ -1,11 +1,12 @@
 import React from "react";
-import classes from "./InputLabel.css";
+import classes from "./Input.css";
 
 const Input = props => {
+  const inputType = props.inputType || "text";
   return (
     <label className={classes.Input}>
       <p>{props.labelText}</p>
-      {props.children}
+      <input type={inputType} autoFocus ref={props.inputRefer} />
     </label>
   );
 };

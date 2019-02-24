@@ -1,4 +1,18 @@
 .DishItem {
   border-bottom: 1px solid #ccc;
+  padding: 0;
+}
+
+.ItemСolumn span {
   padding: 5px 0;
+}
+
+.ItemСolumn:nth-child(2n + 1) {
+  background: rgba(0, 0, 0, 0.3);
+  color: white;
+}
+
+.ItemСolumn:nth-child(2n) {
+  background: rgba(0, 0, 0, 0.2);
+  color: rgba(0, 0, 0);
 }

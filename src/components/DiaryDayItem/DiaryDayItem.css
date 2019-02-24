@@ -45,3 +45,36 @@
   overflow: hidden;
   transition: all 0.5s ease-in;
 }
+
+.ListTable {
+  display: flex;
+}
+
+.ListTable span {
+  flex-basis: 15%;
+  min-width: 15%;
+  box-sizing: border-box;
+  padding-left: 3px;
+  padding-right: 3px;
+  vertical-align: baseline;
+}
+
+.ListTable span:last-child {
+  flex-basis: 10%;
+  min-width: 10%;
+}
+
+.ListTable span:nth-child(2n) {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.ListTableHeader {
+  background: #54c7fc;
+  color: white;
+  font-size: 14px;
+}
+
+.ListTableHeader span {
+  padding-top: 10px;
+  padding-bottom: 2px;
+}

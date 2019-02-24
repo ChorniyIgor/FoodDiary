@@ -4,7 +4,7 @@ import Modal from "../../../hoc/Modal/Modal";
 import { connect } from "react-redux";
 import { openModal, closeModal } from "../../../redux/actions/modalActionCreators";
 import { addDishToDiary } from "../../../redux/actions/foodDiaryActionCreators";
-import LabelInput from "../../../UI/InputLabel/InputLabel";
+import Input from "../../../UI/Input/Input";
 
 const AddDishToDiaryBoardModal = props => {
   const inputWeight = React.createRef();
@@ -25,9 +25,7 @@ const AddDishToDiaryBoardModal = props => {
         <p>Жири: {props.dishProps.fats}</p>
         <p>Вуглеводи: {props.dishProps.carbohydrates}</p>
       </div>
-      <LabelInput labelText="Кількість у граммах">
-        <input type="text" autoFocus ref={inputWeight} />
-      </LabelInput>
+      <Input labelText="Кількість у граммах" inputRefer={inputWeight} inputType="number" />
       <button onClick={onAddDishDiaryClickHendler}>Додати у щоденник</button>
     </Modal>
   ) : null;

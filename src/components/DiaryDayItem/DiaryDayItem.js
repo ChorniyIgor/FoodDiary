@@ -18,8 +18,17 @@ class DiaryItem extends React.Component {
     this.state.showDishesList ? cls.push(styles.DishListOpen) : cls.push(styles.DishListHide);
     return (
       <ul className={cls.join(" ")}>
+        <div className={[styles.ListTable, styles.ListTableHeader].join(" ")}>
+          <span>Назва</span>
+          <span>Вага г.</span>
+          <span>Калорійність ккал.</span>
+          <span>Білки г.</span>
+          <span>Жири г.</span>
+          <span>Вуглеводи г.</span>
+          <span />
+        </div>
         {dishes.map((dish, i) => {
-          return <DishesListItem dish={dish} key={i} />;
+          return <DishesListItem styles={styles.ListTable} dish={dish} key={i} />;
         })}
       </ul>
     );

@@ -3,7 +3,7 @@ import Modal from "../../../hoc/Modal/Modal";
 import { connect } from "react-redux";
 import { openModal, closeModal } from "../../../redux/actions/modalActionCreators";
 import { AddUserDish, FoodCatalogUpdate } from "../../../redux/actions/foodCatalogActionCreators";
-import InputLabel from "../../../UI/InputLabel/InputLabel";
+import Input from "../../../UI/Input/Input";
 
 const AddDishModal = props => {
   const inputNameRef = React.createRef();
@@ -13,12 +13,6 @@ const AddDishModal = props => {
   const inputCarbohydratesRef = React.createRef();
 
   const addUserDish = () => {
-    /*Арахіс: {
-      kkal: 100,
-      proteins: 18,
-      fats: 10,
-      carbohydrates: 40
-    },*/
     const dishName = inputNameRef.current.value;
 
     const kkal = inputCaloriesRef.current.value;
@@ -40,21 +34,11 @@ const AddDishModal = props => {
   return props.show ? (
     <Modal onClose={props.modalClose}>
       <h1>Додати нову страву</h1>
-      <InputLabel labelText="Назва страви">
-        <input type="text" autoFocus ref={inputNameRef} />
-      </InputLabel>
-      <InputLabel labelText="Калорійність">
-        <input type="text" ref={inputCaloriesRef} />
-      </InputLabel>
-      <InputLabel labelText="Білки">
-        <input type="text" ref={inputProteinsRef} />
-      </InputLabel>
-      <InputLabel labelText="Жири">
-        <input type="text" ref={inputFatsRef} />
-      </InputLabel>
-      <InputLabel labelText="Вуглеводи">
-        <input type="text" ref={inputCarbohydratesRef} />
-      </InputLabel>
+      <Input labelText="Назва страви" inputRefer={inputNameRef} />
+      <Input labelText="Калорійність" inputRefer={inputCaloriesRef} inputType="number" />
+      <Input labelText="Білки" inputRefer={inputProteinsRef} inputType="number" />
+      <Input labelText="Жири" inputRefer={inputFatsRef} inputType="number" />
+      <Input labelText="Вуглеводи" inputRefer={inputCarbohydratesRef} inputType="number" />
 
       <button onClick={addUserDish}>Зберегти</button>
       <button onClick={props.modalClose}>Закрити</button>
