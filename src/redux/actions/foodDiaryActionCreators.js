@@ -10,7 +10,6 @@ export function loadUserDiary() {
       type: LOAD_USER_DIARY,
       userDiary
     });
-    console.log(userDiary);
   };
 }
 
@@ -36,8 +35,6 @@ export function addDishToDiary(dishProps) {
     if (!foodDiary[date]) {
       dispatch(addDayToDiary(date));
     }
-
-    console.log(dishProps);
 
     dispatch({
       type: ADD_DISH_TO_DIARY,

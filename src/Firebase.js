@@ -19,6 +19,15 @@ class Firebase {
     const resp = await fetch(this.userDiaryUrl).then(resp => resp.json());
     return resp;
   }
+
+  async sendNewDish(val) {
+    const options = {
+      method: "POST",
+      body: JSON.stringify(val)
+    };
+    const resp = await fetch(this.userFoodCatalogUrl, options).then(resp => resp.json());
+    return resp;
+  }
 }
 
 const base = new Firebase();

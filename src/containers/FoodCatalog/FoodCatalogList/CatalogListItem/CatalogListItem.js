@@ -5,10 +5,10 @@ import { openModalWithProps } from "../../../../redux/actions/modalActionCreator
 const CatalogListItem = props => {
   function onListItemClickHendler() {
     const dishList = { ...props.dishList, ...props.dishUserList };
-    const dishItem = dishList[props.itemName];
+    const dishItem = dishList[props.item.key];
 
     const info = {
-      dishName: props.itemName,
+      dishName: props.item.name,
       kkal: dishItem.kkal,
       proteins: dishItem.proteins,
       fats: dishItem.fats,
@@ -17,7 +17,7 @@ const CatalogListItem = props => {
     props.modalOpen(info);
   }
 
-  return <li onClick={onListItemClickHendler}>{props.itemName}</li>;
+  return <li onClick={onListItemClickHendler}>{props.item.name}</li>;
 };
 
 function mapStateToProps(state) {

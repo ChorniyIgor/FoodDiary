@@ -14,7 +14,6 @@ export function loadMainFoodCatalog() {
       mainFoodCatalog
     });
     dispatch(FoodCatalogUpdate());
-    console.log(mainFoodCatalog);
   };
 }
 
@@ -26,20 +25,16 @@ export function loadUserFoodCatalog() {
       userFoodCatalog
     });
     dispatch(FoodCatalogUpdate());
-    console.log(userFoodCatalog);
   };
 }
 
 export function FoodCatalogSerch(serchVal) {
   return (dispatch, getState) => {
     const state = getState();
-    const foodCatalog = [
-      ...Object.keys(state.foodCatalog.dishes),
-      ...Object.keys(state.foodCatalog.userDishes)
-    ].sort();
+    const actualFoodList = getFullFoodCatalog(state);
 
-    const serchDish = foodCatalog.filter(dish => {
-      return dish.toUpperCase().indexOf(serchVal.toUpperCase()) >= 0;
+    const serchDish = actualFoodList.filter(dish => {
+      return dish.name.toUpperCase().indexOf(serchVal.toUpperCase()) >= 0;
     });
 
     dispatch({
@@ -54,8 +49,35 @@ export function FoodCatalogUpdate() {
 }
 
 export function AddUserDish(newDish) {
-  return {
-    type: ADD_USER_DISH,
-    newDish
+  return async dispatch => {
+    const key = await Firebase.sendNewDish(newDish);
+    dispatch({
+      type: ADD_USER_DISH,
+      newDish: {
+        [key.name]: newDish
+      }
+    });
+    dispatch(FoodCatalogUpdate());
   };
+}
+
+function getFullFoodCatalog(state) {
+  function getDishesWithKey(data) {
+    // return obj {dishName, dishKey}
+    const userDishes = [];
+    Object.keys(data).forEach(name => {
+      const item = data[name];
+      const dishName = Object.keys(item)[0];
+      userDishes.push({
+        name: dishName,
+        key: name
+      });
+    });
+    return userDishes;
+  }
+
+  return [
+    ...getDishesWithKey(state.foodCatalog.dishes),
+    ...getDishesWithKey(state.foodCatalog.userDishes)
+  ];
 }

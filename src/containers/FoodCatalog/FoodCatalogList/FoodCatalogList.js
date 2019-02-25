@@ -7,7 +7,7 @@ const FoodCatalogList = props => {
     if (serchRes.length === 0) return <p>Збігів не знайдено</p>;
     else
       return serchRes.map((item, index) => {
-        return <CatalogListItem key={index} itemName={item} />;
+        return <CatalogListItem key={index} item={item} />;
       });
   }
   return <ul className={classes.FoodList}>{getSerchResultList(props.serchRes)}</ul>;
