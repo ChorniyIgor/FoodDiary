@@ -1,8 +1,13 @@
-import { FOOD_SERCH, ADD_USER_DISH } from "../actions/actionTypes";
+import {
+  FOOD_SERCH,
+  ADD_USER_DISH,
+  LOAD_MAIN_FOOD_CATALOG,
+  LOAD_USER_FOOD_CATALOG
+} from "../actions/actionTypes";
 
 const initialState = {
   dishes: {
-    Арахіс: {
+    /* Арахіс: {
       kkal: 100,
       proteins: 18,
       fats: 10,
@@ -25,16 +30,24 @@ const initialState = {
       proteins: 18,
       fats: 10,
       carbohydrates: 40
-    }
+    }*/
   },
-  //dishes: ["Арахіс", "Борщ", "Кукурудза", "Каша", "Суп", "Овочі", "Помідори", "Яблука"],
   userDishes: {},
-  serchVal: [],
-  modal: false
+  serchVal: []
 };
 
 export default function(state = initialState, actions) {
   switch (actions.type) {
+    case LOAD_MAIN_FOOD_CATALOG:
+      return {
+        ...state,
+        dishes: actions.mainFoodCatalog
+      };
+    case LOAD_USER_FOOD_CATALOG:
+      return {
+        ...state,
+        userDishes: actions.userFoodCatalog
+      };
     case FOOD_SERCH:
       return {
         ...state,

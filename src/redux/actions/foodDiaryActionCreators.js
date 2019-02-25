@@ -1,5 +1,18 @@
+import Firebase from "../../Firebase";
+import { LOAD_USER_DIARY } from "./actionTypes";
 export const ADD_DISH_TO_DIARY = "ADD_DISH_TO_DIARY";
 export const ADD_DAY_TO_DIARY = "ADD_DAY_TO_DIARY";
+
+export function loadUserDiary() {
+  return async dispatch => {
+    const userDiary = await Firebase.getUserDiary();
+    dispatch({
+      type: LOAD_USER_DIARY,
+      userDiary
+    });
+    console.log(userDiary);
+  };
+}
 
 function calculateDishParam(dishProps) {
   const dishWeight = dishProps.dishWeight / 100;

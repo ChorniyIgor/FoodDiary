@@ -6,22 +6,22 @@ import AddDishModal from "./AddDishModal/AddDishModal";
 import AddDishToDiaryBoardModal from "./AddToDiaryBoardModal/AddToDiaryBoardModal";
 import { openModal } from "../../redux/actions/modalActionCreators";
 import Button from "../../UI/Button/Button";
+import Input from "../../UI/Input/Input";
 
 class FoodCatalog extends React.Component {
   componentDidMount = () => {
     this.props.foodCatalogUpdate();
   };
 
+  onInputChangeHendler = evt => {
+    this.props.onInput(evt.target.value.trim());
+  };
+
   render() {
     return (
       <section>
-        <h2>Food cataloge</h2>
-        <input
-          type="text"
-          onInput={evt => {
-            this.props.onInput(evt.target.value);
-          }}
-        />
+        <h2>Меню</h2>
+        <Input onInput={this.onInputChangeHendler} />
         <FoodCatalogList serchRes={this.props.serchRes} />
         <Button text="Додати нову страву" onClick={this.props.modalOpen} color="blue" />
         <AddDishModal />

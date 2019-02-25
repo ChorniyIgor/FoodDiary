@@ -11,7 +11,7 @@ const MainBoard = props => {
   }
   return (
     <section>
-      <h2>Board</h2>
+      <h2>Щоденник</h2>
       <ul className={styles.DiaryBoardList}>
         {getDayHeaders(props.foodDiary).map((key, index) => {
           const diaryList = props.foodDiary[key];

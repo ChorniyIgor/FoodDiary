@@ -1,7 +1,8 @@
 import { ADD_DISH_TO_DIARY, ADD_DAY_TO_DIARY } from "../actions/foodDiaryActionCreators";
+import { LOAD_USER_DIARY } from "../actions/actionTypes";
 
 const initialState = {
-  [new Date(2019, 1, 21).toDateString()]: {
+  /* [new Date(2019, 1, 21).toDateString()]: {
     dishes: [
       {
         dishName: "Періжок",
@@ -63,11 +64,15 @@ const initialState = {
       }
     ],
     showDishesList: false
-  }
+  }*/
 };
 
 export default function(state = initialState, actions) {
   switch (actions.type) {
+    case LOAD_USER_DIARY:
+      return {
+        ...actions.userDiary
+      };
     case ADD_DISH_TO_DIARY:
       return {
         ...state,

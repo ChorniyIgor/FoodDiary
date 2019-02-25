@@ -1,4 +1,34 @@
-import { FOOD_SERCH, ADD_USER_DISH } from "./actionTypes";
+import {
+  FOOD_SERCH,
+  ADD_USER_DISH,
+  LOAD_MAIN_FOOD_CATALOG,
+  LOAD_USER_FOOD_CATALOG
+} from "./actionTypes";
+import Firebase from "../../Firebase";
+
+export function loadMainFoodCatalog() {
+  return async dispatch => {
+    const mainFoodCatalog = await Firebase.getMainFoodCatalog();
+    dispatch({
+      type: LOAD_MAIN_FOOD_CATALOG,
+      mainFoodCatalog
+    });
+    dispatch(FoodCatalogUpdate());
+    console.log(mainFoodCatalog);
+  };
+}
+
+export function loadUserFoodCatalog() {
+  return async dispatch => {
+    const userFoodCatalog = await Firebase.getUserFoodCatalog();
+    dispatch({
+      type: LOAD_USER_FOOD_CATALOG,
+      userFoodCatalog
+    });
+    dispatch(FoodCatalogUpdate());
+    console.log(userFoodCatalog);
+  };
+}
 
 export function FoodCatalogSerch(serchVal) {
   return (dispatch, getState) => {

@@ -22,7 +22,7 @@ const AddDishModal = props => {
     const carbohydrates = inputCarbohydratesRef.current.value;
 
     const newDish = {
-      [dishName]: {
+      [dishName.toUpperCase()]: {
         kkal,
         proteins,
         fats,
@@ -43,7 +43,12 @@ const AddDishModal = props => {
     <Modal onClose={props.modalClose}>
       <h1>Додати нову страву</h1>
       <form onSubmit={onFormSubmitHendler}>
-        <Input labelText="Назва страви" inputRefer={inputNameRef} isRequired={true} />
+        <Input
+          labelText="Назва страви"
+          inputRefer={inputNameRef}
+          isRequired={true}
+          autoFocus={true}
+        />
         <Input
           labelText="Калорійність"
           inputRefer={inputCaloriesRef}
