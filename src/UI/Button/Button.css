@@ -1,0 +1,23 @@
+.Button {
+  padding: 10px 20px;
+  color: white;
+  cursor: pointer;
+  opacity: 1;
+  box-sizing: border-box;
+  margin: 15px;
+  min-width: 120px;
+}
+
+.ButtonBlue {
+  background: #0076ff;
+  border: 2px solid #54c7fc;
+}
+
+.ButtonGrey {
+  background: #999999;
+  border: 2px solid #414a4e;
+}
+
+.Button:hover {
+  opacity: 0.8;
+}

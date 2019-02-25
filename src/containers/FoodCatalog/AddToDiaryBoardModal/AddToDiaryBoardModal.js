@@ -5,14 +5,19 @@ import { connect } from "react-redux";
 import { openModal, closeModal } from "../../../redux/actions/modalActionCreators";
 import { addDishToDiary } from "../../../redux/actions/foodDiaryActionCreators";
 import Input from "../../../UI/Input/Input";
+import Button from "../../../UI/Button/Button";
 
 const AddDishToDiaryBoardModal = props => {
   const inputWeight = React.createRef();
 
   function onAddDishDiaryClickHendler() {
     const dishInfo = { ...props.dishProps, dishWeight: +inputWeight.current.value };
-    console.log(dishInfo);
     props.addDishToDiary(dishInfo);
+  }
+
+  function formSubmitHendler(evt) {
+    evt.preventDefault();
+    onAddDishDiaryClickHendler();
     props.modalClose();
   }
 
@@ -25,8 +30,18 @@ const AddDishToDiaryBoardModal = props => {
         <p>Жири: {props.dishProps.fats}</p>
         <p>Вуглеводи: {props.dishProps.carbohydrates}</p>
       </div>
-      <Input labelText="Кількість у граммах" inputRefer={inputWeight} inputType="number" />
-      <button onClick={onAddDishDiaryClickHendler}>Додати у щоденник</button>
+      <form onSubmit={formSubmitHendler}>
+        <Input
+          labelText="Кількість у граммах"
+          inputRefer={inputWeight}
+          inputType="number"
+          isRequired={true}
+          min={1}
+          defaultValue={100}
+        />
+        <Button type="submit" text="Додати у щоденник" color="blue" />
+        <Button text="Закрити" onClick={props.modalClose} />
+      </form>
     </Modal>
   ) : null;
 };

@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { openModal, closeModal } from "../../../redux/actions/modalActionCreators";
 import { AddUserDish, FoodCatalogUpdate } from "../../../redux/actions/foodCatalogActionCreators";
 import Input from "../../../UI/Input/Input";
+import Button from "../../../UI/Button/Button";
 
 const AddDishModal = props => {
   const inputNameRef = React.createRef();
@@ -31,17 +32,53 @@ const AddDishModal = props => {
     props.addUserDish(newDish);
     props.FoodCatalogUpdate();
   };
+
+  function onFormSubmitHendler(evt) {
+    evt.preventDefault();
+    addUserDish();
+    props.modalClose();
+  }
+
   return props.show ? (
     <Modal onClose={props.modalClose}>
       <h1>Додати нову страву</h1>
-      <Input labelText="Назва страви" inputRefer={inputNameRef} />
-      <Input labelText="Калорійність" inputRefer={inputCaloriesRef} inputType="number" />
-      <Input labelText="Білки" inputRefer={inputProteinsRef} inputType="number" />
-      <Input labelText="Жири" inputRefer={inputFatsRef} inputType="number" />
-      <Input labelText="Вуглеводи" inputRefer={inputCarbohydratesRef} inputType="number" />
-
-      <button onClick={addUserDish}>Зберегти</button>
-      <button onClick={props.modalClose}>Закрити</button>
+      <form onSubmit={onFormSubmitHendler}>
+        <Input labelText="Назва страви" inputRefer={inputNameRef} isRequired={true} />
+        <Input
+          labelText="Калорійність"
+          inputRefer={inputCaloriesRef}
+          inputType="number"
+          isRequired={true}
+          min={0}
+          defaultValue={0}
+        />
+        <Input
+          labelText="Білки"
+          inputRefer={inputProteinsRef}
+          inputType="number"
+          isRequired={true}
+          min={0}
+          defaultValue={0}
+        />
+        <Input
+          labelText="Жири"
+          inputRefer={inputFatsRef}
+          inputType="number"
+          isRequired={true}
+          min={0}
+          defaultValue={0}
+        />
+        <Input
+          labelText="Вуглеводи"
+          inputRefer={inputCarbohydratesRef}
+          inputType="number"
+          isRequired={true}
+          min={0}
+          defaultValue={0}
+        />
+        <Button type="submit" text="Зберегти" color="blue" />
+        <Button text="Закрити" onClick={props.modalClose} />
+      </form>
     </Modal>
   ) : null;
 };

@@ -5,6 +5,7 @@ import { FoodCatalogSerch, FoodCatalogUpdate } from "../../redux/actions/foodCat
 import AddDishModal from "./AddDishModal/AddDishModal";
 import AddDishToDiaryBoardModal from "./AddToDiaryBoardModal/AddToDiaryBoardModal";
 import { openModal } from "../../redux/actions/modalActionCreators";
+import Button from "../../UI/Button/Button";
 
 class FoodCatalog extends React.Component {
   componentDidMount = () => {
@@ -22,13 +23,7 @@ class FoodCatalog extends React.Component {
           }}
         />
         <FoodCatalogList serchRes={this.props.serchRes} />
-        <button
-          onClick={() => {
-            this.props.modalOpen();
-          }}
-        >
-          Додати нову страву
-        </button>
+        <Button text="Додати нову страву" onClick={this.props.modalOpen} color="blue" />
         <AddDishModal />
         <AddDishToDiaryBoardModal />
       </section>
