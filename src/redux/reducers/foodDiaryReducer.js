@@ -1,8 +1,8 @@
 import { ADD_DISH_TO_DIARY, ADD_DAY_TO_DIARY } from "../actions/foodDiaryActionCreators";
 import { LOAD_USER_DIARY } from "../actions/actionTypes";
 
-const initialState = {
-  /* [new Date(2019, 1, 21).toDateString()]: {
+const initialState = [];
+/* [new Date(2019, 1, 21).toDateString()]: {
     dishes: [
       {
         dishName: "Періжок",
@@ -65,30 +65,35 @@ const initialState = {
     ],
     showDishesList: false
   }*/
-};
 
 export default function(state = initialState, actions) {
   switch (actions.type) {
     case LOAD_USER_DIARY:
-      return {
-        ...actions.userDiary
-      };
+      return [...actions.userDiary];
     case ADD_DISH_TO_DIARY:
-      return {
-        ...state,
-        [actions.dateNow]: {
-          dishes: [...state[actions.dateNow].dishes, actions.dishProps],
-          showDishesList: false
+      const newState = [];
+      state.forEach(el => {
+        if (el.date !== actions.dateNow) {
+          newState.push(el);
+        } else {
+          newState.push({
+            ...el,
+            dishes: [...el.dishes, actions.dishProps]
+          });
         }
-      };
+      });
+      return newState;
     case ADD_DAY_TO_DIARY:
-      return {
+      console.log("actions.key", actions.key);
+      return [
         ...state,
-        [actions.date]: {
+        {
           dishes: [],
-          showDishesList: false
+          showDishesList: false,
+          key: actions.key,
+          date: actions.date
         }
-      };
+      ];
     default:
       return state;
   }
