@@ -6,13 +6,14 @@ const CatalogListItem = props => {
   function onListItemClickHendler() {
     const dishList = { ...props.dishList, ...props.dishUserList };
     const dishItem = dishList[props.item.key];
+    const dishItemProps = dishItem[props.item.name];
 
     const info = {
       dishName: props.item.name,
-      kkal: dishItem.kkal,
-      proteins: dishItem.proteins,
-      fats: dishItem.fats,
-      carbohydrates: dishItem.carbohydrates
+      kkal: dishItemProps.kkal,
+      proteins: dishItemProps.proteins,
+      fats: dishItemProps.fats,
+      carbohydrates: dishItemProps.carbohydrates
     };
     props.modalOpen(info);
   }
