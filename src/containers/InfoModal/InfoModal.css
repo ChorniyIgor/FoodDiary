@@ -1,0 +1,28 @@
+.ModalWrap {
+  position: fixed;
+  z-index: 1000;
+  bottom: 15px;
+  right: 15px;
+  background: white;
+  width: 350px;
+  border-radius: 15px;
+  box-shadow: 2px 2px 20px black;
+  animation: slowHide 3s linear;
+}
+
+.ModalWrapSuccess p {
+  color: green;
+}
+
+.ModalWrapError p {
+  color: red;
+}
+
+@keyframes slowHide {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}

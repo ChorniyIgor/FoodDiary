@@ -1,11 +1,13 @@
 import DataAdapter from "../../DataAdapter";
 import Firebase from "../../Firebase";
+
 import {
   FOOD_SERCH,
   ADD_USER_DISH,
   LOAD_MAIN_FOOD_CATALOG,
   LOAD_USER_FOOD_CATALOG
 } from "./actionTypes";
+import { showMsg } from "./modalActionCreators";
 
 export function loadMainFoodCatalog() {
   return async dispatch => {
@@ -52,16 +54,21 @@ export function FoodCatalogUpdate() {
 
 export function AddUserDish(newDish) {
   return async dispatch => {
-    const key = await Firebase.sendNewDish(newDish);
-    const dishName = Object.keys(newDish)[0];
-    console.log(newDish);
-    dispatch({
-      type: ADD_USER_DISH,
-      newDish: {
-        [dishName]: { ...newDish[dishName], key: key.name }
-      }
-    });
-    dispatch(FoodCatalogUpdate());
+    try {
+      const key = await Firebase.sendNewDish(newDish);
+      const dishName = Object.keys(newDish)[0];
+      console.log(newDish);
+      dispatch({
+        type: ADD_USER_DISH,
+        newDish: {
+          [dishName]: { ...newDish[dishName], key: key.name }
+        }
+      });
+      dispatch(FoodCatalogUpdate());
+      dispatch(showMsg("success"));
+    } catch {
+      dispatch(showMsg("error"));
+    }
   };
 }
 

@@ -1,5 +1,6 @@
 import Firebase from "../../Firebase";
 import DataAdapter from "../../DataAdapter";
+import { showMsg } from "./modalActionCreators";
 import { LOAD_USER_DIARY } from "./actionTypes";
 export const ADD_DISH_TO_DIARY = "ADD_DISH_TO_DIARY";
 export const ADD_DAY_TO_DIARY = "ADD_DAY_TO_DIARY";
@@ -39,25 +40,30 @@ function getDayElementByDate(diary, date) {
 
 export function addDishToDiary(dishProps) {
   return async (dispatch, getState) => {
-    const foodDiary = getState().foodDiary;
-    const date = new Date().toDateString();
-    const dayElement = getDayElementByDate(foodDiary, date);
-    let dayKey = "";
-    if (Array.isArray(dayElement)) {
-      const res = await Firebase.sendNewDay(date);
-      dayKey = res.name;
-      dispatch(addDayToDiary(date, dayKey));
-    } else {
-      dayKey = dayElement.key;
+    try {
+      const foodDiary = getState().foodDiary;
+      const date = new Date().toDateString();
+      const dayElement = getDayElementByDate(foodDiary, date);
+      let dayKey = "";
+      if (Array.isArray(dayElement)) {
+        const res = await Firebase.sendNewDay(date);
+        dayKey = res.name;
+        dispatch(addDayToDiary(date, dayKey));
+      } else {
+        dayKey = dayElement.key;
+      }
+      const calcProps = calculateDishParam(dishProps);
+      const dishKey = await Firebase.sendNewDishToDiary(calcProps, dayKey, date);
+      dispatch({
+        type: ADD_DISH_TO_DIARY,
+        day: dayElement,
+        dishProps: { ...calculateDishParam(dishProps), key: dishKey.name },
+        dateNow: new Date().toDateString()
+      });
+      dispatch(showMsg("success"));
+    } catch {
+      dispatch(showMsg("error"));
     }
-    const calcProps = calculateDishParam(dishProps);
-    const dishKey = await Firebase.sendNewDishToDiary(calcProps, dayKey, date);
-    dispatch({
-      type: ADD_DISH_TO_DIARY,
-      day: dayElement,
-      dishProps: { ...calculateDishParam(dishProps), key: dishKey.name },
-      dateNow: new Date().toDateString()
-    });
   };
 }
 

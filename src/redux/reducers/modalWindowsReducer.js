@@ -1,4 +1,10 @@
-import { OPEN_MODAL, CLOSE_MODAL, OPEN_MODAL_WITH_PROPS } from "../actions/actionTypes";
+import {
+  OPEN_MODAL,
+  CLOSE_MODAL,
+  OPEN_MODAL_WITH_PROPS,
+  SHOW_MSG,
+  HIDE_MSG
+} from "../actions/actionTypes";
 
 const initialState = {
   AddDishModal: {
@@ -10,6 +16,11 @@ const initialState = {
       dishName: "",
       dishWeight: ""
     }
+  },
+  infoModal: {
+    isOpen: false,
+    modalType: "",
+    timer: null
   }
 };
 
@@ -35,6 +46,25 @@ export default function(state = initialState, actions) {
         ...state,
         [actions.modalName]: {
           isOpen: false
+        }
+      };
+
+    case SHOW_MSG:
+      return {
+        ...state,
+        infoModal: {
+          isOpen: true,
+          modalType: actions.modalType,
+          timer: actions.timer
+        }
+      };
+    case HIDE_MSG:
+      return {
+        ...state,
+        infoModal: {
+          isOpen: false,
+          modalType: "",
+          timer: null
         }
       };
     default:

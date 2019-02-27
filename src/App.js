@@ -9,6 +9,7 @@ import {
   loadUserFoodCatalog
 } from "./redux/actions/foodCatalogActionCreators";
 import { loadUserDiary } from "./redux/actions/foodDiaryActionCreators";
+import InfoModal from "./containers/InfoModal/InfoModal";
 
 class App extends Component {
   componentWillMount() {
@@ -28,6 +29,7 @@ class App extends Component {
             <MainDiaryBoard />
           </div>
         </div>
+        <InfoModal />
       </div>
     );
   }
