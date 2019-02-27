@@ -16,7 +16,6 @@ class DiaryItem extends React.Component {
   dishesList = dishes => {
     const cls = [styles.DishList];
     this.state.showDishesList ? cls.push(styles.DishListOpen) : cls.push(styles.DishListHide);
-    console.log(dishes);
     return (
       <ul className={cls.join(" ")}>
         <div className={[styles.ListTable, styles.ListTableHeader].join(" ")}>
@@ -28,6 +27,7 @@ class DiaryItem extends React.Component {
           <span>Вуглеводи г.</span>
           <span />
         </div>
+
         {dishes.map((dish, i) => {
           return <DishesListItem styles={styles.ListTable} dish={dish} key={i} />;
         })}

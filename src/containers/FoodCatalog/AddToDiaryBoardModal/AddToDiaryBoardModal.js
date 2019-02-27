@@ -9,7 +9,6 @@ import Button from "../../../UI/Button/Button";
 
 const AddDishToDiaryBoardModal = props => {
   const inputWeight = React.createRef();
-
   function onAddDishDiaryClickHendler() {
     const dishInfo = { ...props.dishProps, dishWeight: +inputWeight.current.value };
     props.addDishToDiary(dishInfo);

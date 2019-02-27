@@ -84,7 +84,6 @@ export default function(state = initialState, actions) {
       });
       return newState;
     case ADD_DAY_TO_DIARY:
-      console.log("actions.key", actions.key);
       return [
         ...state,
         {

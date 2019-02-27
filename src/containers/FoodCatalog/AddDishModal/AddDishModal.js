@@ -16,10 +16,10 @@ const AddDishModal = props => {
   const addUserDish = () => {
     const dishName = inputNameRef.current.value;
 
-    const kkal = inputCaloriesRef.current.value;
-    const proteins = inputProteinsRef.current.value;
-    const fats = inputFatsRef.current.value;
-    const carbohydrates = inputCarbohydratesRef.current.value;
+    const kkal = parseFloat(inputCaloriesRef.current.value);
+    const proteins = parseFloat(inputProteinsRef.current.value);
+    const fats = parseFloat(inputFatsRef.current.value);
+    const carbohydrates = parseFloat(inputCarbohydratesRef.current.value);
 
     const newDish = {
       [dishName.toUpperCase()]: {

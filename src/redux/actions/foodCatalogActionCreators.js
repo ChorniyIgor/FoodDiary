@@ -1,17 +1,18 @@
+import DataAdapter from "../../DataAdapter";
+import Firebase from "../../Firebase";
 import {
   FOOD_SERCH,
   ADD_USER_DISH,
   LOAD_MAIN_FOOD_CATALOG,
   LOAD_USER_FOOD_CATALOG
 } from "./actionTypes";
-import Firebase from "../../Firebase";
 
 export function loadMainFoodCatalog() {
   return async dispatch => {
     const mainFoodCatalog = await Firebase.getMainFoodCatalog();
     dispatch({
       type: LOAD_MAIN_FOOD_CATALOG,
-      mainFoodCatalog
+      mainFoodCatalog: DataAdapter.dishes(mainFoodCatalog)
     });
     dispatch(FoodCatalogUpdate());
   };
@@ -22,7 +23,7 @@ export function loadUserFoodCatalog() {
     const userFoodCatalog = await Firebase.getUserFoodCatalog();
     dispatch({
       type: LOAD_USER_FOOD_CATALOG,
-      userFoodCatalog
+      userFoodCatalog: DataAdapter.dishes(userFoodCatalog)
     });
     dispatch(FoodCatalogUpdate());
   };
@@ -31,6 +32,7 @@ export function loadUserFoodCatalog() {
 export function FoodCatalogSerch(serchVal) {
   return (dispatch, getState) => {
     const state = getState();
+
     const actualFoodList = getFullFoodCatalog(state);
 
     const serchDish = actualFoodList.filter(dish => {
@@ -51,10 +53,12 @@ export function FoodCatalogUpdate() {
 export function AddUserDish(newDish) {
   return async dispatch => {
     const key = await Firebase.sendNewDish(newDish);
+    const dishName = Object.keys(newDish)[0];
+    console.log(newDish);
     dispatch({
       type: ADD_USER_DISH,
       newDish: {
-        [key.name]: newDish
+        [dishName]: { ...newDish[dishName], key: key.name }
       }
     });
     dispatch(FoodCatalogUpdate());
@@ -65,19 +69,18 @@ function getFullFoodCatalog(state) {
   function getDishesWithKey(data) {
     // return obj {dishName, dishKey}
     const userDishes = [];
-    Object.keys(data).forEach(name => {
-      const item = data[name];
-      const dishName = Object.keys(item)[0];
+    for (let dish in data) {
       userDishes.push({
-        name: dishName,
-        key: name
+        name: dish,
+        dishProps: data[dish]
       });
-    });
+    }
+
     return userDishes;
   }
 
   return [
-    ...getDishesWithKey(state.foodCatalog.dishes),
-    ...getDishesWithKey(state.foodCatalog.userDishes)
+    ...getDishesWithKey(state.foodCatalog.userDishes),
+    ...getDishesWithKey(state.foodCatalog.dishes)
   ];
 }

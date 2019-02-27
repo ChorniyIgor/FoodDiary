@@ -1,5 +1,5 @@
 import Firebase from "../../Firebase";
-import userDiaryDataAdapter from "../../dataAdapter";
+import DataAdapter from "../../DataAdapter";
 import { LOAD_USER_DIARY } from "./actionTypes";
 export const ADD_DISH_TO_DIARY = "ADD_DISH_TO_DIARY";
 export const ADD_DAY_TO_DIARY = "ADD_DAY_TO_DIARY";
@@ -7,7 +7,7 @@ export const ADD_DAY_TO_DIARY = "ADD_DAY_TO_DIARY";
 export function loadUserDiary() {
   return async dispatch => {
     const userDiary = await Firebase.getUserDiary();
-    const adaptedData = userDiaryDataAdapter(userDiary);
+    const adaptedData = DataAdapter.userDiary(userDiary);
     dispatch({
       type: LOAD_USER_DIARY,
       userDiary: adaptedData
@@ -21,10 +21,10 @@ function calculateDishParam(dishProps) {
     dishName: dishProps.dishName,
 
     dishWeight: dishProps.dishWeight.toFixed(2),
-    kkal: (dishProps.kkal * dishWeight).toFixed(2),
-    proteins: (dishProps.proteins * dishWeight).toFixed(2),
-    fats: (dishProps.fats * dishWeight).toFixed(2),
-    carbohydrates: (dishProps.carbohydrates * dishWeight).toFixed(2)
+    kkal: (parseFloat(dishProps.kkal) * dishWeight).toFixed(2),
+    proteins: (parseFloat(dishProps.proteins) * dishWeight).toFixed(2),
+    fats: (parseFloat(dishProps.fats) * dishWeight).toFixed(2),
+    carbohydrates: (parseFloat(dishProps.carbohydrates) * dishWeight).toFixed(2)
   };
   return newdishProps;
 }
@@ -48,11 +48,9 @@ export function addDishToDiary(dishProps) {
       dayKey = res.name;
       dispatch(addDayToDiary(date, dayKey));
     } else {
-      console.log("dayElement", dayElement);
       dayKey = dayElement.key;
     }
     const calcProps = calculateDishParam(dishProps);
-    console.log("dayKey", dayKey);
     const dishKey = await Firebase.sendNewDishToDiary(calcProps, dayKey, date);
     dispatch({
       type: ADD_DISH_TO_DIARY,
