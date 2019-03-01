@@ -1,10 +1,13 @@
 import React from "react";
-import Modal from "../../../hoc/Modal/Modal";
+import Modal from "../../../../../hoc/Modal/Modal";
 import { connect } from "react-redux";
-import { openModal, closeModal } from "../../../redux/actions/modalActionCreators";
-import { AddUserDish, FoodCatalogUpdate } from "../../../redux/actions/foodCatalogActionCreators";
-import Input from "../../../UI/Input/Input";
-import Button from "../../../UI/Button/Button";
+import { openModal, closeModal } from "../../../../../redux/DiaryPage/actions/modalActionCreators";
+import {
+  AddUserDish,
+  FoodCatalogUpdate
+} from "../../../../../redux/DiaryPage/actions/foodCatalogActionCreators";
+import Input from "../../../../../UI/Input/Input";
+import Button from "../../../../../UI/Button/Button";
 
 const AddDishModal = props => {
   const inputNameRef = React.createRef();

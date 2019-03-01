@@ -1,5 +1,5 @@
-import DataAdapter from "../../DataAdapter";
-import Firebase from "../../Firebase";
+import DataAdapter from "../../../DataAdapter";
+import Firebase from "../../../Firebase";
 
 import {
   FOOD_SERCH,

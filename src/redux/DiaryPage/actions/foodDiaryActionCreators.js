@@ -1,5 +1,5 @@
-import Firebase from "../../Firebase";
-import DataAdapter from "../../DataAdapter";
+import Firebase from "../../../Firebase";
+import DataAdapter from "../../../DataAdapter";
 import { showMsg } from "./modalActionCreators";
 import { LOAD_USER_DIARY } from "./actionTypes";
 export const ADD_DISH_TO_DIARY = "ADD_DISH_TO_DIARY";

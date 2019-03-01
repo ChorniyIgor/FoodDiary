@@ -1,11 +1,11 @@
 import React from "react";
 import classes from "./AddToDiaryBoardModal.css";
-import Modal from "../../../hoc/Modal/Modal";
+import Modal from "../../../../../hoc/Modal/Modal";
 import { connect } from "react-redux";
-import { openModal, closeModal } from "../../../redux/actions/modalActionCreators";
-import { addDishToDiary } from "../../../redux/actions/foodDiaryActionCreators";
-import Input from "../../../UI/Input/Input";
-import Button from "../../../UI/Button/Button";
+import { openModal, closeModal } from "../../../../../redux/DiaryPage/actions/modalActionCreators";
+import { addDishToDiary } from "../../../../../redux/DiaryPage/actions/foodDiaryActionCreators";
+import Input from "../../../../../UI/Input/Input";
+import Button from "../../../../../UI/Button/Button";
 
 const AddDishToDiaryBoardModal = props => {
   const inputWeight = React.createRef();

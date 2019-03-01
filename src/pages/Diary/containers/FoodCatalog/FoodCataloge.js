@@ -1,12 +1,15 @@
 import React from "react";
 import FoodCatalogList from "./FoodCatalogList/FoodCatalogList";
 import { connect } from "react-redux";
-import { FoodCatalogSerch, FoodCatalogUpdate } from "../../redux/actions/foodCatalogActionCreators";
+import {
+  FoodCatalogSerch,
+  FoodCatalogUpdate
+} from "../../../../redux/DiaryPage/actions/foodCatalogActionCreators";
 import AddDishModal from "./AddDishModal/AddDishModal";
 import AddDishToDiaryBoardModal from "./AddToDiaryBoardModal/AddToDiaryBoardModal";
-import { openModal } from "../../redux/actions/modalActionCreators";
-import Button from "../../UI/Button/Button";
-import Input from "../../UI/Input/Input";
+import { openModal } from "../../../../redux/DiaryPage/actions/modalActionCreators";
+import Button from "../../../../UI/Button/Button";
+import Input from "../../../../UI/Input/Input";
 
 class FoodCatalog extends React.Component {
   componentDidMount = () => {
