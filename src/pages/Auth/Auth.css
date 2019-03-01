@@ -1,0 +1,24 @@
+.Auth {
+  background: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+  min-height: 100vh;
+  padding-top: 100px;
+  box-sizing: border-box;
+}
+.Form {
+  min-width: 380px;
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  margin: auto;
+  background: white;
+  box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.5);
+}
+
+.FormBtnContainer {
+  display: flex;
+  justify-content: center;
+}

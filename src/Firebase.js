@@ -3,6 +3,43 @@ class Firebase {
     this.mainFoodCatalogUrl = `https://fooddiary-9cfea.firebaseio.com/MainDishes.json`;
     this.userFoodCatalogUrl = `https://fooddiary-9cfea.firebaseio.com/UserDishes.json`;
     this.userDiaryUrl = `https://fooddiary-9cfea.firebaseio.com/Diary.json`;
+    this.apiKey = "AIzaSyDusvIB2fy-VxeOK94Ar0NbQH6kzGe1zFg";
+  }
+
+  async newUserReg(email, password) {
+    const data = {
+      email,
+      password,
+      returnSecureToken: true
+    };
+    const options = {
+      method: "POST",
+      body: JSON.stringify(data)
+    };
+    const resp = await fetch(
+      `https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=${this.apiKey}`,
+      options
+    ).then(resp => resp.json());
+    return resp;
+  }
+
+  async userLogin(email, password) {
+    const data = {
+      email,
+      password,
+      returnSecureToken: true
+    };
+    const options = {
+      method: "POST",
+      body: JSON.stringify(data)
+    };
+    const resp = await fetch(
+      `https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=${
+        this.apiKey
+      }`,
+      options
+    ).then(resp => resp.json());
+    return resp;
   }
 
   async getMainFoodCatalog() {

@@ -7,6 +7,7 @@ const Button = props => {
   const type = props.type || "button";
   if (color === "blue") cls.push(classes.ButtonBlue);
   if (color === "grey") cls.push(classes.ButtonGrey);
+  if (color === "green") cls.push(classes.ButtonGreen);
 
   return (
     <button className={cls.join(" ")} onClick={props.onClick} type={type}>
