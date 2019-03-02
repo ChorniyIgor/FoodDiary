@@ -3,16 +3,18 @@ import classes from "./Auth.css";
 import Input from "../../UI/Input/Input";
 import Button from "../../UI/Button/Button";
 import is from "is_js";
-import Firebase from "../../Firebase";
+import { connect } from "react-redux";
+import { signUp, signIn } from "../../redux/AuthPage/actions";
+import { showMsg } from "../../redux/Modal/modalActionCreators";
 
 class Auth extends React.Component {
   state = {
     login: null,
-    isLoginInCorrect: true,
+    isLoginIncorrect: true,
     isLoginInputChange: false,
     pass: null,
     isPassInputChange: false,
-    isPassInCorrect: false
+    isPassIncorrect: true
   };
 
   onChangeLoginHendler = evt => {
@@ -21,7 +23,7 @@ class Auth extends React.Component {
       ...this.state,
       login: evt.target.value,
       isLoginInputChange: true,
-      isLoginInCorrect: !is.email(evt.target.value)
+      isLoginIncorrect: !is.email(evt.target.value)
     });
   };
 
@@ -31,25 +33,26 @@ class Auth extends React.Component {
       ...this.state,
       pass: evt.target.value,
       isPassInputChange: true,
-      isPassInCorrect: evt.target.value.length < 6
+      isPassIncorrect: evt.target.value.length < 6
     });
   };
 
   onFormSubmitHendler = evt => {
     evt.preventDefault();
-    console.log("submit");
   };
 
-  onSighUpBtnClickHendler = async evt => {
+  onSighUpBtnClickHendler = evt => {
     evt.preventDefault();
-    const res = await Firebase.newUserReg(this.state.login, this.state.pass);
-    console.log(res.localId);
+    if (!this.state.isLoginIncorrect && !this.state.isPassIncorrect) {
+      this.props.signUp(this.state.login, this.state.pass);
+    }
   };
 
-  onSighInBtnClickHendler = async evt => {
+  onSighInBtnClickHendler = evt => {
     evt.preventDefault();
-    const res = await Firebase.userLogin(this.state.login, this.state.pass);
-    console.log(res.localId);
+    if (!this.state.isLoginIncorrect && !this.state.isPassIncorrect) {
+      this.props.signIn(this.state.login, this.state.pass);
+    }
   };
 
   render() {
@@ -61,13 +64,14 @@ class Auth extends React.Component {
             labelText="Логін"
             onInput={this.onChangeLoginHendler}
             isRequired={true}
-            isInputInCorrect={this.state.isLoginInputChange ? this.state.isLoginInCorrect : false}
+            isInputInCorrect={this.state.isLoginInputChange ? this.state.isLoginIncorrect : false}
             errorMsg="Невірний e-mail"
           />
+
           <Input
             labelText="Пароль"
             onInput={this.onChangePassHendler}
-            isInputInCorrect={this.state.isPassInputChange ? this.state.isPassInCorrect : false}
+            isInputInCorrect={this.state.isPassInputChange ? this.state.isPassIncorrect : false}
             errorMsg="Пароль повинен складатись мінімум із 6 символів"
             isRequired={true}
           />
@@ -91,4 +95,20 @@ class Auth extends React.Component {
   }
 }
 
-export default Auth;
+function mapDispatchToProps(dispatch) {
+  return {
+    signUp: (email, pass) => {
+      dispatch(signUp(email, pass));
+    },
+    signIn: (email, pass) => {
+      dispatch(signIn(email, pass));
+    },
+    showMsg: (msgType, msg) => {
+      dispatch(showMsg(msgType, msg));
+    }
+  };
+}
+export default connect(
+  null,
+  mapDispatchToProps
+)(Auth);

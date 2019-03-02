@@ -6,40 +6,37 @@ class Firebase {
     this.apiKey = "AIzaSyDusvIB2fy-VxeOK94Ar0NbQH6kzGe1zFg";
   }
 
-  async newUserReg(email, password) {
-    const data = {
-      email,
-      password,
-      returnSecureToken: true
-    };
-    const options = {
-      method: "POST",
-      body: JSON.stringify(data)
-    };
-    const resp = await fetch(
-      `https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=${this.apiKey}`,
-      options
-    ).then(resp => resp.json());
-    return resp;
-  }
-
-  async userLogin(email, password) {
-    const data = {
-      email,
-      password,
-      returnSecureToken: true
-    };
-    const options = {
-      method: "POST",
-      body: JSON.stringify(data)
-    };
-    const resp = await fetch(
-      `https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=${
+  async userAuth(email, password, isLogin) {
+    let url = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=${
+      this.apiKey
+    }`;
+    if (isLogin) {
+      url = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=${
         this.apiKey
-      }`,
-      options
-    ).then(resp => resp.json());
-    return resp;
+      }`;
+    }
+
+    const data = {
+      email,
+      password,
+      returnSecureToken: true
+    };
+    const options = {
+      method: "POST",
+      body: JSON.stringify(data)
+    };
+    try {
+      const resp = await fetch(url, options);
+      const result = await resp.json();
+
+      if (resp.status === 200) {
+        return result;
+      } else {
+        return result.error.message;
+      }
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   async getMainFoodCatalog() {

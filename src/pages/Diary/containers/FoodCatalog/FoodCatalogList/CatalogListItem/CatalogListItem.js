@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { openModalWithProps } from "../../../../../../redux/DiaryPage/actions/modalActionCreators";
+import { openModalWithProps } from "../../../../../../redux/Modal/modalActionCreators";
 
 const CatalogListItem = props => {
   function onListItemClickHendler() {

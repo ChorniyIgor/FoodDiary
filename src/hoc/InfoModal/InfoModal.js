@@ -8,13 +8,13 @@ const InfoModal = props => {
       case "success":
         return (
           <div className={[classes.ModalWrap, classes.ModalWrapSuccess].join(" ")}>
-            <p>Дані успішно збережено</p>
+            <p>{props.infoModal.modalMsg}</p>
           </div>
         );
       case "error":
         return (
           <div className={[classes.ModalWrap, classes.ModalWrapError].join(" ")}>
-            <p>Сталась помилка. Спробуйте ще раз</p>
+            <p>{props.infoModal.modalMsg}</p>
           </div>
         );
       default:

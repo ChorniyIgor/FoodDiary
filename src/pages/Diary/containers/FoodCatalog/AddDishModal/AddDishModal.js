@@ -1,7 +1,7 @@
 import React from "react";
 import Modal from "../../../../../hoc/Modal/Modal";
 import { connect } from "react-redux";
-import { openModal, closeModal } from "../../../../../redux/DiaryPage/actions/modalActionCreators";
+import { openModal, closeModal } from "../../../../../redux/Modal/modalActionCreators";
 import {
   AddUserDish,
   FoodCatalogUpdate

@@ -7,7 +7,7 @@ import {
   LOAD_MAIN_FOOD_CATALOG,
   LOAD_USER_FOOD_CATALOG
 } from "./actionTypes";
-import { showMsg } from "./modalActionCreators";
+import { showMsg } from "../../Modal/modalActionCreators";
 
 export function loadMainFoodCatalog() {
   return async dispatch => {
@@ -65,9 +65,9 @@ export function AddUserDish(newDish) {
         }
       });
       dispatch(FoodCatalogUpdate());
-      dispatch(showMsg("success"));
+      dispatch(showMsg("success", "Страву успішно додано до вашого каталогу"));
     } catch {
-      dispatch(showMsg("error"));
+      dispatch(showMsg("error", "Щось пішло не так, спробуйте ще раз"));
     }
   };
 }

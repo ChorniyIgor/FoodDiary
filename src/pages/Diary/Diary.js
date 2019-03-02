@@ -9,7 +9,6 @@ import {
   loadUserFoodCatalog
 } from "../../redux/DiaryPage/actions/foodCatalogActionCreators";
 import { loadUserDiary } from "../../redux/DiaryPage/actions/foodDiaryActionCreators";
-import InfoModal from "./containers/InfoModal/InfoModal";
 
 class Diary extends Component {
   componentWillMount() {
@@ -29,7 +28,6 @@ class Diary extends Component {
             <MainDiaryBoard />
           </div>
         </div>
-        <InfoModal />
       </div>
     );
   }

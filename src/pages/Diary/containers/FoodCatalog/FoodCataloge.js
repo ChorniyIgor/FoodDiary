@@ -7,7 +7,7 @@ import {
 } from "../../../../redux/DiaryPage/actions/foodCatalogActionCreators";
 import AddDishModal from "./AddDishModal/AddDishModal";
 import AddDishToDiaryBoardModal from "./AddToDiaryBoardModal/AddToDiaryBoardModal";
-import { openModal } from "../../../../redux/DiaryPage/actions/modalActionCreators";
+import { openModal } from "../../../../redux/Modal/modalActionCreators";
 import Button from "../../../../UI/Button/Button";
 import Input from "../../../../UI/Input/Input";
 

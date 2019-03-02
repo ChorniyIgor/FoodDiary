@@ -1,6 +1,6 @@
 import Firebase from "../../../Firebase";
 import DataAdapter from "../../../DataAdapter";
-import { showMsg } from "./modalActionCreators";
+import { showMsg } from "../../Modal/modalActionCreators";
 import { LOAD_USER_DIARY } from "./actionTypes";
 export const ADD_DISH_TO_DIARY = "ADD_DISH_TO_DIARY";
 export const ADD_DAY_TO_DIARY = "ADD_DAY_TO_DIARY";
@@ -60,9 +60,9 @@ export function addDishToDiary(dishProps) {
         dishProps: { ...calculateDishParam(dishProps), key: dishKey.name },
         dateNow: new Date().toDateString()
       });
-      dispatch(showMsg("success"));
+      dispatch(showMsg("success", "Запис успішоно додано у ваш щоденник"));
     } catch {
-      dispatch(showMsg("error"));
+      dispatch(showMsg("error", "Щось пішло не так, спробуйте ще раз"));
     }
   };
 }

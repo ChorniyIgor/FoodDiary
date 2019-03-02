@@ -4,7 +4,7 @@ import {
   OPEN_MODAL_WITH_PROPS,
   SHOW_MSG,
   HIDE_MSG
-} from "../actions/actionTypes";
+} from "./modalActionCreators";
 
 const initialState = {
   AddDishModal: {
@@ -55,6 +55,7 @@ export default function(state = initialState, actions) {
         infoModal: {
           isOpen: true,
           modalType: actions.modalType,
+          modalMsg: actions.msg,
           timer: actions.timer
         }
       };
