@@ -1,0 +1,31 @@
+.Menu {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.8);
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+.MenuList {
+  margin: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  padding: 0;
+  box-sizing: border-box;
+  max-width: 1200px;
+  display: flex;
+}
+.MenuList a {
+  text-decoration: none;
+  text-transform: uppercase;
+  color: black;
+  margin-right: 10px;
+  font-size: 18px;
+  padding: 15px 5px;
+}
+
+.MenuList a[href="/logout"],
+.MenuList a[href="/auth"] {
+  margin-left: auto;
+  margin-right: 0;
+}

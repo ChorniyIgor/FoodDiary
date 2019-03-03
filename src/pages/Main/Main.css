@@ -1,0 +1,34 @@
+.Main {
+  background: url("../../image/mainBg.jpg");
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Container {
+  background: rgba(255, 255, 255, 0.7);
+  width: 50%;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  box-sizing: border-box;
+  padding: 1.5%;
+}
+
+.MainTitle {
+  text-align: center;
+}
+.MainBtn {
+  background: rgb(104, 196, 61);
+  padding: 10px;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: white;
+}
+
+.MainBtn:hover {
+  opacity: 0.8;
+}

@@ -21,8 +21,9 @@ export function loadMainFoodCatalog() {
 }
 
 export function loadUserFoodCatalog() {
-  return async dispatch => {
-    const userFoodCatalog = await Firebase.getUserFoodCatalog();
+  return async (dispatch, getState) => {
+    const state = getState();
+    const userFoodCatalog = await Firebase.getUserFoodCatalog(state.Auth.userId);
     dispatch({
       type: LOAD_USER_FOOD_CATALOG,
       userFoodCatalog: DataAdapter.dishes(userFoodCatalog)
@@ -53,9 +54,10 @@ export function FoodCatalogUpdate() {
 }
 
 export function AddUserDish(newDish) {
-  return async dispatch => {
+  return async (dispatch, getState) => {
+    const state = getState();
     try {
-      const key = await Firebase.sendNewDish(newDish);
+      const key = await Firebase.sendNewDish(newDish, state.Auth.userId);
       const dishName = Object.keys(newDish)[0];
       console.log(newDish);
       dispatch({

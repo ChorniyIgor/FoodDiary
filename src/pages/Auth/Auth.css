@@ -1,5 +1,6 @@
 .Auth {
-  background: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+  background: url("../../image/AuthBg.jpg") center no-repeat;
+  background-size: cover;
   min-height: 100vh;
   padding-top: 100px;
   box-sizing: border-box;

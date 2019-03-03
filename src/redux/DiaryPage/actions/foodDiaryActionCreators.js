@@ -6,8 +6,9 @@ export const ADD_DISH_TO_DIARY = "ADD_DISH_TO_DIARY";
 export const ADD_DAY_TO_DIARY = "ADD_DAY_TO_DIARY";
 
 export function loadUserDiary() {
-  return async dispatch => {
-    const userDiary = await Firebase.getUserDiary();
+  return async (dispatch, getState) => {
+    const state = getState();
+    const userDiary = await Firebase.getUserDiary(state.Auth.userId);
     const adaptedData = DataAdapter.userDiary(userDiary);
     dispatch({
       type: LOAD_USER_DIARY,
@@ -41,19 +42,19 @@ function getDayElementByDate(diary, date) {
 export function addDishToDiary(dishProps) {
   return async (dispatch, getState) => {
     try {
-      const foodDiary = getState().foodDiary;
+      const state = getState();
       const date = new Date().toDateString();
-      const dayElement = getDayElementByDate(foodDiary, date);
+      const dayElement = getDayElementByDate(state.foodDiary, date);
       let dayKey = "";
       if (Array.isArray(dayElement)) {
-        const res = await Firebase.sendNewDay(date);
+        const res = await Firebase.sendNewDay(date, state.Auth.userId);
         dayKey = res.name;
         dispatch(addDayToDiary(date, dayKey));
       } else {
         dayKey = dayElement.key;
       }
       const calcProps = calculateDishParam(dishProps);
-      const dishKey = await Firebase.sendNewDishToDiary(calcProps, dayKey, date);
+      const dishKey = await Firebase.sendNewDishToDiary(calcProps, dayKey, date, state.Auth.userId);
       dispatch({
         type: ADD_DISH_TO_DIARY,
         day: dayElement,
