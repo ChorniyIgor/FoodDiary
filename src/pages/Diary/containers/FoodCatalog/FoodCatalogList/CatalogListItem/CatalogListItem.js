@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { openModalWithProps } from "../../../../../../redux/Modal/modalActionCreators";
+import classes from "./CatalogListItem.css";
 
 const CatalogListItem = props => {
   function onListItemClickHendler() {
@@ -14,7 +15,13 @@ const CatalogListItem = props => {
     props.modalOpen(info);
   }
 
-  return <li onClick={onListItemClickHendler}>{props.item.name}</li>;
+  return (
+    <li className={classes.CatalogListItem}>
+      <span onClick={onListItemClickHendler}>{props.item.name}</span>
+      <span>Редагувати</span>
+      <span>Видалити</span>
+    </li>
+  );
 };
 
 function mapDispatchToProps(dispatch) {

@@ -39,7 +39,7 @@ const AddDishToDiaryBoardModal = props => {
           defaultValue={100}
           autoFocus={true}
         />
-        <Button type="submit" text="Додати у щоденник" color="blue" />
+        <Button type="submit" text="Додати у щоденник" color="green" />
         <Button text="Закрити" onClick={props.modalClose} />
       </form>
     </Modal>

@@ -1,17 +1,34 @@
 import React from "react";
 import classes from "./Main.css";
 import { NavLink } from "react-router-dom";
+import { connect } from "react-redux";
 
 const Main = props => {
   return (
     <div className={classes.Main}>
       <div className={classes.Container}>
-        <h1 className={classes.MainTitle}>Ваш персональний щоденник харчування</h1>
-        <NavLink to="/auth" className={classes.MainBtn}>
-          Увійти / Зареєструватись
-        </NavLink>
+        <h1 className={classes.MainTitle}>Free Food Diary</h1>
+        <h2>ваш персональний щоденник харчування</h2>
+        <q>
+          З тих пір, як люди навчилися варити їжу, вони їдять удвічі більше, ніж вимагає природа.
+        </q>
+        <cite> Б. Франклін;</cite>
+        {props.isLogged ? (
+          <NavLink to="/diary" className={classes.MainBtn}>
+            Відкрити щоденник
+          </NavLink>
+        ) : (
+          <NavLink to="/auth" className={classes.MainBtn}>
+            Увійти / Зареєструватись
+          </NavLink>
+        )}
       </div>
     </div>
   );
 };
-export default Main;
+function mapStateToProps(state) {
+  return {
+    isLogged: state.Auth.isLogged
+  };
+}
+export default connect(mapStateToProps)(Main);

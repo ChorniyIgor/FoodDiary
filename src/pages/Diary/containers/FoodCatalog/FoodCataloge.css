@@ -1,0 +1,18 @@
+.FoodCataloge {
+  display: flex;
+  flex-direction: column;
+  max-height: 100%;
+}
+
+.FoodCataloge {
+  flex-grow: 1;
+}
+
+.FoodCataloge h2 {
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+.FoodCataloge label {
+  min-height: 40px;
+  padding: 0;
+}

@@ -10,6 +10,7 @@ import AddDishToDiaryBoardModal from "./AddToDiaryBoardModal/AddToDiaryBoardModa
 import { openModal } from "../../../../redux/Modal/modalActionCreators";
 import Button from "../../../../UI/Button/Button";
 import Input from "../../../../UI/Input/Input";
+import classes from "./FoodCataloge.css";
 
 class FoodCatalog extends React.Component {
   componentDidMount = () => {
@@ -22,11 +23,11 @@ class FoodCatalog extends React.Component {
 
   render() {
     return (
-      <section>
+      <section className={classes.FoodCataloge}>
         <h2>Меню</h2>
         <Input onInput={this.onInputChangeHendler} />
         <FoodCatalogList serchRes={this.props.serchRes} />
-        <Button text="Додати нову страву" onClick={this.props.modalOpen} color="blue" />
+        <Button text="Додати нову страву" onClick={this.props.modalOpen} color="green" />
         <AddDishModal />
         <AddDishToDiaryBoardModal />
       </section>

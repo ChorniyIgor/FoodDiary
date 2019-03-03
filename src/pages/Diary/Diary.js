@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import styles from "./Diary.css";
 import { connect } from "react-redux";
-import lightBulb from "./img/lightBulb.svg";
 import MainDiaryBoard from "./containers/MainDiaryBoard/MainDiaryBoard";
 import FoodCatalog from "./containers/FoodCatalog/FoodCataloge";
 import {
@@ -19,7 +18,6 @@ class Diary extends Component {
   render() {
     return (
       <div className={styles.App}>
-        <img src={lightBulb} alt="toMainPage" className={styles.img} />
         <div className={styles.main_container}>
           <div>
             <FoodCatalog />

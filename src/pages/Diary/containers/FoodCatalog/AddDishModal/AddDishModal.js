@@ -84,7 +84,7 @@ const AddDishModal = props => {
           min={0}
           defaultValue={0}
         />
-        <Button type="submit" text="Зберегти" color="blue" />
+        <Button type="submit" text="Зберегти" color="green" />
         <Button text="Закрити" onClick={props.modalClose} />
       </form>
     </Modal>

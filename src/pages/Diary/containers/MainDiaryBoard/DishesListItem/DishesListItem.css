@@ -4,15 +4,15 @@
 }
 
 .ItemСolumn span {
-  padding: 5px 0;
+  padding: 2px 0;
 }
 
 .ItemСolumn:nth-child(2n + 1) {
-  background: rgba(0, 0, 0, 0.3);
-  color: white;
+  background: #b5fa94;
+  color: rgba(0, 0, 0);
 }
 
 .ItemСolumn:nth-child(2n) {
-  background: rgba(0, 0, 0, 0.2);
+  background: #b5fa94;
   color: rgba(0, 0, 0);
 }

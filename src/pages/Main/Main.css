@@ -4,29 +4,42 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  color: white;
 }
 
 .Container {
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(0, 0, 0, 0.7);
   width: 50%;
   min-height: 300px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
   box-sizing: border-box;
   padding: 1.5%;
 }
 
 .MainTitle {
   text-align: center;
+  margin-top: 0;
+  margin-bottom: 0;
 }
+
+.Container q {
+  text-align: justify;
+}
+
+.Container cite {
+  width: 100%;
+  text-align: right;
+}
+
 .MainBtn {
   background: rgb(104, 196, 61);
-  padding: 10px;
+  padding: 10px 15px;
   text-decoration: none;
   text-transform: uppercase;
   color: white;
+  margin-top: 30px;
 }
 
 .MainBtn:hover {

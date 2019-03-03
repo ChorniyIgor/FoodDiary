@@ -1,4 +1,11 @@
+.DiaryBoard h2 {
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
 .DiaryBoardList {
   list-style: none;
   padding: 0;
+  overflow: auto;
+  height: 65vh;
 }

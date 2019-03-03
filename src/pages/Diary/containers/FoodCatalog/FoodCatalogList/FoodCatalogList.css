@@ -1,15 +1,15 @@
 .FoodList {
   list-style: none;
   padding: 0;
-  height: 400px;
   overflow: auto;
 }
 
 .FoodList li {
   border-bottom: 1px solid #ccc;
   padding: 5px 0px;
+  padding-left: 20px;
   cursor: pointer;
-  background: #54c7fc;
+  background: #68c43d;
   color: white;
   font-size: 16px;
   line-height: 20px;
@@ -17,10 +17,9 @@
 }
 
 .FoodList li:nth-child(2n) {
-  background: #0076ff;
+  background: #8be75f;
 }
 
 .FoodList li:hover {
   font-size: 18px;
-  font-weight: bold;
 }

@@ -6,21 +6,25 @@
   box-sizing: border-box;
   margin: 15px;
   min-width: 120px;
+  outline: none;
+  border: none;
+  min-height: 40px;
 }
 
 .ButtonBlue {
   background: #0076ff;
-  border: 2px solid #54c7fc;
 }
 
 .ButtonGreen {
-  background: #85f37b;
-  border: 2px solid #3dc550;
+  background: rgb(104, 196, 61);
+  padding: 10px 15px;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: white;
 }
 
 .ButtonGrey {
   background: #999999;
-  border: 2px solid #414a4e;
 }
 
 .Button:hover {

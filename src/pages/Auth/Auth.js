@@ -79,13 +79,13 @@ class Auth extends React.Component {
             <Button
               type="submit"
               text="Увійти"
-              color="blue"
+              color="green"
               onClick={this.onSighInBtnClickHendler}
             />
             <Button
               type="submit"
               text="Зареєструватися"
-              color="green"
+              color="blue"
               onClick={this.onSighUpBtnClickHendler}
             />
           </div>

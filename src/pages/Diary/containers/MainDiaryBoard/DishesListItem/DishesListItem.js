@@ -7,11 +7,11 @@ const DishesListItem = props => {
     <li className={cls.join(" ")}>
       <div className={props.styles}>
         <span>{props.dish.dishName}</span>
-        <span>{props.dish.dishWeight} г</span>
-        <span>{props.dish.kkal} ккал</span>
-        <span>{props.dish.proteins} г</span>
-        <span>{props.dish.fats} г</span>
-        <span>{props.dish.carbohydrates}г</span>
+        <span>{props.dish.dishWeight}</span>
+        <span>{props.dish.kkal}</span>
+        <span>{props.dish.proteins}</span>
+        <span>{props.dish.fats}</span>
+        <span>{props.dish.carbohydrates}</span>
         <span />
       </div>
     </li>
