@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { openModalWithProps } from "../../../../../../redux/Modal/modalActionCreators";
 import classes from "./CatalogListItem.css";
+import { deleteUserDishItem } from "../../../../../../redux/DiaryPage/actions/foodCatalogActionCreators";
 
 const CatalogListItem = props => {
   function onListItemClickHendler() {
@@ -12,22 +13,40 @@ const CatalogListItem = props => {
       fats: props.item.dishProps.fats,
       carbohydrates: props.item.dishProps.carbohydrates
     };
-    props.modalOpen(info);
+    props.AddDishToDiaryBoardModal(info);
   }
 
-  return (
+  function onEditBtnClickhendler() {
+    props.EditDishModal(props.item);
+  }
+
+  function onDeleteBtnClickhendler() {
+    props.DeleteUserDish(props.item);
+  }
+
+  return props.item.dishProps.isUserDish ? (
     <li className={classes.CatalogListItem}>
       <span onClick={onListItemClickHendler}>{props.item.name}</span>
-      <span>Редагувати</span>
-      <span>Видалити</span>
+      <span onClick={onEditBtnClickhendler}>Редагувати</span>
+      <span onClick={onDeleteBtnClickhendler}>Видалити</span>
+    </li>
+  ) : (
+    <li className={classes.CatalogListItem}>
+      <span onClick={onListItemClickHendler}>{props.item.name}</span>
     </li>
   );
 };
 
 function mapDispatchToProps(dispatch) {
   return {
-    modalOpen: props => {
+    AddDishToDiaryBoardModal: props => {
       dispatch(openModalWithProps("AddDishToDiaryBoardModal", props));
+    },
+    EditDishModal: props => {
+      dispatch(openModalWithProps("AddDishModal", props));
+    },
+    DeleteUserDish: dishItem => {
+      dispatch(deleteUserDishItem(dishItem));
     }
   };
 }

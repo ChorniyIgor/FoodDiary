@@ -2,36 +2,13 @@ import {
   FOOD_SERCH,
   ADD_USER_DISH,
   LOAD_MAIN_FOOD_CATALOG,
-  LOAD_USER_FOOD_CATALOG
+  LOAD_USER_FOOD_CATALOG,
+  DELETE_USER_DISH,
+  EDIT_USER_DISH
 } from "../actions/actionTypes";
 
 const initialState = {
-  dishes: {
-    /* Арахіс: {
-      kkal: 100,
-      proteins: 18,
-      fats: 10,
-      carbohydrates: 40
-    },
-    Борщ: {
-      kkal: 1100,
-      proteins: 218,
-      fats: 210,
-      carbohydrates: 240
-    },
-    Кукурудза: {
-      kkal: 100,
-      proteins: 18,
-      fats: 10,
-      carbohydrates: 40
-    },
-    Каша: {
-      kkal: 100,
-      proteins: 18,
-      fats: 10,
-      carbohydrates: 40
-    }*/
-  },
+  dishes: {},
   userDishes: {},
   serchVal: []
 };
@@ -54,10 +31,24 @@ export default function(state = initialState, actions) {
         serchVal: actions.serchDish
       };
     case ADD_USER_DISH:
-      console.log(actions.newDish);
       return {
         ...state,
         userDishes: { ...state.userDishes, ...actions.newDish }
+      };
+    case EDIT_USER_DISH:
+      let userDishes = { ...state.userDishes };
+      delete userDishes[actions.lastItemName];
+      actions.dishItem[Object.keys(actions.dishItem)[0]].isUserDish = true;
+      actions.dishItem[Object.keys(actions.dishItem)[0]].key = actions.dishItem.key;
+      delete actions.dishItem.key;
+      userDishes = { ...userDishes, ...actions.dishItem };
+      return { ...state, userDishes };
+    case DELETE_USER_DISH:
+      const newUserDishes = { ...state.userDishes };
+      delete newUserDishes[actions.dishName];
+      return {
+        ...state,
+        userDishes: newUserDishes
       };
     default:
       return state;

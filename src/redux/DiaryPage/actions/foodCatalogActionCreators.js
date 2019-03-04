@@ -5,7 +5,9 @@ import {
   FOOD_SERCH,
   ADD_USER_DISH,
   LOAD_MAIN_FOOD_CATALOG,
-  LOAD_USER_FOOD_CATALOG
+  LOAD_USER_FOOD_CATALOG,
+  DELETE_USER_DISH,
+  EDIT_USER_DISH
 } from "./actionTypes";
 import { showMsg } from "../../Modal/modalActionCreators";
 
@@ -26,7 +28,7 @@ export function loadUserFoodCatalog() {
     const userFoodCatalog = await Firebase.getUserFoodCatalog(state.Auth.userId);
     dispatch({
       type: LOAD_USER_FOOD_CATALOG,
-      userFoodCatalog: DataAdapter.dishes(userFoodCatalog)
+      userFoodCatalog: DataAdapter.dishes(userFoodCatalog, true)
     });
     dispatch(FoodCatalogUpdate());
   };
@@ -35,7 +37,7 @@ export function loadUserFoodCatalog() {
 export function FoodCatalogSerch(serchVal) {
   return (dispatch, getState) => {
     const state = getState();
-
+    console.log(state);
     const actualFoodList = getFullFoodCatalog(state);
 
     const serchDish = actualFoodList.filter(dish => {
@@ -51,27 +53,6 @@ export function FoodCatalogSerch(serchVal) {
 
 export function FoodCatalogUpdate() {
   return FoodCatalogSerch("");
-}
-
-export function AddUserDish(newDish) {
-  return async (dispatch, getState) => {
-    const state = getState();
-    try {
-      const key = await Firebase.sendNewDish(newDish, state.Auth.userId);
-      const dishName = Object.keys(newDish)[0];
-      console.log(newDish);
-      dispatch({
-        type: ADD_USER_DISH,
-        newDish: {
-          [dishName]: { ...newDish[dishName], key: key.name }
-        }
-      });
-      dispatch(FoodCatalogUpdate());
-      dispatch(showMsg("success", "Страву успішно додано до вашого каталогу"));
-    } catch {
-      dispatch(showMsg("error", "Щось пішло не так, спробуйте ще раз"));
-    }
-  };
 }
 
 function getFullFoodCatalog(state) {
@@ -92,4 +73,70 @@ function getFullFoodCatalog(state) {
     ...getDishesWithKey(state.foodCatalog.userDishes),
     ...getDishesWithKey(state.foodCatalog.dishes)
   ];
+}
+
+export function AddUserDish(newDish) {
+  return async (dispatch, getState) => {
+    const state = getState();
+    try {
+      const key = await Firebase.sendNewDish(newDish, state.Auth.userId);
+      const dishName = Object.keys(newDish)[0];
+      console.log(newDish);
+      dispatch({
+        type: ADD_USER_DISH,
+        newDish: {
+          [dishName]: { ...newDish[dishName], key: key.name, isUserDish: true }
+        }
+      });
+      dispatch(FoodCatalogUpdate());
+      dispatch(showMsg("success", "Страву успішно додано до вашого каталогу"));
+    } catch {
+      dispatch(showMsg("error", "Щось пішло не так, спробуйте ще раз"));
+    }
+  };
+}
+
+export function editUserDish(lastItemName, dishItem) {
+  return async (dispatch, getState) => {
+    const state = getState();
+    const data = { ...dishItem };
+    delete data.key;
+    try {
+      const res = await Firebase.editUserDish(data, dishItem.key, state.Auth.userId);
+      if (res === 200) {
+        dispatch({
+          type: EDIT_USER_DISH,
+          lastItemName,
+          dishItem
+        });
+        dispatch(FoodCatalogUpdate());
+        dispatch(showMsg("success", "Інформацію про страву успішно оновлено"));
+      } else dispatch(showMsg("error", "Щось пішло не так, спробуйте ще раз"));
+    } catch (e) {
+      console.log(e);
+      dispatch(showMsg("error", "Щось пішло не так, спробуйте ще раз"));
+    }
+  };
+}
+
+export function deleteUserDishItem(dishItem) {
+  return async (dispatch, getState) => {
+    const state = getState();
+    try {
+      const res = await Firebase.deleteUserDish(dishItem.dishProps.key, state.Auth.userId);
+      if (res === 200) {
+        dispatch({
+          type: DELETE_USER_DISH,
+          dishName: dishItem.name
+        });
+        dispatch(FoodCatalogUpdate());
+        dispatch(showMsg("success", "Страву видалено"));
+      } else {
+        dispatch(showMsg("error", "Щось пішло не так, спробуйте ще раз"));
+      }
+    } catch (e) {
+      console.log(e);
+      dispatch(showMsg("error", "Щось пішло не так, спробуйте ще раз"));
+    }
+  };
 }

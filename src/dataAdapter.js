@@ -19,7 +19,7 @@ class DataAdapter {
     return newData;
   }
 
-  static dishes(data) {
+  static dishes(data, isUserDish = false) {
     let newData = {};
     for (const key in data) {
       const item = data[key];
@@ -31,6 +31,7 @@ class DataAdapter {
           return parseFloat(numb.replace(",", ".")) || 0;
         } else return numb;
       }
+
       const newItemInfo = {
         carbohydrates: reduceNumber(itemInfo.carbohydrates),
         fats: reduceNumber(itemInfo.fats),
@@ -39,7 +40,7 @@ class DataAdapter {
       };
 
       Object.assign(newData, {
-        [itemName]: { ...newItemInfo, key }
+        [itemName]: { ...newItemInfo, key, isUserDish }
       });
     }
 

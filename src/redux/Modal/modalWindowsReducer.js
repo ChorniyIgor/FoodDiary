@@ -36,6 +36,7 @@ export default function(state = initialState, actions) {
     case OPEN_MODAL_WITH_PROPS:
       return {
         ...state,
+
         [actions.modalName]: {
           isOpen: true,
           props: actions.props
