@@ -3,15 +3,29 @@ import classes from "./AddToDiaryBoardModal.css";
 import Modal from "../../../../../hoc/Modal/Modal";
 import { connect } from "react-redux";
 import { openModal, closeModal } from "../../../../../redux/Modal/modalActionCreators";
-import { addDishToDiary } from "../../../../../redux/DiaryPage/actions/foodDiaryActionCreators";
+import {
+  addDishToDiary,
+  editDishInDiary
+} from "../../../../../redux/DiaryPage/actions/foodDiaryActionCreators";
 import Input from "../../../../../UI/Input/Input";
 import Button from "../../../../../UI/Button/Button";
 
 const AddDishToDiaryBoardModal = props => {
   const inputWeight = React.createRef();
   function onAddDishDiaryClickHendler() {
-    const dishInfo = { ...props.dishProps, dishWeight: +inputWeight.current.value };
-    props.addDishToDiary(dishInfo);
+    if (props.dishProps.isEdit) {
+      const dishInfo = {
+        ...props.dishProps,
+        dishWeight: +inputWeight.current.value
+      };
+      props.editDishInDiary(dishInfo);
+    } else {
+      const dishInfo = {
+        ...props.dishProps,
+        dishWeight: +inputWeight.current.value
+      };
+      props.addDishToDiary(dishInfo);
+    }
   }
 
   function formSubmitHendler(evt) {
@@ -36,10 +50,15 @@ const AddDishToDiaryBoardModal = props => {
           inputType="number"
           isRequired={true}
           min={1}
-          defaultValue={100}
+          defaultValue={props.dishProps.dishWeight || 100}
           autoFocus={true}
         />
-        <Button type="submit" text="Додати у щоденник" color="green" />
+        {props.dishProps.isEdit ? (
+          <Button type="submit" text="Зберегти зміни" color="green" />
+        ) : (
+          <Button type="submit" text="Додати у щоденник" color="green" />
+        )}
+
         <Button text="Закрити" onClick={props.modalClose} />
       </form>
     </Modal>
@@ -60,8 +79,11 @@ function mapDispatchToProps(dispatch) {
     modalClose: () => {
       dispatch(closeModal("AddDishToDiaryBoardModal"));
     },
-    addDishToDiary: props => {
-      dispatch(addDishToDiary(props));
+    addDishToDiary: dishInfo => {
+      dispatch(addDishToDiary(dishInfo));
+    },
+    editDishInDiary: dishInfo => {
+      dispatch(editDishInDiary(dishInfo));
     }
   };
 }

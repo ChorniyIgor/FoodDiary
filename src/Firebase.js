@@ -95,6 +95,30 @@ class Firebase {
     return resp;
   }
 
+  async editDishInDiary(value, dishKey, dayKey, date, userId) {
+    const options = {
+      method: "PUT",
+      body: JSON.stringify(value)
+    };
+    console.log(value);
+    const resp = await fetch(
+      `${this.usersCatalog}/${userId}/Diary/${dayKey}/${date}/dishes/${dishKey}.json`,
+      options
+    ).then(resp => resp.status);
+    return resp;
+  }
+
+  async deleteDishFromDiary(dishKey, dayKey, date, userId) {
+    const options = {
+      method: "DELETE"
+    };
+    const resp = await fetch(
+      `${this.usersCatalog}/${userId}/Diary/${dayKey}/${date}/dishes/${dishKey}.json`,
+      options
+    ).then(resp => resp.status);
+    return resp;
+  }
+
   async editUserDish(value, dishKey, userId) {
     const options = {
       method: "PUT",

@@ -17,7 +17,10 @@ const MainBoard = props => {
         {getDaySortArray(props.foodDiary).map((item, index) => {
           const date = item.date;
           const foodList = item.dishes;
-          return <DiaryDayItem key={index} foodList={foodList} dateOfList={date} />;
+          const dayKey = item.key;
+          return (
+            <DiaryDayItem key={index} foodList={foodList} dateOfList={date} keyOfList={dayKey} />
+          );
         })}
       </ul>
     </section>

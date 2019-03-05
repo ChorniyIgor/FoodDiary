@@ -37,7 +37,6 @@ export function loadUserFoodCatalog() {
 export function FoodCatalogSerch(serchVal) {
   return (dispatch, getState) => {
     const state = getState();
-    console.log(state);
     const actualFoodList = getFullFoodCatalog(state);
 
     const serchDish = actualFoodList.filter(dish => {

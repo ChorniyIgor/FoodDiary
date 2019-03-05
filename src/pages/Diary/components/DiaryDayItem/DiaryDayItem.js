@@ -51,7 +51,15 @@ class DiaryItem extends React.Component {
         </div>
 
         {dishes.map((dish, i) => {
-          return <DishesListItem styles={styles.ListTable} dish={dish} key={i} />;
+          return (
+            <DishesListItem
+              styles={styles.ListTable}
+              dish={dish}
+              key={i}
+              dateOfList={this.props.dateOfList}
+              keyOfList={this.props.keyOfList}
+            />
+          );
         })}
         {this.getTotal(dishes)}
       </ul>

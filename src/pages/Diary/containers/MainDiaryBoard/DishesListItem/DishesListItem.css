@@ -16,3 +16,29 @@
   background: #b5fa94;
   color: rgba(0, 0, 0);
 }
+
+.Tools {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.Tools i {
+  font-size: 0px;
+  flex-basis: 20px;
+  height: 20px;
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+.Tools i:hover {
+  opacity: 1;
+}
+.Tools i:nth-child(1) {
+  background: url("../../../../../image/icons/pencil-alt-solid.svg") center no-repeat;
+  flex-basis: 16px;
+  margin-right: 5px;
+}
+
+.Tools i:nth-child(2) {
+  background: url("../../../../../image/icons/times-solid.svg") center no-repeat;
+}
