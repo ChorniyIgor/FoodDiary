@@ -4,7 +4,7 @@ import {
   DELETE_DISH_FROM_DIARY,
   EDIT_DISH_IN_DIARY
 } from "../actions/foodDiaryActionCreators";
-import { LOAD_USER_DIARY } from "../actions/actionTypes";
+import { LOAD_USER_DIARY } from "../actions/foodDiaryActionCreators";
 
 const initialState = {
   diary: [],
@@ -15,6 +15,7 @@ export default function(state = initialState, actions) {
   switch (actions.type) {
     case LOAD_USER_DIARY:
       return {
+        ...state,
         diary: [...actions.userDiary],
         diaryIsLoading: true
       };
@@ -31,6 +32,7 @@ export default function(state = initialState, actions) {
         }
       });
       return {
+        ...state,
         diary: newState
       };
 
@@ -46,6 +48,7 @@ export default function(state = initialState, actions) {
         }
       });
       return {
+        ...state,
         diary: newStateList
       };
 
@@ -61,10 +64,12 @@ export default function(state = initialState, actions) {
         }
       });
       return {
+        ...state,
         diary: newDayState
       };
     case ADD_DAY_TO_DIARY:
       return {
+        ...state,
         diary: [
           ...state.diary,
           {

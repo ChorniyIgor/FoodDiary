@@ -12,14 +12,9 @@ import Preloader from "../../hoc/Preloader/Preloader";
 
 class Diary extends Component {
   async componentWillMount() {
-    try {
-      this.props.loadMainFoodCatalog();
-      this.props.loadUserFoodCatalog();
-      this.props.loadUserDiary();
-      console.log("looad");
-    } catch {
-      console.log("looadfdsadfs");
-    }
+    this.props.loadMainFoodCatalog();
+    this.props.loadUserFoodCatalog();
+    this.props.loadUserDiary();
   }
   render() {
     return this.props.isDataLoading ? (

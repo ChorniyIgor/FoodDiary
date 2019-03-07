@@ -32,7 +32,6 @@ const AddDishModal = props => {
         carbohydrates
       }
     };
-    console.log(props.dishItem);
     if (props.isWithProps) newDish.key = props.dishItem.dishProps.key;
     return newDish;
   };

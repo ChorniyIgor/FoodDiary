@@ -1,7 +1,8 @@
 import Firebase from "../../../Firebase";
 import DataAdapter from "../../../DataAdapter";
 import { showMsg } from "../../Modal/modalActionCreators";
-import { LOAD_USER_DIARY } from "./actionTypes";
+
+export const LOAD_USER_DIARY = "LOAD_USER_DIARY";
 export const ADD_DISH_TO_DIARY = "ADD_DISH_TO_DIARY";
 export const ADD_DAY_TO_DIARY = "ADD_DAY_TO_DIARY";
 export const EDIT_DISH_IN_DIARY = "EDIT_DISH_IN_DIARY";
@@ -10,13 +11,17 @@ export const DELETE_DISH_FROM_DIARY = "DELETE_DISH_FROM_DIARY";
 export function loadUserDiary() {
   return async (dispatch, getState) => {
     const state = getState();
-    const userDiary = await Firebase.getUserDiary(state.Auth.userId);
-    const adaptedData = DataAdapter.userDiary(userDiary);
-    dispatch({
-      type: LOAD_USER_DIARY,
-      userDiary: adaptedData
-    });
-    return userDiary;
+    try {
+      const userDiary = await Firebase.getUserDiary(state.Auth.userId);
+      const adaptedData = DataAdapter.userDiary(userDiary);
+      dispatch({
+        type: LOAD_USER_DIARY,
+        userDiary: adaptedData
+      });
+    } catch (e) {
+      console.log("loadUserFoodCatalog error", e);
+      dispatch(showMsg("error", "Щось пішло не так, спробуйте оновити сторінку"));
+    }
   };
 }
 
@@ -24,7 +29,6 @@ function calculateDishParam(dishProps) {
   const dishWeight = dishProps.dishWeight / 100;
   const newdishProps = {
     dishName: dishProps.dishName,
-
     dishWeight: dishProps.dishWeight.toFixed(2),
     kkal: (parseFloat(dishProps.kkal) * dishWeight).toFixed(2),
     proteins: (parseFloat(dishProps.proteins) * dishWeight).toFixed(2),
@@ -76,23 +80,21 @@ export function editDishInDiary(dishInfo) {
     const state = getState();
     const dishProps = calculateDishParam({ ...dishInfo, ...dishInfo.dishPropsPer100g });
     try {
-      const res = await Firebase.editDishInDiary(
+      await Firebase.editDishInDiary(
         dishProps,
         dishInfo.key,
         dishInfo.keyOfList,
         dishInfo.dateOfList,
         state.Auth.userId
       );
-      if (res === 200) {
-        dispatch({
-          type: EDIT_DISH_IN_DIARY,
-          dishInfo: {
-            ...dishInfo,
-            ...calculateDishParam({ ...dishInfo, ...dishInfo.dishPropsPer100g })
-          }
-        });
-        dispatch(showMsg("success", "Запис у щоденнику успішно оновлено"));
-      }
+      dispatch({
+        type: EDIT_DISH_IN_DIARY,
+        dishInfo: {
+          ...dishInfo,
+          ...calculateDishParam({ ...dishInfo, ...dishInfo.dishPropsPer100g })
+        }
+      });
+      dispatch(showMsg("success", "Запис у щоденнику успішно оновлено"));
     } catch (e) {
       console.log(e);
       dispatch(showMsg("error", "Щось пішло не так, спробуйте ще раз"));
@@ -104,20 +106,18 @@ export function deleteDishFromDiary(props) {
   return async (dispatch, getState) => {
     const state = getState();
     try {
-      const res = await Firebase.deleteDishFromDiary(
+      await Firebase.deleteDishFromDiary(
         props.dishKey,
         props.keyOfList,
         props.dateOfList,
         state.Auth.userId
       );
-      if (res === 200) {
-        dispatch({
-          type: DELETE_DISH_FROM_DIARY,
-          listKey: props.keyOfList,
-          dishKey: props.dishKey
-        });
-        dispatch(showMsg("success", "Запис успішно видалено зі щоденника"));
-      }
+      dispatch({
+        type: DELETE_DISH_FROM_DIARY,
+        listKey: props.keyOfList,
+        dishKey: props.dishKey
+      });
+      dispatch(showMsg("success", "Запис успішно видалено зі щоденника"));
     } catch (e) {
       console.log(e);
       dispatch(showMsg("error", "Щось пішло не так, спробуйте ще раз"));

@@ -1,11 +1,11 @@
 import {
   FOOD_SERCH,
   ADD_USER_DISH,
-  LOAD_MAIN_FOOD_CATALOG,
-  LOAD_USER_FOOD_CATALOG,
   DELETE_USER_DISH,
-  EDIT_USER_DISH
-} from "../actions/actionTypes";
+  EDIT_USER_DISH,
+  LOAD_MAIN_FOOD_CATALOG,
+  LOAD_USER_FOOD_CATALOG
+} from "../actions/foodCatalogActionCreators";
 
 const initialState = {
   dishes: {},

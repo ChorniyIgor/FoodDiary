@@ -100,7 +100,6 @@ class Firebase {
       method: "PUT",
       body: JSON.stringify(value)
     };
-    console.log(value);
     const resp = await fetch(
       `${this.usersCatalog}/${userId}/Diary/${dayKey}/${date}/dishes/${dishKey}.json`,
       options
