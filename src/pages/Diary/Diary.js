@@ -8,16 +8,22 @@ import {
   loadUserFoodCatalog
 } from "../../redux/DiaryPage/actions/foodCatalogActionCreators";
 import { loadUserDiary } from "../../redux/DiaryPage/actions/foodDiaryActionCreators";
+import Preloader from "../../hoc/Preloader/Preloader";
 
 class Diary extends Component {
-  componentWillMount() {
-    this.props.loadMainFoodCatalog();
-    this.props.loadUserFoodCatalog();
-    this.props.loadUserDiary();
+  async componentWillMount() {
+    try {
+      this.props.loadMainFoodCatalog();
+      this.props.loadUserFoodCatalog();
+      this.props.loadUserDiary();
+      console.log("looad");
+    } catch {
+      console.log("looadfdsadfs");
+    }
   }
   render() {
-    return (
-      <div className={styles.App}>
+    return this.props.isDataLoading ? (
+      <div className={[styles.App].join(" ")}>
         <div className={styles.main_container}>
           <div>
             <FoodCatalog />
@@ -27,8 +33,18 @@ class Diary extends Component {
           </div>
         </div>
       </div>
+    ) : (
+      <Preloader />
     );
   }
+}
+function mapStateToProps(state) {
+  return {
+    isDataLoading:
+      state.foodDiary.diaryIsLoading &&
+      state.foodCatalog.userDishesIsLoading &&
+      state.foodCatalog.mainDishesIsLoading
+  };
 }
 function mapDispatchToProps(dispatch) {
   return {
@@ -44,6 +60,6 @@ function mapDispatchToProps(dispatch) {
   };
 }
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(Diary);

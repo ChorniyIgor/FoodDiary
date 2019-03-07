@@ -10,7 +10,9 @@ import {
 const initialState = {
   dishes: {},
   userDishes: {},
-  serchVal: []
+  serchVal: [],
+  userDishesIsLoading: false,
+  mainDishesIsLoading: false
 };
 
 export default function(state = initialState, actions) {
@@ -18,12 +20,14 @@ export default function(state = initialState, actions) {
     case LOAD_MAIN_FOOD_CATALOG:
       return {
         ...state,
-        dishes: actions.mainFoodCatalog
+        dishes: actions.mainFoodCatalog,
+        mainDishesIsLoading: true
       };
     case LOAD_USER_FOOD_CATALOG:
       return {
         ...state,
-        userDishes: actions.userFoodCatalog
+        userDishes: actions.userFoodCatalog,
+        userDishesIsLoading: true
       };
     case FOOD_SERCH:
       return {

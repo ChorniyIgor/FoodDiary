@@ -16,6 +16,7 @@ export function loadUserDiary() {
       type: LOAD_USER_DIARY,
       userDiary: adaptedData
     });
+    return userDiary;
   };
 }
 
@@ -46,7 +47,7 @@ export function addDishToDiary(dishProps) {
     try {
       const state = getState();
       const date = new Date().toDateString();
-      const dayElement = getDayElementByDate(state.foodDiary, date);
+      const dayElement = getDayElementByDate(state.foodDiary.diary, date);
       let dayKey = "";
       if (Array.isArray(dayElement)) {
         const res = await Firebase.sendNewDay(date, state.Auth.userId);

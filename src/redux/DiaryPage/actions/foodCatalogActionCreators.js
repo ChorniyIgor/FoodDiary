@@ -19,18 +19,25 @@ export function loadMainFoodCatalog() {
       mainFoodCatalog: DataAdapter.dishes(mainFoodCatalog)
     });
     dispatch(FoodCatalogUpdate());
+    return mainFoodCatalog;
   };
 }
 
 export function loadUserFoodCatalog() {
   return async (dispatch, getState) => {
     const state = getState();
-    const userFoodCatalog = await Firebase.getUserFoodCatalog(state.Auth.userId);
-    dispatch({
-      type: LOAD_USER_FOOD_CATALOG,
-      userFoodCatalog: DataAdapter.dishes(userFoodCatalog, true)
-    });
-    dispatch(FoodCatalogUpdate());
+    try {
+      const userFoodCatalog = await Firebase.getUserFoodCatalog(state.Auth.userId);
+      dispatch({
+        type: LOAD_USER_FOOD_CATALOG,
+        userFoodCatalog: DataAdapter.dishes(userFoodCatalog, true)
+      });
+      dispatch(FoodCatalogUpdate());
+      return userFoodCatalog;
+    } catch (e) {
+      console.log("loadUserFoodCatalog error", e);
+      dispatch(showMsg("error", "Щось пішло не так, спробуйте оновити сторінку"));
+    }
   };
 }
 

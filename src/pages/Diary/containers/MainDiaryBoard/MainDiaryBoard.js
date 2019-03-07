@@ -29,7 +29,7 @@ const MainBoard = props => {
 
 function mapStateToProps(state) {
   return {
-    foodDiary: state.foodDiary
+    foodDiary: state.foodDiary.diary
   };
 }
 
