@@ -1,5 +1,5 @@
 import React from "react";
-import classes from "./Auth.css";
+import classes from "./Auth.module.css";
 import Input from "../../UI/Input/Input";
 import Button from "../../UI/Button/Button";
 import is from "is_js";
@@ -14,41 +14,41 @@ class Auth extends React.Component {
     isLoginInputChange: false,
     pass: null,
     isPassInputChange: false,
-    isPassIncorrect: true
+    isPassIncorrect: true,
   };
 
-  onChangeLoginHendler = evt => {
+  onChangeLoginHendler = (evt) => {
     evt.preventDefault();
     this.setState({
       ...this.state,
       login: evt.target.value,
       isLoginInputChange: true,
-      isLoginIncorrect: !is.email(evt.target.value)
+      isLoginIncorrect: !is.email(evt.target.value),
     });
   };
 
-  onChangePassHendler = evt => {
+  onChangePassHendler = (evt) => {
     evt.preventDefault();
     this.setState({
       ...this.state,
       pass: evt.target.value,
       isPassInputChange: true,
-      isPassIncorrect: evt.target.value.length < 6
+      isPassIncorrect: evt.target.value.length < 6,
     });
   };
 
-  onFormSubmitHendler = evt => {
+  onFormSubmitHendler = (evt) => {
     evt.preventDefault();
   };
 
-  onSighUpBtnClickHendler = evt => {
+  onSighUpBtnClickHendler = (evt) => {
     evt.preventDefault();
     if (!this.state.isLoginIncorrect && !this.state.isPassIncorrect) {
       this.props.signUp(this.state.login, this.state.pass);
     }
   };
 
-  onSighInBtnClickHendler = evt => {
+  onSighInBtnClickHendler = (evt) => {
     evt.preventDefault();
     if (!this.state.isLoginIncorrect && !this.state.isPassIncorrect) {
       this.props.signIn(this.state.login, this.state.pass);
@@ -64,14 +64,20 @@ class Auth extends React.Component {
             labelText="Логін"
             onInput={this.onChangeLoginHendler}
             isRequired={true}
-            isInputInCorrect={this.state.isLoginInputChange ? this.state.isLoginIncorrect : false}
+            isInputInCorrect={
+              this.state.isLoginInputChange
+                ? this.state.isLoginIncorrect
+                : false
+            }
             errorMsg="Невірний e-mail"
           />
 
           <Input
             labelText="Пароль"
             onInput={this.onChangePassHendler}
-            isInputInCorrect={this.state.isPassInputChange ? this.state.isPassIncorrect : false}
+            isInputInCorrect={
+              this.state.isPassInputChange ? this.state.isPassIncorrect : false
+            }
             errorMsg="Пароль повинен складатись мінімум із 6 символів"
             isRequired={true}
           />
@@ -105,10 +111,7 @@ function mapDispatchToProps(dispatch) {
     },
     showMsg: (msgType, msg) => {
       dispatch(showMsg(msgType, msg));
-    }
+    },
   };
 }
-export default connect(
-  null,
-  mapDispatchToProps
-)(Auth);
+export default connect(null, mapDispatchToProps)(Auth);

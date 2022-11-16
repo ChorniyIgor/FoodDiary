@@ -1,10 +1,10 @@
 import React from "react";
-import styles from "./DishesListItem.css";
+import styles from "./DishesListItem.module.css";
 import { connect } from "react-redux";
 import { deleteDishFromDiary } from "../../../../../redux/DiaryPage/actions/foodDiaryActionCreators";
 import { openModalWithProps } from "../../../../../redux/Modal/modalActionCreators";
 
-const DishesListItem = props => {
+const DishesListItem = (props) => {
   const cls = [styles.DishItem, styles.ItemСolumn];
 
   function onEditBtnClickHendler() {
@@ -13,7 +13,7 @@ const DishesListItem = props => {
       dishPropsPer100g: props.DishesList[props.dish.dishName],
       isEdit: true,
       keyOfList: props.keyOfList,
-      dateOfList: props.dateOfList
+      dateOfList: props.dateOfList,
     });
   }
 
@@ -21,7 +21,7 @@ const DishesListItem = props => {
     props.deleteDishFromDiary({
       dishKey: props.dish.key,
       dateOfList: props.dateOfList,
-      keyOfList: props.keyOfList
+      keyOfList: props.keyOfList,
     });
   }
 
@@ -45,22 +45,22 @@ const DishesListItem = props => {
 
 function mapStateToProps(state) {
   return {
-    DishesList: { ...state.foodCatalog.userDishes, ...state.foodCatalog.dishes }
+    DishesList: {
+      ...state.foodCatalog.userDishes,
+      ...state.foodCatalog.dishes,
+    },
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    editDishFromDiary: props => {
+    editDishFromDiary: (props) => {
       dispatch(openModalWithProps("AddDishToDiaryBoardModal", props));
     },
-    deleteDishFromDiary: props => {
+    deleteDishFromDiary: (props) => {
       dispatch(deleteDishFromDiary(props));
-    }
+    },
   };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(DishesListItem);
+export default connect(mapStateToProps, mapDispatchToProps)(DishesListItem);

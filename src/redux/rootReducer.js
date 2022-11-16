@@ -4,9 +4,11 @@ import foodDiary from "./DiaryPage/reducers/foodDiaryReducer";
 import foodCatalog from "./DiaryPage/reducers/foodCatalogReducer";
 import modalWindows from "./Modal/modalWindowsReducer";
 
-export default combineReducers({
+const rootReducer = combineReducers({
   Auth,
   foodDiary,
   foodCatalog,
-  modalWindows
+  modalWindows,
 });
+
+export default rootReducer;

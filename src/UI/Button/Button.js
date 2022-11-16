@@ -1,7 +1,7 @@
 import React from "react";
-import classes from "./Button.css";
+import classes from "./Button.module.css";
 
-const Button = props => {
+const Button = (props) => {
   const cls = [classes.Button];
   const color = props.color || "grey";
   const type = props.type || "button";

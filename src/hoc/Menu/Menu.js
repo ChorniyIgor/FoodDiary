@@ -1,9 +1,9 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
-import classes from "./Menu.css";
+import classes from "./Menu.module.css";
 
-const Menu = props => {
+const Menu = (props) => {
   return (
     <div className={classes.Menu}>
       {props.isLogged ? (
@@ -23,7 +23,7 @@ const Menu = props => {
 };
 function mapStateToProps(state) {
   return {
-    isLogged: state.Auth.isLogged
+    isLogged: state.Auth.isLogged,
   };
 }
 

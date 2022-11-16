@@ -1,28 +1,31 @@
 import React from "react";
-import classes from "./AddToDiaryBoardModal.css";
+import classes from "./AddToDiaryBoardModal.module.css";
 import Modal from "../../../../../hoc/Modal/Modal";
 import { connect } from "react-redux";
-import { openModal, closeModal } from "../../../../../redux/Modal/modalActionCreators";
+import {
+  openModal,
+  closeModal,
+} from "../../../../../redux/Modal/modalActionCreators";
 import {
   addDishToDiary,
-  editDishInDiary
+  editDishInDiary,
 } from "../../../../../redux/DiaryPage/actions/foodDiaryActionCreators";
 import Input from "../../../../../UI/Input/Input";
 import Button from "../../../../../UI/Button/Button";
 
-const AddDishToDiaryBoardModal = props => {
+const AddDishToDiaryBoardModal = (props) => {
   const inputWeight = React.createRef();
   function onAddDishDiaryClickHendler() {
     if (props.dishProps.isEdit) {
       const dishInfo = {
         ...props.dishProps,
-        dishWeight: +inputWeight.current.value
+        dishWeight: +inputWeight.current.value,
       };
       props.editDishInDiary(dishInfo);
     } else {
       const dishInfo = {
         ...props.dishProps,
-        dishWeight: +inputWeight.current.value
+        dishWeight: +inputWeight.current.value,
       };
       props.addDishToDiary(dishInfo);
     }
@@ -68,7 +71,7 @@ const AddDishToDiaryBoardModal = props => {
 function mapStateToProps(state) {
   return {
     show: state.modalWindows.AddDishToDiaryBoardModal.isOpen,
-    dishProps: state.modalWindows.AddDishToDiaryBoardModal.props
+    dishProps: state.modalWindows.AddDishToDiaryBoardModal.props,
   };
 }
 function mapDispatchToProps(dispatch) {
@@ -79,12 +82,12 @@ function mapDispatchToProps(dispatch) {
     modalClose: () => {
       dispatch(closeModal("AddDishToDiaryBoardModal"));
     },
-    addDishToDiary: dishInfo => {
+    addDishToDiary: (dishInfo) => {
       dispatch(addDishToDiary(dishInfo));
     },
-    editDishInDiary: dishInfo => {
+    editDishInDiary: (dishInfo) => {
       dispatch(editDishInDiary(dishInfo));
-    }
+    },
   };
 }
 export default connect(

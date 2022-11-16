@@ -3,21 +3,21 @@ import FoodCatalogList from "./FoodCatalogList/FoodCatalogList";
 import { connect } from "react-redux";
 import {
   FoodCatalogSerch,
-  FoodCatalogUpdate
+  FoodCatalogUpdate,
 } from "../../../../redux/DiaryPage/actions/foodCatalogActionCreators";
 import AddDishModal from "./AddDishModal/AddDishModal";
 import AddDishToDiaryBoardModal from "./AddToDiaryBoardModal/AddToDiaryBoardModal";
 import { openModal } from "../../../../redux/Modal/modalActionCreators";
 import Button from "../../../../UI/Button/Button";
 import Input from "../../../../UI/Input/Input";
-import classes from "./FoodCataloge.css";
+import classes from "./FoodCataloge.module.css";
 
 class FoodCatalog extends React.Component {
   componentDidMount = () => {
     this.props.foodCatalogUpdate();
   };
 
-  onInputChangeHendler = evt => {
+  onInputChangeHendler = (evt) => {
     this.props.onInput(evt.target.value.trim());
   };
 
@@ -27,7 +27,11 @@ class FoodCatalog extends React.Component {
         <h2>Меню</h2>
         <Input onInput={this.onInputChangeHendler} />
         <FoodCatalogList serchRes={this.props.serchRes} />
-        <Button text="Додати нову страву" onClick={this.props.modalOpen} color="green" />
+        <Button
+          text="Додати нову страву"
+          onClick={this.props.modalOpen}
+          color="green"
+        />
         <AddDishModal />
         <AddDishToDiaryBoardModal />
       </section>
@@ -39,12 +43,12 @@ function mapStateToProps(state) {
   return {
     serchRes: state.foodCatalog.serchVal,
     foodCatalog: state.foodCatalog.dishes,
-    userFoodCatalog: state.foodCatalog.userDishes
+    userFoodCatalog: state.foodCatalog.userDishes,
   };
 }
 function mapDispatchToProps(dispatch) {
   return {
-    onInput: serchString => {
+    onInput: (serchString) => {
       dispatch(FoodCatalogSerch(serchString));
     },
     modalOpen: () => {
@@ -52,11 +56,8 @@ function mapDispatchToProps(dispatch) {
     },
     foodCatalogUpdate: () => {
       dispatch(FoodCatalogUpdate());
-    }
+    },
   };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(FoodCatalog);
+export default connect(mapStateToProps, mapDispatchToProps)(FoodCatalog);

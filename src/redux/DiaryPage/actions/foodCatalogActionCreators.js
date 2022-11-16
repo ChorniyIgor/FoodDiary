@@ -1,4 +1,4 @@
-import DataAdapter from "../../../DataAdapter";
+import DataAdapter from "../../../dataAdapter";
 import Firebase from "../../../Firebase";
 import { showMsg } from "../../Modal/modalActionCreators";
 
@@ -10,17 +10,19 @@ export const EDIT_USER_DISH = "EDIT_USER_DISH";
 export const DELETE_USER_DISH = "DELETE_USER_DISH";
 
 export function loadMainFoodCatalog() {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       const mainFoodCatalog = await Firebase.getMainFoodCatalog();
       dispatch({
         type: LOAD_MAIN_FOOD_CATALOG,
-        mainFoodCatalog: DataAdapter.dishes(mainFoodCatalog)
+        mainFoodCatalog: DataAdapter.dishes(mainFoodCatalog),
       });
       dispatch(FoodCatalogUpdate());
     } catch (e) {
       console.log("loadUserFoodCatalog error", e);
-      dispatch(showMsg("error", "Щось пішло не так, спробуйте оновити сторінку"));
+      dispatch(
+        showMsg("error", "Щось пішло не так, спробуйте оновити сторінку")
+      );
     }
   };
 }
@@ -29,16 +31,20 @@ export function loadUserFoodCatalog() {
   return async (dispatch, getState) => {
     const state = getState();
     try {
-      const userFoodCatalog = await Firebase.getUserFoodCatalog(state.Auth.userId);
+      const userFoodCatalog = await Firebase.getUserFoodCatalog(
+        state.Auth.userId
+      );
       dispatch({
         type: LOAD_USER_FOOD_CATALOG,
-        userFoodCatalog: DataAdapter.dishes(userFoodCatalog, true)
+        userFoodCatalog: DataAdapter.dishes(userFoodCatalog, true),
       });
       dispatch(FoodCatalogUpdate());
       return userFoodCatalog;
     } catch (e) {
       console.log("loadUserFoodCatalog error", e);
-      dispatch(showMsg("error", "Щось пішло не так, спробуйте оновити сторінку"));
+      dispatch(
+        showMsg("error", "Щось пішло не так, спробуйте оновити сторінку")
+      );
     }
   };
 }
@@ -48,13 +54,13 @@ export function FoodCatalogSerch(serchVal) {
     const state = getState();
     const actualFoodList = getFullFoodCatalog(state);
 
-    const serchDish = actualFoodList.filter(dish => {
+    const serchDish = actualFoodList.filter((dish) => {
       return dish.name.toUpperCase().indexOf(serchVal.toUpperCase()) >= 0;
     });
 
     dispatch({
       type: FOOD_SERCH,
-      serchDish
+      serchDish,
     });
   };
 }
@@ -69,7 +75,7 @@ function getFullFoodCatalog(state) {
     for (let dish in data) {
       userDishes.push({
         name: dish,
-        dishProps: data[dish]
+        dishProps: data[dish],
       });
     }
 
@@ -78,7 +84,7 @@ function getFullFoodCatalog(state) {
 
   return [
     ...getDishesWithKey(state.foodCatalog.userDishes),
-    ...getDishesWithKey(state.foodCatalog.dishes)
+    ...getDishesWithKey(state.foodCatalog.dishes),
   ];
 }
 
@@ -91,8 +97,8 @@ export function AddUserDish(newDish) {
       dispatch({
         type: ADD_USER_DISH,
         newDish: {
-          [dishName]: { ...newDish[dishName], key: key.name, isUserDish: true }
-        }
+          [dishName]: { ...newDish[dishName], key: key.name, isUserDish: true },
+        },
       });
       dispatch(FoodCatalogUpdate());
       dispatch(showMsg("success", "Страву успішно додано до вашого каталогу"));
@@ -112,7 +118,7 @@ export function editUserDish(lastItemName, dishItem) {
       dispatch({
         type: EDIT_USER_DISH,
         lastItemName,
-        dishItem
+        dishItem,
       });
       dispatch(FoodCatalogUpdate());
       dispatch(showMsg("success", "Інформацію про страву успішно оновлено"));
@@ -130,7 +136,7 @@ export function deleteUserDishItem(dishItem) {
       await Firebase.deleteUserDish(dishItem.dishProps.key, state.Auth.userId);
       dispatch({
         type: DELETE_USER_DISH,
-        dishName: dishItem.name
+        dishName: dishItem.name,
       });
       dispatch(FoodCatalogUpdate());
       dispatch(showMsg("success", "Страву видалено"));

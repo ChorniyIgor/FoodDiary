@@ -1,5 +1,5 @@
 import Firebase from "../../../Firebase";
-import DataAdapter from "../../../DataAdapter";
+import DataAdapter from "../../../dataAdapter";
 import { showMsg } from "../../Modal/modalActionCreators";
 
 export const LOAD_USER_DIARY = "LOAD_USER_DIARY";
@@ -16,11 +16,13 @@ export function loadUserDiary() {
       const adaptedData = DataAdapter.userDiary(userDiary);
       dispatch({
         type: LOAD_USER_DIARY,
-        userDiary: adaptedData
+        userDiary: adaptedData,
       });
     } catch (e) {
       console.log("loadUserFoodCatalog error", e);
-      dispatch(showMsg("error", "Щось пішло не так, спробуйте оновити сторінку"));
+      dispatch(
+        showMsg("error", "Щось пішло не так, спробуйте оновити сторінку")
+      );
     }
   };
 }
@@ -33,14 +35,16 @@ function calculateDishParam(dishProps) {
     kkal: (parseFloat(dishProps.kkal) * dishWeight).toFixed(2),
     proteins: (parseFloat(dishProps.proteins) * dishWeight).toFixed(2),
     fats: (parseFloat(dishProps.fats) * dishWeight).toFixed(2),
-    carbohydrates: (parseFloat(dishProps.carbohydrates) * dishWeight).toFixed(2)
+    carbohydrates: (parseFloat(dishProps.carbohydrates) * dishWeight).toFixed(
+      2
+    ),
   };
   return newdishProps;
 }
 
 function getDayElementByDate(diary, date) {
   return (
-    diary.filter(el => {
+    diary.filter((el) => {
       return el.date === date;
     })[0] || []
   );
@@ -61,12 +65,17 @@ export function addDishToDiary(dishProps) {
         dayKey = dayElement.key;
       }
       const calcProps = calculateDishParam(dishProps);
-      const dishKey = await Firebase.sendNewDishToDiary(calcProps, dayKey, date, state.Auth.userId);
+      const dishKey = await Firebase.sendNewDishToDiary(
+        calcProps,
+        dayKey,
+        date,
+        state.Auth.userId
+      );
       dispatch({
         type: ADD_DISH_TO_DIARY,
         day: dayElement,
         dishProps: { ...calcProps, key: dishKey.name },
-        dateNow: new Date().toDateString()
+        dateNow: new Date().toDateString(),
       });
       dispatch(showMsg("success", "Запис успішно додано у ваш щоденник"));
     } catch {
@@ -78,7 +87,10 @@ export function addDishToDiary(dishProps) {
 export function editDishInDiary(dishInfo) {
   return async (dispatch, getState) => {
     const state = getState();
-    const dishProps = calculateDishParam({ ...dishInfo, ...dishInfo.dishPropsPer100g });
+    const dishProps = calculateDishParam({
+      ...dishInfo,
+      ...dishInfo.dishPropsPer100g,
+    });
     try {
       await Firebase.editDishInDiary(
         dishProps,
@@ -91,8 +103,8 @@ export function editDishInDiary(dishInfo) {
         type: EDIT_DISH_IN_DIARY,
         dishInfo: {
           ...dishInfo,
-          ...calculateDishParam({ ...dishInfo, ...dishInfo.dishPropsPer100g })
-        }
+          ...calculateDishParam({ ...dishInfo, ...dishInfo.dishPropsPer100g }),
+        },
       });
       dispatch(showMsg("success", "Запис у щоденнику успішно оновлено"));
     } catch (e) {
@@ -115,7 +127,7 @@ export function deleteDishFromDiary(props) {
       dispatch({
         type: DELETE_DISH_FROM_DIARY,
         listKey: props.keyOfList,
-        dishKey: props.dishKey
+        dishKey: props.dishKey,
       });
       dispatch(showMsg("success", "Запис успішно видалено зі щоденника"));
     } catch (e) {
@@ -129,6 +141,6 @@ export function addDayToDiary(date, key) {
   return {
     type: ADD_DAY_TO_DIARY,
     date,
-    key
+    key,
   };
 }

@@ -1,7 +1,7 @@
 import React from "react";
-import classes from "./Input.css";
+import classes from "./Input.module.css";
 
-const Input = props => {
+const Input = (props) => {
   const inputType = props.inputType || "text";
   const autoFocus = props.autoFocus || false;
   const isInputInCorrect = props.isInputInCorrect || false;
@@ -23,7 +23,9 @@ const Input = props => {
         defaultValue={props.defaultValue}
         onInput={props.onInput}
       />
-      <span className={classes.ErrorMsg}>{isInputInCorrect ? props.errorMsg : null}</span>
+      <span className={classes.ErrorMsg}>
+        {isInputInCorrect ? props.errorMsg : null}
+      </span>
     </label>
   );
 };

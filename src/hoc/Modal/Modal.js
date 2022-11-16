@@ -1,7 +1,7 @@
 import React from "react";
-import classes from "./Modal.css";
+import classes from "./Modal.module.css";
 
-const Modal = props => {
+const Modal = (props) => {
   const overlayRef = React.createRef();
   function keyDownHandler(event) {
     const ESC_CODE = 27;

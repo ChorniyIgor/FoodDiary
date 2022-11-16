@@ -1,19 +1,19 @@
 import React from "react";
 import DishesListItem from "../../containers/MainDiaryBoard/DishesListItem/DishesListItem";
-import styles from "./DiaryDayItem.css";
+import styles from "./DiaryDayItem.module.css";
 
 class DiaryItem extends React.Component {
   state = {
-    showDishesList: false
+    showDishesList: false,
   };
 
   onDayToggleClick = () => {
     this.setState({
-      showDishesList: !this.state.showDishesList
+      showDishesList: !this.state.showDishesList,
     });
   };
 
-  getTotal = dishes => {
+  getTotal = (dishes) => {
     function getSumm(obj, prop) {
       return dishes
         .reduce((summ, current) => {
@@ -35,9 +35,11 @@ class DiaryItem extends React.Component {
     );
   };
 
-  dishesList = dishes => {
+  dishesList = (dishes) => {
     const cls = [styles.DishList];
-    this.state.showDishesList ? cls.push(styles.DishListOpen) : cls.push(styles.DishListHide);
+    this.state.showDishesList
+      ? cls.push(styles.DishListOpen)
+      : cls.push(styles.DishListHide);
     return (
       <ul className={cls.join(" ")}>
         <div className={[styles.ListTable, styles.ListTableHeader].join(" ")}>

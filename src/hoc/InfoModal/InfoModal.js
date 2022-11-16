@@ -1,19 +1,23 @@
 import React from "react";
-import classes from "./InfoModal.css";
+import classes from "./InfoModal.module.css";
 import { connect } from "react-redux";
 
-const InfoModal = props => {
+const InfoModal = (props) => {
   if (props.infoModal.isOpen) {
     switch (props.infoModal.modalType) {
       case "success":
         return (
-          <div className={[classes.ModalWrap, classes.ModalWrapSuccess].join(" ")}>
+          <div
+            className={[classes.ModalWrap, classes.ModalWrapSuccess].join(" ")}
+          >
             <p>{props.infoModal.modalMsg}</p>
           </div>
         );
       case "error":
         return (
-          <div className={[classes.ModalWrap, classes.ModalWrapError].join(" ")}>
+          <div
+            className={[classes.ModalWrap, classes.ModalWrapError].join(" ")}
+          >
             <p>{props.infoModal.modalMsg}</p>
           </div>
         );
@@ -24,14 +28,11 @@ const InfoModal = props => {
 };
 function mapStateToProps(state) {
   return {
-    infoModal: state.modalWindows.infoModal
+    infoModal: state.modalWindows.infoModal,
   };
 }
 function mapDispatchToProps(dispatch) {
   return {};
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(InfoModal);
+export default connect(mapStateToProps, mapDispatchToProps)(InfoModal);

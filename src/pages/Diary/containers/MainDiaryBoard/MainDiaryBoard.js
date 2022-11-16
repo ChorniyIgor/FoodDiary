@@ -1,9 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import DiaryDayItem from "../../components/DiaryDayItem/DiaryDayItem";
-import styles from "./MainDiaryBoard.css";
+import styles from "./MainDiaryBoard.module.css";
 
-const MainBoard = props => {
+const MainBoard = (props) => {
   function getDaySortArray(foodDiary) {
     return foodDiary.sort((a, b) => {
       return new Date(b.date) - new Date(a.date);
@@ -19,7 +19,12 @@ const MainBoard = props => {
           const foodList = item.dishes;
           const dayKey = item.key;
           return (
-            <DiaryDayItem key={index} foodList={foodList} dateOfList={date} keyOfList={dayKey} />
+            <DiaryDayItem
+              key={index}
+              foodList={foodList}
+              dateOfList={date}
+              keyOfList={dayKey}
+            />
           );
         })}
       </ul>
@@ -29,7 +34,7 @@ const MainBoard = props => {
 
 function mapStateToProps(state) {
   return {
-    foodDiary: state.foodDiary.diary
+    foodDiary: state.foodDiary.diary,
   };
 }
 
