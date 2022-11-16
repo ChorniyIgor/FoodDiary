@@ -1,26 +1,13 @@
-import React from "react";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import { logout } from "../../redux/AuthPage/actions";
+import { useEffect } from "react";
 
-class Logout extends React.Component {
-  componentDidMount() {
-    this.props.logout();
-  }
+const Logout = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(logout());
+  });
+  return null;
+};
 
-  render() {
-    return null;
-  }
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    logout: () => {
-      dispatch(logout());
-    }
-  };
-}
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(Logout);
+export default Logout;

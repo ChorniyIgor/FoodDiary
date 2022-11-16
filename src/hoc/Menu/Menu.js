@@ -1,30 +1,27 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import classes from "./Menu.module.css";
 
-const Menu = (props) => {
+const Menu = () => {
+  const isLogged = useSelector((state) => state.Auth.isLogged);
+
   return (
     <div className={classes.Menu}>
-      {props.isLogged ? (
+      {isLogged ? (
         <ul className={classes.MenuList}>
-          <NavLink to="/">Головна</NavLink>
-          <NavLink to="/diary">Щоденник</NavLink>
-          <NavLink to="/logout">Вийти</NavLink>
+          <NavLink to="/">Main</NavLink>
+          <NavLink to="/diary">Diary</NavLink>
+          <NavLink to="/logout">Sign out</NavLink>
         </ul>
       ) : (
         <ul className={classes.MenuList}>
-          <NavLink to="/">Головна</NavLink>
-          <NavLink to="/auth">Авторизація</NavLink>
+          <NavLink to="/">Main</NavLink>
+          <NavLink to="/auth">Sign in</NavLink>
         </ul>
       )}
     </div>
   );
 };
-function mapStateToProps(state) {
-  return {
-    isLogged: state.Auth.isLogged,
-  };
-}
 
-export default connect(mapStateToProps)(Menu);
+export default Menu;

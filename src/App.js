@@ -7,47 +7,43 @@ import Logout from "./hoc/Logout/Logout";
 
 // import { Route } from "react-router";
 import InfoModal from "./hoc/InfoModal/InfoModal";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { autoLogin } from "./redux/AuthPage/actions";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { useEffect } from "react";
 
-class App extends Component {
-  componentWillMount = () => {
-    this.props.autoLogin();
-  };
-  render() {
-    return (
-      <React.Fragment>
-        <Menu />
-        <Routes>
-          <Route exact path="/" element={<Main />} />
-          <Route path="/auth" element={<Auth />}></Route>
-          <Route path="/diary" element={<Diary />}></Route>
-        </Routes>
+const App = () => {
+  const dispatch = useDispatch();
+  const isLogged = useSelector((state) => state.Auth.isLogged);
 
-        {/* <Route path="/" exact component={Main} />
-        {this.props.isLogged ? null : <Route path="/auth" component={Auth} />}
-        {this.props.isLogged ? <Route path="/diary" component={Diary} /> : null}
-        {this.props.isLogged ? (
-          <Route path="/logout" component={Logout} />
-        ) : null}
-        <Route to="/" /> */}
+  useEffect(() => {
+    dispatch(autoLogin());
+  }, [dispatch]);
 
-        <InfoModal />
-      </React.Fragment>
-    );
-  }
-}
-function mapStateToProps(state) {
-  return {
-    isLogged: state.Auth.isLogged,
-  };
-}
-function mapDispatchToProps(dispatch) {
-  return {
-    autoLogin: () => {
-      dispatch(autoLogin());
-    },
-  };
-}
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+  return (
+    <React.Fragment>
+      <Menu />
+      <Routes>
+        <Route exact path="/" element={<Main />} />
+
+        {isLogged ? (
+          <>
+            <Route path="/auth" element={<Navigate replace to="/diary" />} />
+            <Route path="/diary" element={<Diary />}></Route>
+            <Route path="/logout" element={<Logout />} />
+          </>
+        ) : (
+          <>
+            <Route path="/auth" element={<Auth />}></Route>
+            <Route path="/diary" element={<Navigate replace to="/auth" />} />
+            <Route path="/logout" element={<Navigate replace to="/" />} />
+          </>
+        )}
+      </Routes>
+
+      <InfoModal />
+    </React.Fragment>
+  );
+};
+
+export default App;

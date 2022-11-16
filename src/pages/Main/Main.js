@@ -1,8 +1,10 @@
 import React from "react";
 import classes from "./Main.module.css";
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-const Main = (props) => {
+const Main = () => {
+  const isLogged = useSelector((state) => state.Auth.isLogged);
   return (
     <div className={classes.Main}>
       <div className={classes.Container}>
@@ -13,7 +15,7 @@ const Main = (props) => {
           вимагає природа.
         </q>
         <cite> Б. Франклін;</cite>
-        {props.isLogged ? (
+        {isLogged ? (
           <NavLink to="/diary" className={classes.MainBtn}>
             Відкрити щоденник
           </NavLink>
@@ -26,9 +28,5 @@ const Main = (props) => {
     </div>
   );
 };
-// function mapStateToProps(state) {
-//   return {
-//     isLogged: state.Auth.isLogged
-//   };
-// }
+
 export default Main;
