@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import Menu from "./hoc/Menu/Menu";
 import Diary from "./pages/Diary/Diary";
 import Auth from "./pages/Auth/Auth";
@@ -8,9 +8,9 @@ import Logout from "./hoc/Logout/Logout";
 // import { Route } from "react-router";
 import InfoModal from "./hoc/InfoModal/InfoModal";
 import { useDispatch, useSelector } from "react-redux";
-import { autoLogin } from "./redux/AuthPage/actions";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useEffect } from "react";
+import { autoLogin } from "./store/Auth/autoLogin";
 
 const App = () => {
   const dispatch = useDispatch();

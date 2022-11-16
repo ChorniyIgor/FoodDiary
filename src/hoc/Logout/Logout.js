@@ -1,11 +1,11 @@
 import { useDispatch } from "react-redux";
-import { logout } from "../../redux/AuthPage/actions";
 import { useEffect } from "react";
+import { appLogout } from "../../store/Auth/appLogout";
 
 const Logout = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(logout());
+    dispatch(appLogout());
   });
   return null;
 };

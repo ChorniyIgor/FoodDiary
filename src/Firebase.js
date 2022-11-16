@@ -6,27 +6,24 @@ class Firebase {
   }
 
   async userAuth(email, password, isLogin) {
-    let url = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=${
-      this.apiKey
-    }`;
+    let url = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=${this.apiKey}`;
     if (isLogin) {
-      url = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=${
-        this.apiKey
-      }`;
+      url = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=${this.apiKey}`;
     }
 
     const data = {
       email,
       password,
-      returnSecureToken: true
+      returnSecureToken: true,
     };
     const options = {
       method: "POST",
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     };
     try {
       const resp = await fetch(url, options);
       const result = await resp.json();
+      console.log(result);
 
       if (resp.status === 200) {
         return result;
@@ -39,30 +36,35 @@ class Firebase {
   }
 
   async getMainFoodCatalog() {
-    const resp = await fetch(this.mainFoodCatalogUrl).then(resp => resp.json());
-    return resp;
-  }
-
-  async getUserFoodCatalog(userId) {
-    const resp = await fetch(`${this.usersCatalog}/${userId}/UserDishes.json`).then(resp =>
+    const resp = await fetch(this.mainFoodCatalogUrl).then((resp) =>
       resp.json()
     );
     return resp;
   }
 
+  async getUserFoodCatalog(userId) {
+    const resp = await fetch(
+      `${this.usersCatalog}/${userId}/UserDishes.json`
+    ).then((resp) => resp.json());
+    return resp;
+  }
+
   async getUserDiary(userId) {
-    const resp = await fetch(`${this.usersCatalog}/${userId}/Diary.json`).then(resp => resp.json());
+    const resp = await fetch(`${this.usersCatalog}/${userId}/Diary.json`).then(
+      (resp) => resp.json()
+    );
     return resp;
   }
 
   async sendNewDish(val, userId) {
     const options = {
       method: "POST",
-      body: JSON.stringify(val)
+      body: JSON.stringify(val),
     };
-    const resp = await fetch(`${this.usersCatalog}/${userId}/UserDishes.json`, options).then(resp =>
-      resp.json()
-    );
+    const resp = await fetch(
+      `${this.usersCatalog}/${userId}/UserDishes.json`,
+      options
+    ).then((resp) => resp.json());
     return resp;
   }
 
@@ -70,74 +72,75 @@ class Firebase {
     const newServerData = {
       [date]: {
         dishes: [],
-        showDishesList: false
-      }
+        showDishesList: false,
+      },
     };
     const options = {
       method: "POST",
-      body: JSON.stringify(newServerData)
+      body: JSON.stringify(newServerData),
     };
-    const resp = await fetch(`${this.usersCatalog}/${userId}/Diary.json`, options).then(resp =>
-      resp.json()
-    );
+    const resp = await fetch(
+      `${this.usersCatalog}/${userId}/Diary.json`,
+      options
+    ).then((resp) => resp.json());
     return resp;
   }
 
   async sendNewDishToDiary(value, dayKey, date, userId) {
     const options = {
       method: "POST",
-      body: JSON.stringify(value)
+      body: JSON.stringify(value),
     };
     const resp = await fetch(
       `${this.usersCatalog}/${userId}/Diary/${dayKey}/${date}/dishes.json`,
       options
-    ).then(resp => resp.json());
+    ).then((resp) => resp.json());
     return resp;
   }
 
   async editDishInDiary(value, dishKey, dayKey, date, userId) {
     const options = {
       method: "PUT",
-      body: JSON.stringify(value)
+      body: JSON.stringify(value),
     };
     const resp = await fetch(
       `${this.usersCatalog}/${userId}/Diary/${dayKey}/${date}/dishes/${dishKey}.json`,
       options
-    ).then(resp => resp.status);
+    ).then((resp) => resp.status);
     return resp;
   }
 
   async deleteDishFromDiary(dishKey, dayKey, date, userId) {
     const options = {
-      method: "DELETE"
+      method: "DELETE",
     };
     const resp = await fetch(
       `${this.usersCatalog}/${userId}/Diary/${dayKey}/${date}/dishes/${dishKey}.json`,
       options
-    ).then(resp => resp.status);
+    ).then((resp) => resp.status);
     return resp;
   }
 
   async editUserDish(value, dishKey, userId) {
     const options = {
       method: "PUT",
-      body: JSON.stringify(value)
+      body: JSON.stringify(value),
     };
     const resp = await fetch(
       `${this.usersCatalog}/${userId}/UserDishes/${dishKey}.json`,
       options
-    ).then(resp => resp.status);
+    ).then((resp) => resp.status);
     return resp;
   }
 
   async deleteUserDish(dishKey, userId) {
     const options = {
-      method: "DELETE"
+      method: "DELETE",
     };
     const resp = await fetch(
       `${this.usersCatalog}/${userId}/UserDishes/${dishKey}.json`,
       options
-    ).then(resp => resp.status);
+    ).then((resp) => resp.status);
     return resp;
   }
 }

@@ -1,117 +1,102 @@
-import React from "react";
+import React, { useState } from "react";
 import classes from "./Auth.module.css";
 import Input from "../../UI/Input/Input";
 import Button from "../../UI/Button/Button";
 import is from "is_js";
-import { connect } from "react-redux";
-import { signUp, signIn } from "../../redux/AuthPage/actions";
-import { showMsg } from "../../redux/Modal/modalActionCreators";
+import { useDispatch } from "react-redux";
+import { signIn } from "../../store/Auth/signIn";
+import { signUp } from "../../store/Auth/signUp";
 
-class Auth extends React.Component {
-  state = {
+const Auth = () => {
+  const dispatch = useDispatch();
+
+  const [state, setState] = useState({
     login: null,
     isLoginIncorrect: true,
     isLoginInputChange: false,
     pass: null,
     isPassInputChange: false,
     isPassIncorrect: true,
-  };
+  });
 
-  onChangeLoginHendler = (evt) => {
+  const onChangeLoginHendler = (evt) => {
     evt.preventDefault();
-    this.setState({
-      ...this.state,
+    setState({
+      ...state,
       login: evt.target.value,
       isLoginInputChange: true,
       isLoginIncorrect: !is.email(evt.target.value),
     });
   };
 
-  onChangePassHendler = (evt) => {
+  const onChangePassHendler = (evt) => {
     evt.preventDefault();
-    this.setState({
-      ...this.state,
+    setState({
+      ...state,
       pass: evt.target.value,
       isPassInputChange: true,
       isPassIncorrect: evt.target.value.length < 6,
     });
   };
 
-  onFormSubmitHendler = (evt) => {
+  const onFormSubmitHendler = (evt) => {
     evt.preventDefault();
   };
 
-  onSighUpBtnClickHendler = (evt) => {
+  const onSighUpBtnClickHendler = (evt) => {
     evt.preventDefault();
-    if (!this.state.isLoginIncorrect && !this.state.isPassIncorrect) {
-      this.props.signUp(this.state.login, this.state.pass);
+    if (!state.isLoginIncorrect && !state.isPassIncorrect) {
+      dispatch(signUp({ login: state.login, pass: state.pass }));
     }
   };
 
-  onSighInBtnClickHendler = (evt) => {
+  const onSighInBtnClickHendler = (evt) => {
     evt.preventDefault();
-    if (!this.state.isLoginIncorrect && !this.state.isPassIncorrect) {
-      this.props.signIn(this.state.login, this.state.pass);
+    if (!state.isLoginIncorrect && !state.isPassIncorrect) {
+      dispatch(signIn({ login: state.login, pass: state.pass }));
     }
   };
 
-  render() {
-    return (
-      <div className={classes.Auth}>
-        <h1 style={{ textAlign: "center" }}>Авторизація</h1>
-        <form onSubmit={this.onFormSubmitHendler} className={classes.Form}>
-          <Input
-            labelText="Логін"
-            onInput={this.onChangeLoginHendler}
-            isRequired={true}
-            isInputInCorrect={
-              this.state.isLoginInputChange
-                ? this.state.isLoginIncorrect
-                : false
-            }
-            errorMsg="Невірний e-mail"
-          />
+  return (
+    <div className={classes.Auth}>
+      <h1 style={{ textAlign: "center" }}>Авторизація</h1>
+      <form onSubmit={onFormSubmitHendler} className={classes.Form}>
+        <Input
+          labelText="Логін"
+          onInput={onChangeLoginHendler}
+          isRequired={true}
+          isInputInCorrect={
+            state.isLoginInputChange ? state.isLoginIncorrect : false
+          }
+          errorMsg="Невірний e-mail"
+        />
 
-          <Input
-            labelText="Пароль"
-            onInput={this.onChangePassHendler}
-            isInputInCorrect={
-              this.state.isPassInputChange ? this.state.isPassIncorrect : false
-            }
-            errorMsg="Пароль повинен складатись мінімум із 6 символів"
-            isRequired={true}
+        <Input
+          labelText="Пароль"
+          onInput={onChangePassHendler}
+          isInputInCorrect={
+            state.isPassInputChange ? state.isPassIncorrect : false
+          }
+          errorMsg="Пароль повинен складатись мінімум із 6 символів"
+          isRequired={true}
+        />
+        <div className={classes.FormBtnContainer}>
+          <Button
+            type="submit"
+            text="Увійти"
+            color="green"
+            onClick={onSighInBtnClickHendler}
           />
-          <div className={classes.FormBtnContainer}>
-            <Button
-              type="submit"
-              text="Увійти"
-              color="green"
-              onClick={this.onSighInBtnClickHendler}
-            />
-            <Button
-              type="submit"
-              text="Зареєструватися"
-              color="blue"
-              onClick={this.onSighUpBtnClickHendler}
-            />
-          </div>
-        </form>
-      </div>
-    );
-  }
-}
+          <Button
+            type="submit"
+            text="Зареєструватися"
+            color="blue"
+            onClick={onSighUpBtnClickHendler}
+          />
+        </div>
+      </form>
+    </div>
+  );
+};
 
-function mapDispatchToProps(dispatch) {
-  return {
-    signUp: (email, pass) => {
-      dispatch(signUp(email, pass));
-    },
-    signIn: (email, pass) => {
-      dispatch(signIn(email, pass));
-    },
-    showMsg: (msgType, msg) => {
-      dispatch(showMsg(msgType, msg));
-    },
-  };
-}
-export default connect(null, mapDispatchToProps)(Auth);
+export default Auth;
