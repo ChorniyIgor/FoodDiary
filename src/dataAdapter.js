@@ -36,13 +36,14 @@ class DataAdapter {
         carbohydrates: reduceNumber(itemInfo.carbohydrates),
         fats: reduceNumber(itemInfo.fats),
         kkal: reduceNumber(itemInfo.kkal),
-        proteins: reduceNumber(itemInfo.proteins)
+        proteins: reduceNumber(itemInfo.proteins),
       };
 
       Object.assign(newData, {
-        [itemName]: { ...newItemInfo, key, isUserDish }
+        [itemName]: { ...newItemInfo, key, isUserDish },
       });
     }
+    console.log(newData);
 
     return newData;
   }

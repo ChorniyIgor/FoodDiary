@@ -7,7 +7,7 @@ import {
   loadMainFoodCatalog,
   loadUserFoodCatalog,
 } from "../../redux/DiaryPage/actions/foodCatalogActionCreators";
-import { loadUserDiary } from "../../redux/DiaryPage/actions/foodDiaryActionCreators";
+import { loadUserDiary } from "../../store/Diary/DiarySlice";
 import Preloader from "../../hoc/Preloader/Preloader";
 
 class Diary extends Component {

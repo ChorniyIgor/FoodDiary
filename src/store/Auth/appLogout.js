@@ -1,4 +1,4 @@
-import { logout } from "./AuthPageSlice";
+import { logout } from "./AuthSlice";
 
 export const appLogout = () => {
   localStorage.removeItem("logoutDate");

@@ -1,23 +1,89 @@
-import Firebase from "../../../Firebase";
-import DataAdapter from "../../../dataAdapter";
-import { showMsg } from "../../Modal/modalActionCreators";
+import { createSlice } from "@reduxjs/toolkit";
+import DataAdapter from "../../dataAdapter";
+import Firebase from "../../Firebase";
+import { showMsg } from "../Modal/ModalSlice";
 
-export const LOAD_USER_DIARY = "LOAD_USER_DIARY";
-export const ADD_DISH_TO_DIARY = "ADD_DISH_TO_DIARY";
-export const ADD_DAY_TO_DIARY = "ADD_DAY_TO_DIARY";
-export const EDIT_DISH_IN_DIARY = "EDIT_DISH_IN_DIARY";
-export const DELETE_DISH_FROM_DIARY = "DELETE_DISH_FROM_DIARY";
+const initialState = {
+  diary: [],
+  diaryIsLoading: false,
+};
 
-export function loadUserDiary() {
+const diarySlice = createSlice({
+  name: "@@diary",
+  initialState: initialState,
+  reducers: {
+    loadUserDiary: (state, action) => {
+      state.diary = action.payload;
+      state.diaryIsLoading = true;
+    },
+    addDishToDiary: (state, action) => {
+      const newState = [];
+      state.diary.forEach((el) => {
+        if (el.date !== action.payload.dateNow) {
+          newState.push(el);
+        } else {
+          newState.push({
+            ...el,
+            dishes: [...el.dishes, action.payload.dishProps],
+          });
+        }
+      });
+
+      state.diary = newState;
+    },
+    addDayToDiary: (state, action) => {
+      state.diary.push({
+        dishes: [],
+        showDishesList: false,
+        key: action.payload.key,
+        date: action.payload.date,
+      });
+    },
+    editDishInDiary: (state, action) => {
+      const newStateList = [...state.diary];
+      newStateList.forEach((dayItem) => {
+        if (dayItem.key === action.payload.dishInfo.keyOfList) {
+          dayItem.dishes.forEach((dish, index) => {
+            if (dish.key === action.payload.dishInfo.key) {
+              dayItem.dishes[index] = action.payload.dishInfo;
+            }
+          });
+        }
+      });
+
+      state.diary = newStateList;
+    },
+    deleteDishFromDiary: (state, action) => {
+      const newDayState = [...state.diary];
+      newDayState.forEach((dayItem) => {
+        if (dayItem.key === action.payload.listKey) {
+          dayItem.dishes.forEach((dish, index) => {
+            if (dish.key === action.payload.dishKey) {
+              dayItem.dishes.splice(index, 1);
+            }
+          });
+        }
+      });
+      state.diary = newDayState;
+    },
+  },
+});
+
+export const {
+  loadUserDiary: loadDiary,
+  addDishToDiary: addDish,
+  addDayToDiary,
+  editDishInDiary: editDish,
+  deleteDishFromDiary: deleteDish,
+} = diarySlice.actions;
+
+export const loadUserDiary = () => {
   return async (dispatch, getState) => {
     const state = getState();
     try {
       const userDiary = await Firebase.getUserDiary(state.Auth.userId);
       const adaptedData = DataAdapter.userDiary(userDiary);
-      dispatch({
-        type: LOAD_USER_DIARY,
-        userDiary: adaptedData,
-      });
+      dispatch(loadDiary(adaptedData));
     } catch (e) {
       console.log("loadUserFoodCatalog error", e);
       dispatch(
@@ -25,6 +91,14 @@ export function loadUserDiary() {
       );
     }
   };
+};
+
+function getDayElementByDate(diary, date) {
+  return (
+    diary.filter((el) => {
+      return el.date === date;
+    })[0] || []
+  );
 }
 
 function calculateDishParam(dishProps) {
@@ -42,15 +116,7 @@ function calculateDishParam(dishProps) {
   return newdishProps;
 }
 
-function getDayElementByDate(diary, date) {
-  return (
-    diary.filter((el) => {
-      return el.date === date;
-    })[0] || []
-  );
-}
-
-export function addDishToDiary(dishProps) {
+export const addDishToDiary = (dishProps) => {
   return async (dispatch, getState) => {
     try {
       const state = getState();
@@ -60,7 +126,7 @@ export function addDishToDiary(dishProps) {
       if (Array.isArray(dayElement)) {
         const res = await Firebase.sendNewDay(date, state.Auth.userId);
         dayKey = res.name;
-        dispatch(addDayToDiary(date, dayKey));
+        dispatch(addDayToDiary({ date, dayKey }));
       } else {
         dayKey = dayElement.key;
       }
@@ -71,20 +137,21 @@ export function addDishToDiary(dishProps) {
         date,
         state.Auth.userId
       );
-      dispatch({
-        type: ADD_DISH_TO_DIARY,
-        day: dayElement,
-        dishProps: { ...calcProps, key: dishKey.name },
-        dateNow: new Date().toDateString(),
-      });
+      dispatch(
+        addDish({
+          day: dayElement,
+          dishProps: { ...calcProps, key: dishKey.name },
+          dateNow: new Date().toDateString(),
+        })
+      );
       dispatch(showMsg("success", "Запис успішно додано у ваш щоденник"));
     } catch {
       dispatch(showMsg("error", "Щось пішло не так, спробуйте ще раз"));
     }
   };
-}
+};
 
-export function editDishInDiary(dishInfo) {
+export const editDishInDiary = (dishInfo) => {
   return async (dispatch, getState) => {
     const state = getState();
     const dishProps = calculateDishParam({
@@ -99,22 +166,21 @@ export function editDishInDiary(dishInfo) {
         dishInfo.dateOfList,
         state.Auth.userId
       );
-      dispatch({
-        type: EDIT_DISH_IN_DIARY,
-        dishInfo: {
-          ...dishInfo,
+      dispatch(
+        editDish({
+          dishInfo,
           ...calculateDishParam({ ...dishInfo, ...dishInfo.dishPropsPer100g }),
-        },
-      });
+        })
+      );
       dispatch(showMsg("success", "Запис у щоденнику успішно оновлено"));
     } catch (e) {
       console.log(e);
       dispatch(showMsg("error", "Щось пішло не так, спробуйте ще раз"));
     }
   };
-}
+};
 
-export function deleteDishFromDiary(props) {
+export const deleteDishFromDiary = (props) => {
   return async (dispatch, getState) => {
     const state = getState();
     try {
@@ -124,23 +190,18 @@ export function deleteDishFromDiary(props) {
         props.dateOfList,
         state.Auth.userId
       );
-      dispatch({
-        type: DELETE_DISH_FROM_DIARY,
-        listKey: props.keyOfList,
-        dishKey: props.dishKey,
-      });
+      dispatch(
+        deleteDish({
+          listKey: props.keyOfList,
+          dishKey: props.dishKey,
+        })
+      );
       dispatch(showMsg("success", "Запис успішно видалено зі щоденника"));
     } catch (e) {
       console.log(e);
       dispatch(showMsg("error", "Щось пішло не так, спробуйте ще раз"));
     }
   };
-}
+};
 
-export function addDayToDiary(date, key) {
-  return {
-    type: ADD_DAY_TO_DIARY,
-    date,
-    key,
-  };
-}
+export const DiaryReducer = diarySlice.reducer;

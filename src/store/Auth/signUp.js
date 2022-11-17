@@ -1,6 +1,6 @@
 import Firebase from "../../Firebase";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { showMsg } from "../../redux/Modal/modalActionCreators";
+import { showMsg } from "../../store/Modal/ModalSlice";
 import { saveLoginData } from "./saveLoginData";
 
 export const signUp = createAsyncThunk(

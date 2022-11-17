@@ -1,14 +1,14 @@
 import { combineReducers } from "redux";
-import foodDiary from "./DiaryPage/reducers/foodDiaryReducer";
 import foodCatalog from "./DiaryPage/reducers/foodCatalogReducer";
-import modalWindows from "./Modal/modalWindowsReducer";
-import { AuthReducer } from "../store/Auth/AuthPageSlice";
+import { AuthReducer } from "../store/Auth/AuthSlice";
+import { ModalReducer } from "../store/Modal/ModalSlice";
+import { DiaryReducer } from "../store/Diary/DiarySlice";
 
 const rootReducer = combineReducers({
   Auth: AuthReducer,
-  foodDiary,
+  foodDiary: DiaryReducer,
   foodCatalog,
-  modalWindows,
+  modalWindows: ModalReducer,
 });
 
 export default rootReducer;

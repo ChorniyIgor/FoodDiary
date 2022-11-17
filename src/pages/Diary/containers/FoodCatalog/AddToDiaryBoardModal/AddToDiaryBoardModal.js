@@ -2,14 +2,11 @@ import React from "react";
 import classes from "./AddToDiaryBoardModal.module.css";
 import Modal from "../../../../../hoc/Modal/Modal";
 import { connect } from "react-redux";
-import {
-  openModal,
-  closeModal,
-} from "../../../../../redux/Modal/modalActionCreators";
+import { openModal, closeModal } from "../../../../../store/Modal/ModalSlice";
 import {
   addDishToDiary,
   editDishInDiary,
-} from "../../../../../redux/DiaryPage/actions/foodDiaryActionCreators";
+} from "../../../../../store/Diary/DiarySlice";
 import Input from "../../../../../UI/Input/Input";
 import Button from "../../../../../UI/Button/Button";
 

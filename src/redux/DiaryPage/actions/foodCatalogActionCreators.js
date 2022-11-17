@@ -1,6 +1,6 @@
 import DataAdapter from "../../../dataAdapter";
 import Firebase from "../../../Firebase";
-import { showMsg } from "../../Modal/modalActionCreators";
+import { showMsg } from "../../../store/Modal/ModalSlice";
 
 export const LOAD_MAIN_FOOD_CATALOG = "LOAD_MAIN_FOOD_CATALOG";
 export const LOAD_USER_FOOD_CATALOG = "LOAD_USER_FOOD_CATALOG";

@@ -1,16 +1,16 @@
 import React from "react";
 import Modal from "../../../../../hoc/Modal/Modal";
 import { connect } from "react-redux";
-import { openModal, closeModal } from "../../../../../redux/Modal/modalActionCreators";
+import { openModal, closeModal } from "../../../../../store/Modal/ModalSlice";
 import {
   AddUserDish,
   FoodCatalogUpdate,
-  editUserDish
+  editUserDish,
 } from "../../../../../redux/DiaryPage/actions/foodCatalogActionCreators";
 import Input from "../../../../../UI/Input/Input";
 import Button from "../../../../../UI/Button/Button";
 
-const AddDishModal = props => {
+const AddDishModal = (props) => {
   const inputNameRef = React.createRef();
   const inputCaloriesRef = React.createRef();
   const inputProteinsRef = React.createRef();
@@ -29,8 +29,8 @@ const AddDishModal = props => {
         kkal,
         proteins,
         fats,
-        carbohydrates
-      }
+        carbohydrates,
+      },
     };
     if (props.isWithProps) newDish.key = props.dishItem.dishProps.key;
     return newDish;
@@ -73,7 +73,9 @@ const AddDishModal = props => {
           inputType="number"
           isRequired={true}
           min={0}
-          defaultValue={props.isWithProps ? props.dishItem.dishProps.proteins : 0}
+          defaultValue={
+            props.isWithProps ? props.dishItem.dishProps.proteins : 0
+          }
         />
         <Input
           labelText="Жири"
@@ -89,7 +91,9 @@ const AddDishModal = props => {
           inputType="number"
           isRequired={true}
           min={0}
-          defaultValue={props.isWithProps ? props.dishItem.dishProps.carbohydrates : 0}
+          defaultValue={
+            props.isWithProps ? props.dishItem.dishProps.carbohydrates : 0
+          }
         />
         <Button type="submit" text="Зберегти" color="green" />
         <Button text="Закрити" onClick={props.modalClose} />
@@ -102,7 +106,7 @@ function mapStateToProps(state) {
   return {
     show: state.modalWindows.AddDishModal.isOpen,
     dishItem: state.modalWindows.AddDishModal.props,
-    isWithProps: !!state.modalWindows.AddDishModal.props
+    isWithProps: !!state.modalWindows.AddDishModal.props,
     //  dishProps: state.modalWindows.AddDishModal.props
   };
 }
@@ -114,7 +118,7 @@ function mapDispatchToProps(dispatch) {
     modalClose: () => {
       dispatch(closeModal("AddDishModal"));
     },
-    addUserDish: dishItem => {
+    addUserDish: (dishItem) => {
       dispatch(AddUserDish(dishItem));
     },
     editUserDish: (lastItemName, dishItem) => {
@@ -122,10 +126,7 @@ function mapDispatchToProps(dispatch) {
     },
     FoodCatalogUpdate: () => {
       dispatch(FoodCatalogUpdate());
-    }
+    },
   };
 }
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(AddDishModal);
+export default connect(mapStateToProps, mapDispatchToProps)(AddDishModal);

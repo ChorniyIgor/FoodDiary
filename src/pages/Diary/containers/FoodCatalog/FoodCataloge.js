@@ -7,7 +7,7 @@ import {
 } from "../../../../redux/DiaryPage/actions/foodCatalogActionCreators";
 import AddDishModal from "./AddDishModal/AddDishModal";
 import AddDishToDiaryBoardModal from "./AddToDiaryBoardModal/AddToDiaryBoardModal";
-import { openModal } from "../../../../redux/Modal/modalActionCreators";
+import { openModal } from "../../../../store/Modal/ModalSlice";
 import Button from "../../../../UI/Button/Button";
 import Input from "../../../../UI/Input/Input";
 import classes from "./FoodCataloge.module.css";
@@ -55,7 +55,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(openModal("AddDishModal"));
     },
     foodCatalogUpdate: () => {
-      dispatch(FoodCatalogUpdate());
+      //dispatch(FoodCatalogUpdate());
     },
   };
 }

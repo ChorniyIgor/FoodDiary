@@ -1,4 +1,4 @@
-import { loginIn } from "./AuthPageSlice";
+import { loginIn } from "./AuthSlice";
 import { autoLogout } from "./autoLogout";
 
 export const autoLogin = () => {

@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { openModalWithProps } from "../../../../../../redux/Modal/modalActionCreators";
+import { openModalWithProps } from "../../../../../../store/Modal/ModalSlice";
 import classes from "./CatalogListItem.module.css";
 import { deleteUserDishItem } from "../../../../../../redux/DiaryPage/actions/foodCatalogActionCreators";
 
@@ -40,10 +40,15 @@ const CatalogListItem = (props) => {
 function mapDispatchToProps(dispatch) {
   return {
     AddDishToDiaryBoardModal: (props) => {
-      dispatch(openModalWithProps("AddDishToDiaryBoardModal", props));
+      dispatch(
+        openModalWithProps({
+          modal: "AddDishToDiaryBoardModal",
+          info: props,
+        })
+      );
     },
     EditDishModal: (props) => {
-      dispatch(openModalWithProps("AddDishModal", props));
+      dispatch(openModalWithProps({ modal: "AddDishModal", info: props }));
     },
     DeleteUserDish: (dishItem) => {
       dispatch(deleteUserDishItem(dishItem));

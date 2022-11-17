@@ -1,8 +1,8 @@
 import React from "react";
 import styles from "./DishesListItem.module.css";
 import { connect } from "react-redux";
-import { deleteDishFromDiary } from "../../../../../redux/DiaryPage/actions/foodDiaryActionCreators";
-import { openModalWithProps } from "../../../../../redux/Modal/modalActionCreators";
+import { deleteDishFromDiary } from "../../../../../store/Diary/DiarySlice";
+import { openModalWithProps } from "../../../../../store/Modal/ModalSlice";
 
 const DishesListItem = (props) => {
   const cls = [styles.DishItem, styles.ItemСolumn];
@@ -55,7 +55,9 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     editDishFromDiary: (props) => {
-      dispatch(openModalWithProps("AddDishToDiaryBoardModal", props));
+      dispatch(
+        openModalWithProps({ modal: "AddDishToDiaryBoardModal", info: props })
+      );
     },
     deleteDishFromDiary: (props) => {
       dispatch(deleteDishFromDiary(props));
