@@ -2,9 +2,9 @@ import React from "react";
 import FoodCatalogList from "./FoodCatalogList/FoodCatalogList";
 import { connect } from "react-redux";
 import {
-  FoodCatalogSerch,
   FoodCatalogUpdate,
-} from "../../../../redux/DiaryPage/actions/foodCatalogActionCreators";
+  FoodCatalogSerch,
+} from "../../../../store/FoodCatalog/FoodCatalogSlice";
 import AddDishModal from "./AddDishModal/AddDishModal";
 import AddDishToDiaryBoardModal from "./AddToDiaryBoardModal/AddToDiaryBoardModal";
 import { openModal } from "../../../../store/Modal/ModalSlice";
@@ -55,7 +55,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(openModal("AddDishModal"));
     },
     foodCatalogUpdate: () => {
-      //dispatch(FoodCatalogUpdate());
+      dispatch(FoodCatalogUpdate());
     },
   };
 }

@@ -3,10 +3,8 @@ import ReactDOM from "react-dom/client";
 import styles from "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import { createStore, applyMiddleware } from "redux";
-import rootReduser from "./redux/rootReducer";
+import rootReduser from "./store/rootReducer";
 import { Provider } from "react-redux";
-import reduxThunk from "redux-thunk";
 import { BrowserRouter } from "react-router-dom";
 import { configureStore } from "@reduxjs/toolkit";
 

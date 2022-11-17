@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { openModalWithProps } from "../../../../../../store/Modal/ModalSlice";
 import classes from "./CatalogListItem.module.css";
-import { deleteUserDishItem } from "../../../../../../redux/DiaryPage/actions/foodCatalogActionCreators";
+import { deleteUserDishItem } from "../../../../../../store/FoodCatalog/FoodCatalogSlice";
 
 const CatalogListItem = (props) => {
   function onListItemClickHendler() {

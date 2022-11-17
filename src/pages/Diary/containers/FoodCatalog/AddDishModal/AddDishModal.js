@@ -2,12 +2,11 @@ import React from "react";
 import Modal from "../../../../../hoc/Modal/Modal";
 import { connect } from "react-redux";
 import { openModal, closeModal } from "../../../../../store/Modal/ModalSlice";
-import {
-  AddUserDish,
-  FoodCatalogUpdate,
-  editUserDish,
-} from "../../../../../redux/DiaryPage/actions/foodCatalogActionCreators";
+import { AddUserDish } from "../../../../../store/FoodCatalog/FoodCatalogSlice";
+import { editUserDish } from "../../../../../store/FoodCatalog/FoodCatalogSlice";
+
 import Input from "../../../../../UI/Input/Input";
+import { FoodCatalogUpdate } from "../../../../../store/FoodCatalog/FoodCatalogSlice";
 import Button from "../../../../../UI/Button/Button";
 
 const AddDishModal = (props) => {
@@ -120,6 +119,7 @@ function mapDispatchToProps(dispatch) {
     },
     addUserDish: (dishItem) => {
       dispatch(AddUserDish(dishItem));
+      // dispatch(AddUserDish(dishItem));
     },
     editUserDish: (lastItemName, dishItem) => {
       dispatch(editUserDish(lastItemName, dishItem));
