@@ -1,16 +1,22 @@
 import React from "react";
 import styles from "./DishesListItem.module.css";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { deleteDishFromDiary } from "../../../../../store/Diary/DiarySlice";
 import { openModalWithProps } from "../../../../../store/Modal/ModalSlice";
 
 const DishesListItem = (props) => {
   const cls = [styles.DishItem, styles.ItemСolumn];
+  const dispatch = useDispatch();
+  const { userDishes, dishes } = useSelector((state) => state.foodCatalog);
+  const DishesList = {
+    ...userDishes,
+    ...dishes,
+  };
 
   function onEditBtnClickHendler() {
-    props.editDishFromDiary({
+    editDishFromDiary({
       ...props.dish,
-      dishPropsPer100g: props.DishesList[props.dish.dishName],
+      dishPropsPer100g: DishesList[props.dish.dishName],
       isEdit: true,
       keyOfList: props.keyOfList,
       dateOfList: props.dateOfList,
@@ -18,12 +24,20 @@ const DishesListItem = (props) => {
   }
 
   function onDeleteBtnClickHendler() {
-    props.deleteDishFromDiary({
-      dishKey: props.dish.key,
-      dateOfList: props.dateOfList,
-      keyOfList: props.keyOfList,
-    });
+    dispatch(
+      deleteDishFromDiary({
+        dishKey: props.dish.key,
+        dateOfList: props.dateOfList,
+        keyOfList: props.keyOfList,
+      })
+    );
   }
+
+  const editDishFromDiary = (props) => {
+    dispatch(
+      openModalWithProps({ modal: "AddDishToDiaryBoardModal", info: props })
+    );
+  };
 
   return (
     <li className={cls.join(" ")}>
@@ -43,26 +57,4 @@ const DishesListItem = (props) => {
   );
 };
 
-function mapStateToProps(state) {
-  return {
-    DishesList: {
-      ...state.foodCatalog.userDishes,
-      ...state.foodCatalog.dishes,
-    },
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    editDishFromDiary: (props) => {
-      dispatch(
-        openModalWithProps({ modal: "AddDishToDiaryBoardModal", info: props })
-      );
-    },
-    deleteDishFromDiary: (props) => {
-      dispatch(deleteDishFromDiary(props));
-    },
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(DishesListItem);
+export default DishesListItem;

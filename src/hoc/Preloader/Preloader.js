@@ -1,7 +1,7 @@
 import React from "react";
 import classes from "./Preloader.module.css";
 
-const Preloader = (props) => {
+const Preloader = () => {
   return (
     <div className={classes.Overloy}>
       <div className={classes.PreloaderShow}>

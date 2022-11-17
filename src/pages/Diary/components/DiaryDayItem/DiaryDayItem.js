@@ -1,19 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import DishesListItem from "../../containers/MainDiaryBoard/DishesListItem/DishesListItem";
 import styles from "./DiaryDayItem.module.css";
 
-class DiaryItem extends React.Component {
-  state = {
-    showDishesList: false,
+const DiaryItem = (props) => {
+  const [showDishesList, setShowDishesList] = useState(false);
+
+  const onDayToggleClick = () => {
+    setShowDishesList((state) => !state);
   };
 
-  onDayToggleClick = () => {
-    this.setState({
-      showDishesList: !this.state.showDishesList,
-    });
-  };
-
-  getTotal = (dishes) => {
+  const getTotal = (dishes) => {
     function getSumm(obj, prop) {
       return dishes
         .reduce((summ, current) => {
@@ -35,9 +31,9 @@ class DiaryItem extends React.Component {
     );
   };
 
-  dishesList = (dishes) => {
+  const dishesList = (dishes) => {
     const cls = [styles.DishList];
-    this.state.showDishesList
+    showDishesList
       ? cls.push(styles.DishListOpen)
       : cls.push(styles.DishListHide);
     return (
@@ -58,28 +54,26 @@ class DiaryItem extends React.Component {
               styles={styles.ListTable}
               dish={dish}
               key={i}
-              dateOfList={this.props.dateOfList}
-              keyOfList={this.props.keyOfList}
+              dateOfList={props.dateOfList}
+              keyOfList={props.keyOfList}
             />
           );
         })}
-        {this.getTotal(dishes)}
+        {getTotal(dishes)}
       </ul>
     );
   };
 
-  render() {
-    const cls = [styles.DayToggle];
-    this.state.showDishesList ? cls.push(styles.DayToggleOpen) : cls.push();
-    return (
-      <li className={styles.DayItem}>
-        <button onClick={this.onDayToggleClick} className={cls.join(" ")}>
-          {this.props.dateOfList}
-        </button>
-        {this.dishesList(this.props.foodList)}
-      </li>
-    );
-  }
-}
+  const cls = [styles.DayToggle];
+  showDishesList ? cls.push(styles.DayToggleOpen) : cls.push();
+  return (
+    <li className={styles.DayItem}>
+      <button onClick={onDayToggleClick} className={cls.join(" ")}>
+        {props.dateOfList}
+      </button>
+      {dishesList(props.foodList)}
+    </li>
+  );
+};
 
 export default DiaryItem;

@@ -1,10 +1,11 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import { openModalWithProps } from "../../../../../../store/Modal/ModalSlice";
 import classes from "./CatalogListItem.module.css";
 import { deleteUserDishItem } from "../../../../../../store/FoodCatalog/FoodCatalogSlice";
 
 const CatalogListItem = (props) => {
+  const dispatch = useDispatch();
   function onListItemClickHendler() {
     const info = {
       dishName: props.item.name,
@@ -13,16 +14,33 @@ const CatalogListItem = (props) => {
       fats: props.item.dishProps.fats,
       carbohydrates: props.item.dishProps.carbohydrates,
     };
-    props.AddDishToDiaryBoardModal(info);
+    AddDishToDiaryBoardModal(info);
   }
 
   function onEditBtnClickhendler() {
-    props.EditDishModal(props.item);
+    EditDishModal(props.item);
   }
 
   function onDeleteBtnClickhendler() {
-    props.DeleteUserDish(props.item);
+    DeleteUserDish(props.item);
   }
+
+  const AddDishToDiaryBoardModal = (props) => {
+    dispatch(
+      openModalWithProps({
+        modal: "AddDishToDiaryBoardModal",
+        info: props,
+      })
+    );
+  };
+
+  const EditDishModal = (props) => {
+    dispatch(openModalWithProps({ modal: "AddDishModal", info: props }));
+  };
+
+  const DeleteUserDish = (dishItem) => {
+    dispatch(deleteUserDishItem(dishItem));
+  };
 
   return props.item.dishProps.isUserDish ? (
     <li className={classes.CatalogListItem}>
@@ -37,23 +55,4 @@ const CatalogListItem = (props) => {
   );
 };
 
-function mapDispatchToProps(dispatch) {
-  return {
-    AddDishToDiaryBoardModal: (props) => {
-      dispatch(
-        openModalWithProps({
-          modal: "AddDishToDiaryBoardModal",
-          info: props,
-        })
-      );
-    },
-    EditDishModal: (props) => {
-      dispatch(openModalWithProps({ modal: "AddDishModal", info: props }));
-    },
-    DeleteUserDish: (dishItem) => {
-      dispatch(deleteUserDishItem(dishItem));
-    },
-  };
-}
-
-export default connect(null, mapDispatchToProps)(CatalogListItem);
+export default CatalogListItem;

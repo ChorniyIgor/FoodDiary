@@ -1,9 +1,9 @@
 import React from "react";
-import { connect, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import DiaryDayItem from "../../components/DiaryDayItem/DiaryDayItem";
 import styles from "./MainDiaryBoard.module.css";
 
-const MainBoard = (props) => {
+const MainBoard = () => {
   const foodDiary = useSelector((state) => state.foodDiary.diary);
 
   let sortedByDateDiary = [...foodDiary].sort((a, b) => {
@@ -32,10 +32,4 @@ const MainBoard = (props) => {
   );
 };
 
-function mapStateToProps(state) {
-  return {
-    foodDiary: state.foodDiary.diary,
-  };
-}
-
-export default connect(mapStateToProps)(MainBoard);
+export default MainBoard;

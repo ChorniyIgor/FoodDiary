@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useRef } from "react";
 import Modal from "../../../../../hoc/Modal/Modal";
-import { connect } from "react-redux";
-import { openModal, closeModal } from "../../../../../store/Modal/ModalSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { closeModal } from "../../../../../store/Modal/ModalSlice";
 import { AddUserDish } from "../../../../../store/FoodCatalog/FoodCatalogSlice";
 import { editUserDish } from "../../../../../store/FoodCatalog/FoodCatalogSlice";
 
@@ -10,11 +10,17 @@ import { FoodCatalogUpdate } from "../../../../../store/FoodCatalog/FoodCatalogS
 import Button from "../../../../../UI/Button/Button";
 
 const AddDishModal = (props) => {
-  const inputNameRef = React.createRef();
-  const inputCaloriesRef = React.createRef();
-  const inputProteinsRef = React.createRef();
-  const inputFatsRef = React.createRef();
-  const inputCarbohydratesRef = React.createRef();
+  const { isOpen: show, props: dishItem } = useSelector(
+    (state) => state.modalWindows.AddDishModal
+  );
+  const isWithProps = !!dishItem;
+  const dispatch = useDispatch();
+
+  const inputNameRef = useRef();
+  const inputCaloriesRef = useRef();
+  const inputProteinsRef = useRef();
+  const inputFatsRef = useRef();
+  const inputCarbohydratesRef = useRef();
 
   const getDishPropsObj = () => {
     const dishName = inputNameRef.current.value;
@@ -31,24 +37,28 @@ const AddDishModal = (props) => {
         carbohydrates,
       },
     };
-    if (props.isWithProps) newDish.key = props.dishItem.dishProps.key;
+    if (isWithProps) newDish.key = dishItem.dishProps.key;
     return newDish;
   };
 
   function onFormSubmitHendler(evt) {
     evt.preventDefault();
-    if (props.isWithProps) {
+    if (isWithProps) {
       console.log("edit");
-      props.editUserDish(props.dishItem.name, getDishPropsObj());
+      dispatch(editUserDish(dishItem.name, getDishPropsObj()));
     } else {
-      props.addUserDish(getDishPropsObj());
+      dispatch(AddUserDish(getDishPropsObj()));
     }
-    props.FoodCatalogUpdate();
-    props.modalClose();
+    dispatch(FoodCatalogUpdate());
+    dispatch(closeModal("AddDishModal"));
   }
 
-  return props.show ? (
-    <Modal onClose={props.modalClose}>
+  const onModalCloseHandler = () => {
+    dispatch(closeModal("AddDishModal"));
+  };
+
+  return show ? (
+    <Modal onClose={onModalCloseHandler}>
       <h1>Додати нову страву</h1>
       <form onSubmit={onFormSubmitHendler}>
         <Input
@@ -56,7 +66,7 @@ const AddDishModal = (props) => {
           inputRefer={inputNameRef}
           isRequired={true}
           autoFocus={true}
-          defaultValue={props.isWithProps ? props.dishItem.name : ""}
+          defaultValue={isWithProps ? dishItem.name : ""}
         />
         <Input
           labelText="Калорійність"
@@ -64,7 +74,7 @@ const AddDishModal = (props) => {
           inputType="number"
           isRequired={true}
           min={0}
-          defaultValue={props.isWithProps ? props.dishItem.dishProps.kkal : 0}
+          defaultValue={isWithProps ? dishItem.dishProps.kkal : 0}
         />
         <Input
           labelText="Білки"
@@ -72,9 +82,7 @@ const AddDishModal = (props) => {
           inputType="number"
           isRequired={true}
           min={0}
-          defaultValue={
-            props.isWithProps ? props.dishItem.dishProps.proteins : 0
-          }
+          defaultValue={isWithProps ? dishItem.dishProps.proteins : 0}
         />
         <Input
           labelText="Жири"
@@ -82,7 +90,7 @@ const AddDishModal = (props) => {
           inputType="number"
           isRequired={true}
           min={0}
-          defaultValue={props.isWithProps ? props.dishItem.dishProps.fats : 0}
+          defaultValue={isWithProps ? dishItem.dishProps.fats : 0}
         />
         <Input
           labelText="Вуглеводи"
@@ -90,43 +98,13 @@ const AddDishModal = (props) => {
           inputType="number"
           isRequired={true}
           min={0}
-          defaultValue={
-            props.isWithProps ? props.dishItem.dishProps.carbohydrates : 0
-          }
+          defaultValue={isWithProps ? dishItem.dishProps.carbohydrates : 0}
         />
         <Button type="submit" text="Зберегти" color="green" />
-        <Button text="Закрити" onClick={props.modalClose} />
+        <Button text="Закрити" onClick={onModalCloseHandler} />
       </form>
     </Modal>
   ) : null;
 };
 
-function mapStateToProps(state) {
-  return {
-    show: state.modalWindows.AddDishModal.isOpen,
-    dishItem: state.modalWindows.AddDishModal.props,
-    isWithProps: !!state.modalWindows.AddDishModal.props,
-    //  dishProps: state.modalWindows.AddDishModal.props
-  };
-}
-function mapDispatchToProps(dispatch) {
-  return {
-    modalOpen: () => {
-      dispatch(openModal("AddDishModal"));
-    },
-    modalClose: () => {
-      dispatch(closeModal("AddDishModal"));
-    },
-    addUserDish: (dishItem) => {
-      dispatch(AddUserDish(dishItem));
-      // dispatch(AddUserDish(dishItem));
-    },
-    editUserDish: (lastItemName, dishItem) => {
-      dispatch(editUserDish(lastItemName, dishItem));
-    },
-    FoodCatalogUpdate: () => {
-      dispatch(FoodCatalogUpdate());
-    },
-  };
-}
-export default connect(mapStateToProps, mapDispatchToProps)(AddDishModal);
+export default AddDishModal;

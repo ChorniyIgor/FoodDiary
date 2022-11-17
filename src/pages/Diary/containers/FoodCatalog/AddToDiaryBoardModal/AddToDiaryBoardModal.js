@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useRef } from "react";
 import classes from "./AddToDiaryBoardModal.module.css";
 import Modal from "../../../../../hoc/Modal/Modal";
-import { connect } from "react-redux";
-import { openModal, closeModal } from "../../../../../store/Modal/ModalSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { closeModal } from "../../../../../store/Modal/ModalSlice";
 import {
   addDishToDiary,
   editDishInDiary,
@@ -11,37 +11,46 @@ import Input from "../../../../../UI/Input/Input";
 import Button from "../../../../../UI/Button/Button";
 
 const AddDishToDiaryBoardModal = (props) => {
-  const inputWeight = React.createRef();
-  function onAddDishDiaryClickHendler() {
-    if (props.dishProps.isEdit) {
+  const dispatch = useDispatch();
+  const inputWeight = useRef();
+  const { isOpen: show, props: dishProps } = useSelector(
+    (state) => state.modalWindows.AddDishToDiaryBoardModal
+  );
+
+  const onAddDishDiaryClickHendler = () => {
+    if (dishProps.isEdit) {
       const dishInfo = {
-        ...props.dishProps,
+        ...dishProps,
         dishWeight: +inputWeight.current.value,
       };
-      props.editDishInDiary(dishInfo);
+      dispatch(editDishInDiary(dishInfo));
     } else {
       const dishInfo = {
-        ...props.dishProps,
+        ...dishProps,
         dishWeight: +inputWeight.current.value,
       };
-      props.addDishToDiary(dishInfo);
+      dispatch(addDishToDiary(dishInfo));
     }
-  }
+  };
 
-  function formSubmitHendler(evt) {
+  const formSubmitHendler = (evt) => {
     evt.preventDefault();
     onAddDishDiaryClickHendler();
-    props.modalClose();
-  }
+    dispatch(closeModal("AddDishToDiaryBoardModal"));
+  };
 
-  return props.show ? (
-    <Modal onClose={props.modalClose}>
-      <h1 className={classes.BoardHeader}>{props.dishProps.dishName}</h1>
+  const onModalCloseHandler = () => {
+    dispatch(closeModal("AddDishToDiaryBoardModal"));
+  };
+
+  return show ? (
+    <Modal onClose={onModalCloseHandler}>
+      <h1 className={classes.BoardHeader}>{dishProps.dishName}</h1>
       <div className={classes.BoardInfo}>
-        <p>Калорійність: {props.dishProps.kkal}</p>
-        <p>Білки: {props.dishProps.proteins}</p>
-        <p>Жири: {props.dishProps.fats}</p>
-        <p>Вуглеводи: {props.dishProps.carbohydrates}</p>
+        <p>Калорійність: {dishProps.kkal}</p>
+        <p>Білки: {dishProps.proteins}</p>
+        <p>Жири: {dishProps.fats}</p>
+        <p>Вуглеводи: {dishProps.carbohydrates}</p>
       </div>
       <form onSubmit={formSubmitHendler}>
         <Input
@@ -50,44 +59,19 @@ const AddDishToDiaryBoardModal = (props) => {
           inputType="number"
           isRequired={true}
           min={1}
-          defaultValue={props.dishProps.dishWeight || 100}
+          defaultValue={dishProps.dishWeight || 100}
           autoFocus={true}
         />
-        {props.dishProps.isEdit ? (
+        {dishProps.isEdit ? (
           <Button type="submit" text="Зберегти зміни" color="green" />
         ) : (
           <Button type="submit" text="Додати у щоденник" color="green" />
         )}
 
-        <Button text="Закрити" onClick={props.modalClose} />
+        <Button text="Закрити" onClick={onModalCloseHandler} />
       </form>
     </Modal>
   ) : null;
 };
 
-function mapStateToProps(state) {
-  return {
-    show: state.modalWindows.AddDishToDiaryBoardModal.isOpen,
-    dishProps: state.modalWindows.AddDishToDiaryBoardModal.props,
-  };
-}
-function mapDispatchToProps(dispatch) {
-  return {
-    modalOpen: () => {
-      dispatch(openModal("AddDishToDiaryBoardModal"));
-    },
-    modalClose: () => {
-      dispatch(closeModal("AddDishToDiaryBoardModal"));
-    },
-    addDishToDiary: (dishInfo) => {
-      dispatch(addDishToDiary(dishInfo));
-    },
-    editDishInDiary: (dishInfo) => {
-      dispatch(editDishInDiary(dishInfo));
-    },
-  };
-}
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(AddDishToDiaryBoardModal);
+export default AddDishToDiaryBoardModal;

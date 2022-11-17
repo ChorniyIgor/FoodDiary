@@ -1,16 +1,18 @@
 import React from "react";
 import classes from "./InfoModal.module.css";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 
-const InfoModal = (props) => {
-  if (props.infoModal.isOpen) {
-    switch (props.infoModal.modalType) {
+const InfoModal = () => {
+  const infoModal = useSelector((state) => state.modalWindows.infoModal);
+
+  if (infoModal.isOpen) {
+    switch (infoModal.modalType) {
       case "success":
         return (
           <div
             className={[classes.ModalWrap, classes.ModalWrapSuccess].join(" ")}
           >
-            <p>{props.infoModal.modalMsg}</p>
+            <p>{infoModal.modalMsg}</p>
           </div>
         );
       case "error":
@@ -18,7 +20,7 @@ const InfoModal = (props) => {
           <div
             className={[classes.ModalWrap, classes.ModalWrapError].join(" ")}
           >
-            <p>{props.infoModal.modalMsg}</p>
+            <p>{infoModal.modalMsg}</p>
           </div>
         );
       default:
@@ -26,13 +28,5 @@ const InfoModal = (props) => {
     }
   } else return null;
 };
-function mapStateToProps(state) {
-  return {
-    infoModal: state.modalWindows.infoModal,
-  };
-}
-function mapDispatchToProps(dispatch) {
-  return {};
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(InfoModal);
+export default InfoModal;
