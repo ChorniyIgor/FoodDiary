@@ -43,7 +43,6 @@ class DataAdapter {
         [itemName]: { ...newItemInfo, key, isUserDish },
       });
     }
-    console.log(newData);
 
     return newData;
   }

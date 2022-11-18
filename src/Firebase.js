@@ -23,15 +23,13 @@ class Firebase {
     try {
       const resp = await fetch(url, options);
       const result = await resp.json();
-      console.log(result);
 
-      if (resp.status === 200) {
-        return result;
-      } else {
-        return result.error.message;
+      if (resp.status !== 200) {
+        throw new Error(result.error.message);
       }
+      return result;
     } catch (error) {
-      throw new Error(error);
+      throw new Error(error.message);
     }
   }
 

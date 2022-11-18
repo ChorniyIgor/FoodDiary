@@ -2,34 +2,23 @@ import Firebase from "../../Firebase";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { showMsg } from "../../store/Modal/ModalSlice";
 import { saveLoginData } from "./saveLoginData";
+import { userMessagesMap } from "../../userMessagesMap";
 
 export const signIn = createAsyncThunk(
-  "@@auth/SIGN_IN",
+  "@@auth/signIn",
   async ({ login, pass }, { dispatch }) => {
     try {
-      console.log(login, pass);
       const res = await Firebase.userAuth(login, pass, true);
 
-      switch (res) {
-        case "EMAIL_NOT_FOUND":
-          dispatch(showMsg("error", `E-mail введено не вірно`));
-          break;
-        case "INVALID_PASSWORD":
-          dispatch(showMsg("error", `Пароль введено не вірно`));
-          break;
-        case "MISSING_EMAIL":
-          dispatch(showMsg("error", `Емейл не введено`));
-          break;
-        case "MISSING_PASSWORD":
-          dispatch(showMsg("error", `Пароль не введено`));
-          break;
-        default:
-          dispatch(showMsg("success", `Ви успішно авторизувались`));
-          dispatch(saveLoginData(res));
+      if (res.email === login) {
+        const msg = userMessagesMap["SUCCESS_AUTH"];
+        dispatch(showMsg(msg.type, msg.msg));
+        dispatch(saveLoginData(res));
       }
-    } catch (e) {
-      console.log(e);
-      dispatch(showMsg("error", `Щось пішло не так. Спробуйте ще раз`));
+    } catch (error) {
+      const errorMsg =
+        userMessagesMap[error.message] || userMessagesMap["FAILED_TO_FETCH"];
+      dispatch(showMsg(errorMsg.type, errorMsg.msg));
     }
   }
 );

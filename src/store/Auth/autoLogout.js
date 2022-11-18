@@ -1,7 +1,7 @@
 import { appLogout } from "./appLogout";
 
-export const autoLogout = (time) => () => {
+export const autoLogout = (time) => (dispatch) => {
   setTimeout(() => {
-    appLogout();
+    dispatch(appLogout());
   }, time * 10000);
 };

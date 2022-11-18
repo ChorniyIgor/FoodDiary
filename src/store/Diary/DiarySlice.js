@@ -80,6 +80,7 @@ export const {
 export const loadUserDiary = () => {
   return async (dispatch, getState) => {
     const state = getState();
+    if (!state.Auth.isLogged) return;
     try {
       const userDiary = await Firebase.getUserDiary(state.Auth.userId);
       const adaptedData = DataAdapter.userDiary(userDiary);

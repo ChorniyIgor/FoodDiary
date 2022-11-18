@@ -20,8 +20,14 @@
 
 .MainTitle {
   text-align: center;
-  margin-top: 0;
-  margin-bottom: 0;
+  margin-top: 0px;
+  margin-bottom: 30px;
+  font-size: 60px;
+  font-weight: 400;
+}
+
+.Main h2 {
+  font-size: 18px;
 }
 
 .Container q {

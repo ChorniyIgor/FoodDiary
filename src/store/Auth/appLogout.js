@@ -1,10 +1,8 @@
 import { logout } from "./AuthSlice";
 
-export const appLogout = () => {
+export const appLogout = () => (dispatch) => {
   localStorage.removeItem("logoutDate");
   localStorage.removeItem("localId");
 
-  return (dispatch) => {
-    dispatch(logout());
-  };
+  dispatch(logout());
 };

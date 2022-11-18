@@ -6,7 +6,6 @@ import { AddUserDish } from "../../../../../store/FoodCatalog/FoodCatalogSlice";
 import { editUserDish } from "../../../../../store/FoodCatalog/FoodCatalogSlice";
 
 import Input from "../../../../../UI/Input/Input";
-import { FoodCatalogUpdate } from "../../../../../store/FoodCatalog/FoodCatalogSlice";
 import Button from "../../../../../UI/Button/Button";
 
 const AddDishModal = (props) => {
@@ -49,7 +48,6 @@ const AddDishModal = (props) => {
     } else {
       dispatch(AddUserDish(getDishPropsObj()));
     }
-    dispatch(FoodCatalogUpdate());
     dispatch(closeModal("AddDishModal"));
   }
 

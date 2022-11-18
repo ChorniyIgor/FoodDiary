@@ -6,7 +6,7 @@ import DataAdapter from "../../dataAdapter";
 const initialState = {
   dishes: {},
   userDishes: {},
-  serchVal: [],
+  searchVal: "",
   userDishesIsLoading: false,
   mainDishesIsLoading: false,
 };
@@ -23,9 +23,10 @@ const foodCatalogSlice = createSlice({
       state.userDishes = action.payload;
       state.userDishesIsLoading = true;
     },
-    foodSearch: (state, action) => {
-      state.serchVal = action.payload;
+    setCatalogSearchString: (state, action) => {
+      state.searchVal = action.payload;
     },
+
     addCustomUserDish: (state, action) => {
       state.userDishes[action.payload.name] = action.payload.data;
     },
@@ -52,18 +53,19 @@ const foodCatalogSlice = createSlice({
 export const {
   loadMainFoodCatalog: loadMainCatalog,
   loadUserFoodCatalog: loadUserCatalog,
-  foodSearch,
   addCustomUserDish,
   editCustomUserDish,
+  setCatalogSearchString,
   deleteCustomUserDish,
 } = foodCatalogSlice.actions;
 
 export function loadMainFoodCatalog() {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
+    const state = getState();
+    if (!state.Auth.isLogged) return;
     try {
       const mainFoodCatalog = await Firebase.getMainFoodCatalog();
       dispatch(loadMainCatalog(DataAdapter.dishes(mainFoodCatalog)));
-      dispatch(FoodCatalogUpdate());
     } catch (e) {
       console.log("loadUserFoodCatalog error", e);
       dispatch(
@@ -76,12 +78,15 @@ export function loadMainFoodCatalog() {
 export function loadUserFoodCatalog() {
   return async (dispatch, getState) => {
     const state = getState();
+
+    if (!state.Auth.isLogged) return;
+
     try {
       const userFoodCatalog = await Firebase.getUserFoodCatalog(
         state.Auth.userId
       );
       dispatch(loadUserCatalog(DataAdapter.dishes(userFoodCatalog, true)));
-      dispatch(FoodCatalogUpdate());
+
       return userFoodCatalog;
     } catch (e) {
       console.log("loadUserFoodCatalog error", e);
@@ -93,7 +98,7 @@ export function loadUserFoodCatalog() {
 }
 
 //search
-function getFullFoodCatalog(state) {
+export const getFullFoodCatalog = (state) => {
   function getDishesWithKey(data) {
     const userDishes = [];
     for (let dish in data) {
@@ -105,29 +110,11 @@ function getFullFoodCatalog(state) {
 
     return userDishes;
   }
-
   return [
     ...getDishesWithKey(state.foodCatalog.userDishes),
     ...getDishesWithKey(state.foodCatalog.dishes),
   ];
-}
-
-export function FoodCatalogSerch(serchVal) {
-  return (dispatch, getState) => {
-    const state = getState();
-    const actualFoodList = getFullFoodCatalog(state);
-
-    const serchDish = actualFoodList.filter((dish) => {
-      return dish.name.toUpperCase().indexOf(serchVal.toUpperCase()) >= 0;
-    });
-
-    dispatch(foodSearch(serchDish));
-  };
-}
-
-export function FoodCatalogUpdate() {
-  return FoodCatalogSerch("");
-}
+};
 
 export const AddUserDish = (newDish) => {
   console.log("newDish", newDish);
@@ -142,7 +129,6 @@ export const AddUserDish = (newDish) => {
           data: { ...newDish[dishName], key: key.name, isUserDish: true },
         })
       );
-      dispatch(FoodCatalogUpdate());
       dispatch(showMsg("success", "Страву успішно додано до вашого каталогу"));
     } catch (error) {
       console.log(error);
@@ -164,7 +150,6 @@ export function editUserDish(lastItemName, dishItem) {
           dishItem,
         })
       );
-      dispatch(FoodCatalogUpdate());
       dispatch(showMsg("success", "Інформацію про страву успішно оновлено"));
     } catch (e) {
       console.log(e);
@@ -179,7 +164,6 @@ export function deleteUserDishItem(dishItem) {
     try {
       await Firebase.deleteUserDish(dishItem.dishProps.key, state.Auth.userId);
       dispatch(deleteCustomUserDish(dishItem.name));
-      dispatch(FoodCatalogUpdate());
       dispatch(showMsg("success", "Страву видалено"));
     } catch (e) {
       console.log(e);

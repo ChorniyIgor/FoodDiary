@@ -11,14 +11,25 @@ import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useEffect } from "react";
 import { autoLogin } from "./store/Auth/autoLogin";
+import {
+  loadMainFoodCatalog,
+  loadUserFoodCatalog,
+} from "./store/FoodCatalog/FoodCatalogSlice";
+import { loadUserDiary } from "./store/Diary/DiarySlice";
 
 const App = () => {
   const dispatch = useDispatch();
   const isLogged = useSelector((state) => state.Auth.isLogged);
 
   useEffect(() => {
-    dispatch(autoLogin());
-  }, [dispatch]);
+    if (isLogged) {
+      dispatch(loadMainFoodCatalog());
+      dispatch(loadUserFoodCatalog());
+      dispatch(loadUserDiary());
+    } else {
+      dispatch(autoLogin());
+    }
+  }, [dispatch, isLogged]);
 
   return (
     <React.Fragment>

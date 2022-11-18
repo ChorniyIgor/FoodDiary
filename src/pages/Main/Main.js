@@ -8,20 +8,21 @@ const Main = () => {
   return (
     <div className={classes.Main}>
       <div className={classes.Container}>
-        <h1 className={classes.MainTitle}>Free Food Diary</h1>
-        <h2>ваш персональний щоденник харчування</h2>
+        <h2>Your Personal</h2>
+        <h1 className={classes.MainTitle}>Food Diary</h1>
+
         <q>
-          З тих пір, як люди навчилися варити їжу, вони їдять удвічі більше, ніж
-          вимагає природа.
+          Ever since humans learned how to cook food, they have been eating
+          twice as much as nature requires.
         </q>
-        <cite> Б. Франклін;</cite>
+        <cite>B. Franklin;</cite>
         {isLogged ? (
           <NavLink to="/diary" className={classes.MainBtn}>
-            Відкрити щоденник
+            Open the diary
           </NavLink>
         ) : (
           <NavLink to="/auth" className={classes.MainBtn}>
-            Увійти / Зареєструватись
+            Login / Register
           </NavLink>
         )}
       </div>
