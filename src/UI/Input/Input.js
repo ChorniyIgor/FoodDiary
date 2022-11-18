@@ -22,6 +22,8 @@ const Input = (props) => {
         min={props.min}
         defaultValue={props.defaultValue}
         onInput={props.onInput}
+        onChange={props.onChange}
+        onBlur={props.onBlur}
       />
       <span className={classes.ErrorMsg}>
         {isInputInCorrect ? props.errorMsg : null}
