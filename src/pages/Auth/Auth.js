@@ -48,44 +48,45 @@ const Auth = () => {
 
   return (
     <div className={classes.Auth}>
-      <h1 style={{ textAlign: "center" }}>Авторизація</h1>
-      <form onSubmit={onFormSubmitHendler} className={classes.Form}>
-        <Input
-          labelText="Логін"
-          isRequired={true}
-          isInputInCorrect={isLoginInputErrorShown}
-          errorMsg="Невірний e-mail"
-          type="email"
-          value={loginInputValue}
-          onChange={onLoginInputChangeHandler}
-          onBlur={onLoginInputBlurHandler}
-        />
+      <div className={classes.AuthContainer}>
+        <form onSubmit={onFormSubmitHendler} className={classes.Form}>
+          <Input
+            labelText="Email"
+            isRequired={true}
+            isInputInCorrect={isLoginInputErrorShown}
+            errorMsg="Invalid e-mail"
+            type="email"
+            value={loginInputValue}
+            onChange={onLoginInputChangeHandler}
+            onBlur={onLoginInputBlurHandler}
+          />
 
-        <Input
-          labelText="Пароль"
-          isInputInCorrect={isPassInputErrorShown}
-          errorMsg="Пароль повинен складатись мінімум із 6 символів"
-          isRequired={true}
-          type="email"
-          value={passInputValue}
-          onChange={onPassInputChangeHandler}
-          onBlur={onPassInputBlurHandler}
-        />
-        <div className={classes.FormBtnContainer}>
-          <Button
-            type="submit"
-            text="Увійти"
-            color="green"
-            onClick={onSighInBtnClickHendler}
+          <Input
+            labelText="Password"
+            isInputInCorrect={isPassInputErrorShown}
+            errorMsg="Password too short"
+            isRequired={true}
+            type="text"
+            value={passInputValue}
+            onChange={onPassInputChangeHandler}
+            onBlur={onPassInputBlurHandler}
           />
-          <Button
-            type="submit"
-            text="Зареєструватися"
-            color="blue"
-            onClick={onSighUpBtnClickHendler}
-          />
-        </div>
-      </form>
+          <div className={classes.FormBtnContainer}>
+            <Button
+              type="submit"
+              text="Sign In"
+              color="green"
+              onClick={onSighInBtnClickHendler}
+            />
+            <Button
+              type="submit"
+              text="Register"
+              color="blue"
+              onClick={onSighUpBtnClickHendler}
+            />
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

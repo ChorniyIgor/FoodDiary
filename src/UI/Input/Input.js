@@ -24,6 +24,8 @@ const Input = (props) => {
         onInput={props.onInput}
         onChange={props.onChange}
         onBlur={props.onBlur}
+        className={props.className}
+        placeholder={props.placeholder}
       />
       <span className={classes.ErrorMsg}>
         {isInputInCorrect ? props.errorMsg : null}

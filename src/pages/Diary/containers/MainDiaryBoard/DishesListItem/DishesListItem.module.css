@@ -1,10 +1,11 @@
 .DishItem {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #cccccc38;
   padding: 0;
 }
 
 .ItemСolumn span {
   padding: 2px 0;
+  line-height: 1.6;
 }
 
 .ItemСolumn:nth-child(2n + 1) {
@@ -34,7 +35,8 @@
   opacity: 1;
 }
 .Tools i:nth-child(1) {
-  background: url("../../../../../image/icons/pencil-alt-solid.svg") center no-repeat;
+  background: url("../../../../../image/icons/pencil-alt-solid.svg") center
+    no-repeat;
   flex-basis: 16px;
   margin-right: 5px;
 }

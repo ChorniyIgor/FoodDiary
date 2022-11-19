@@ -9,7 +9,7 @@
 
 .Container {
   background: rgba(0, 0, 0, 0.7);
-  width: 50%;
+  width: 100%;
   min-height: 300px;
   display: flex;
   flex-direction: column;
@@ -37,15 +37,20 @@
 .Container cite {
   width: 100%;
   text-align: right;
+  margin-top: 10px;
 }
 
 .MainBtn {
   background: rgb(104, 196, 61);
   padding: 10px 15px;
   text-decoration: none;
-  text-transform: uppercase;
   color: white;
   margin-top: 30px;
+}
+
+.CiteContainer {
+  display: flex;
+  flex-direction: column;
 }
 
 .MainBtn:hover {

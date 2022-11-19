@@ -117,7 +117,6 @@ export const getFullFoodCatalog = (state) => {
 };
 
 export const AddUserDish = (newDish) => {
-  console.log("newDish", newDish);
   return async (dispatch, getState) => {
     const state = getState();
     try {

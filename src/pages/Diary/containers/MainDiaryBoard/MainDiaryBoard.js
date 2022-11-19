@@ -12,7 +12,7 @@ const MainBoard = () => {
 
   return (
     <section className={styles.DiaryBoard}>
-      <h2>Щоденник</h2>
+      <h2>Your Diary</h2>
       <ul className={styles.DiaryBoardList}>
         {sortedByDateDiary.map((item, index) => {
           const date = item.date;

@@ -10,14 +10,39 @@ const Menu = () => {
     <div className={classes.Menu}>
       {isLogged ? (
         <ul className={classes.MenuList}>
-          <NavLink to="/">Main</NavLink>
-          <NavLink to="/diary">Diary</NavLink>
-          <NavLink to="/logout">Sign out</NavLink>
+          <NavLink
+            className={(navData) => (navData.isActive ? classes.Active : "")}
+            to="/"
+          >
+            Main
+          </NavLink>
+          <NavLink
+            className={(navData) => (navData.isActive ? classes.Active : "")}
+            to="/diary"
+          >
+            Diary
+          </NavLink>
+          <NavLink
+            className={(navData) => (navData.isActive ? classes.Active : "")}
+            to="/logout"
+          >
+            Sign Out
+          </NavLink>
         </ul>
       ) : (
         <ul className={classes.MenuList}>
-          <NavLink to="/">Main</NavLink>
-          <NavLink to="/auth">Sign in</NavLink>
+          <NavLink
+            className={(navData) => (navData.isActive ? classes.Active : "")}
+            to="/"
+          >
+            Main
+          </NavLink>
+          <NavLink
+            className={(navData) => (navData.isActive ? classes.Active : "")}
+            to="/auth"
+          >
+            Sign In
+          </NavLink>
         </ul>
       )}
     </div>

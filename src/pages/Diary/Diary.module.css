@@ -2,29 +2,32 @@
   text-align: center;
   min-height: 100vh;
   background: url("../../image/mainBg.jpg");
+  padding-top: 15vh;
+  box-sizing: border-box;
 }
 
 .main_container {
   display: flex;
-  padding: 20px;
-  justify-content: center;
-  padding-top: 80px;
+  padding: 0px 25px;
+  height: 80vh;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.7);
   color: white;
+  display: flex;
+  box-sizing: border-box;
 }
 
 .main_container > div {
-  background: rgba(0, 0, 0, 0.8);
-  padding: 20px;
+  padding: 20px 0px;
   box-sizing: border-box;
   overflow: hidden;
   height: 80vh;
 }
 
 .main_container > div:first-child {
-  flex-basis: 30%;
   margin-right: 3%;
 }
 
 .main_container > div:last-child {
-  flex-basis: 60%;
+  flex-grow: 1;
 }

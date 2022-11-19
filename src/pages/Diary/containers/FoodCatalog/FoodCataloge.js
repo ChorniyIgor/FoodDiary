@@ -29,14 +29,14 @@ const FoodCatalog = () => {
 
   return (
     <section className={classes.FoodCataloge}>
-      <h2>Меню</h2>
-      <Input onInput={onInputChangeHendler} />
-      <FoodCatalogList serchRes={searchRes} />
-      <Button
-        text="Додати нову страву"
-        onClick={onAddNewDishBtnClickHandler}
-        color="green"
+      <h2>Dishes</h2>
+      <Input
+        onInput={onInputChangeHendler}
+        className={classes.FoodCatalogInput}
+        placeholder={"Search"}
       />
+      <FoodCatalogList serchRes={searchRes} />
+      <Button text="Add" onClick={onAddNewDishBtnClickHandler} color="green" />
       <AddDishModal />
       <AddDishToDiaryBoardModal />
     </section>

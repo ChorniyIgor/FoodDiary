@@ -5,11 +5,10 @@
 }
 
 .FoodList li {
-  border-bottom: 1px solid #ccc;
   padding: 5px 0px;
   padding-left: 20px;
   cursor: pointer;
-  background: #68c43d;
+  background: #3a8b14;
   color: white;
   font-size: 16px;
   line-height: 20px;
@@ -17,7 +16,7 @@
 }
 
 .FoodList li:nth-child(2n) {
-  background: #8be75f;
+  background: #67c938;
 }
 
 .FoodList li:hover {

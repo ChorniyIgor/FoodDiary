@@ -4,11 +4,13 @@
   left: 0;
   top: 0;
   width: 100%;
+  padding-left: 20px;
+  padding-right: 20px;
+  box-sizing: border-box;
 }
 .MenuList {
   margin: 0;
-  margin-left: auto;
-  margin-right: auto;
+
   width: 100%;
   padding: 0;
   box-sizing: border-box;
@@ -17,11 +19,18 @@
 }
 .MenuList a {
   text-decoration: none;
-  text-transform: uppercase;
   color: white;
   margin-right: 10px;
   font-size: 18px;
   padding: 15px 5px;
+}
+
+.MenuList a.Active {
+  opacity: 0.6;
+}
+
+.MenuList a.Active:hover {
+  cursor: auto;
 }
 
 .MenuList a[href="/logout"],

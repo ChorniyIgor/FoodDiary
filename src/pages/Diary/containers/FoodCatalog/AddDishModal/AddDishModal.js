@@ -29,7 +29,7 @@ const AddDishModal = (props) => {
     const fats = parseFloat(inputFatsRef.current.value);
     const carbohydrates = parseFloat(inputCarbohydratesRef.current.value);
     const newDish = {
-      [dishName.toUpperCase()]: {
+      [dishName]: {
         kkal,
         proteins,
         fats,
@@ -57,17 +57,17 @@ const AddDishModal = (props) => {
 
   return show ? (
     <Modal onClose={onModalCloseHandler}>
-      <h1>Додати нову страву</h1>
+      <h1>Here you can add your custom dish</h1>
       <form onSubmit={onFormSubmitHendler}>
         <Input
-          labelText="Назва страви"
+          labelText="Name"
           inputRefer={inputNameRef}
           isRequired={true}
           autoFocus={true}
           defaultValue={isWithProps ? dishItem.name : ""}
         />
         <Input
-          labelText="Калорійність"
+          labelText="Caloric content"
           inputRefer={inputCaloriesRef}
           inputType="number"
           isRequired={true}
@@ -75,7 +75,7 @@ const AddDishModal = (props) => {
           defaultValue={isWithProps ? dishItem.dishProps.kkal : 0}
         />
         <Input
-          labelText="Білки"
+          labelText="Proteins"
           inputRefer={inputProteinsRef}
           inputType="number"
           isRequired={true}
@@ -83,7 +83,7 @@ const AddDishModal = (props) => {
           defaultValue={isWithProps ? dishItem.dishProps.proteins : 0}
         />
         <Input
-          labelText="Жири"
+          labelText="Fats"
           inputRefer={inputFatsRef}
           inputType="number"
           isRequired={true}
@@ -91,15 +91,15 @@ const AddDishModal = (props) => {
           defaultValue={isWithProps ? dishItem.dishProps.fats : 0}
         />
         <Input
-          labelText="Вуглеводи"
+          labelText="Carbohydrates"
           inputRefer={inputCarbohydratesRef}
           inputType="number"
           isRequired={true}
           min={0}
           defaultValue={isWithProps ? dishItem.dishProps.carbohydrates : 0}
         />
-        <Button type="submit" text="Зберегти" color="green" />
-        <Button text="Закрити" onClick={onModalCloseHandler} />
+        <Button type="submit" text="Save" color="green" />
+        <Button text="Close" onClick={onModalCloseHandler} />
       </form>
     </Modal>
   ) : null;

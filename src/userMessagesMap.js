@@ -1,39 +1,39 @@
 export const userMessagesMap = {
   SUCCESS_REGISTER: {
     type: "success",
-    msg: `Ви успішно зареєструвались`,
+    msg: `You have successfully registered`,
   },
   SUCCESS_AUTH: {
     type: "success",
-    msg: `Ви успішно авторизувались`,
+    msg: `You have successfully logged in`,
   },
   EMAIL_NOT_FOUND: {
     type: "error",
-    msg: `E-mail введено не вірно`,
+    msg: `The entered email is incorrect`,
   },
   INVALID_PASSWORD: {
     type: "error",
-    msg: `Пароль введено не вірно`,
+    msg: `The entered password is incorrect`,
   },
   MISSING_EMAIL: {
     type: "error",
-    msg: `Емейл не введено`,
+    msg: `Email not entered`,
   },
   MISSING_PASSWORD: {
     type: "error",
-    msg: `Введено некоректний пароль.`,
+    msg: `Incorrect password entered`,
   },
   EMAIL_EXISTS: {
     type: "error",
-    msg: `Ввведений вами e-mail вже зареєстрований у системі`,
+    msg: `The email you entered is already registered`,
   },
   INVALID_EMAIL: {
     type: "error",
-    msg: `Введений вами e-mail некоректний`,
+    msg: `The entered email is incorrect`,
   },
   ADMIN_ONLY_OPERATION: {
     type: "error",
-    msg: `Помилка сервера`,
+    msg: `Server error`,
   },
   FAILED_TO_FETCH: {
     type: "error",
@@ -41,6 +41,6 @@ export const userMessagesMap = {
   },
   UNKNOWN_ERROR: {
     type: "error",
-    msg: `щось пішло не так`,
+    msg: `Something went wrong`,
   },
 };

@@ -16,10 +16,9 @@
 }
 
 .ButtonGreen {
-  background: rgb(104, 196, 61);
+  background: #3a8b14;
   padding: 10px 15px;
   text-decoration: none;
-  text-transform: uppercase;
   color: white;
 }
 

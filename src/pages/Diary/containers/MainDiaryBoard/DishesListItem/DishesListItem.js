@@ -49,8 +49,8 @@ const DishesListItem = (props) => {
         <span>{parseFloat(props.dish.fats).toFixed(2)}</span>
         <span>{parseFloat(props.dish.carbohydrates).toFixed(2)}</span>
         <span className={styles.Tools}>
-          <i onClick={onEditBtnClickHendler}>Редагувати</i>
-          <i onClick={onDeleteBtnClickHendler}>Видалити</i>
+          <i onClick={onEditBtnClickHendler}>Edit</i>
+          <i onClick={onDeleteBtnClickHendler}>Delete</i>
         </span>
       </div>
     </li>

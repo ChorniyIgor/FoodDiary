@@ -20,7 +20,7 @@ const DiaryItem = (props) => {
 
     return (
       <div className={[styles.ListTable, styles.ListTableHeader].join(" ")}>
-        <span>Загалом</span>
+        <span>Total</span>
         <span>{getSumm(dishes, "dishWeight")}</span>
         <span>{getSumm(dishes, "kkal")}</span>
         <span>{getSumm(dishes, "proteins")}</span>
@@ -39,12 +39,12 @@ const DiaryItem = (props) => {
     return (
       <ul className={cls.join(" ")}>
         <div className={[styles.ListTable, styles.ListTableHeader].join(" ")}>
-          <span>Назва</span>
-          <span>Вага г.</span>
-          <span>Калорійність ккал.</span>
-          <span>Білки г.</span>
-          <span>Жири г.</span>
-          <span>Вуглеводи г.</span>
+          <span>Dish</span>
+          <span>Weight g.</span>
+          <span>Caloric content</span>
+          <span>Proteins g.</span>
+          <span>Fats g.</span>
+          <span>Carbohydrates</span>
           <span />
         </div>
 

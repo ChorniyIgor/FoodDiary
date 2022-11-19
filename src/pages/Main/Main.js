@@ -10,12 +10,14 @@ const Main = () => {
       <div className={classes.Container}>
         <h2>Your Personal</h2>
         <h1 className={classes.MainTitle}>Food Diary</h1>
+        <div className={classes.CiteContainer}>
+          <q>
+            Ever since humans learned how to cook food, they have been eating
+            twice as much as nature requires.
+          </q>
+          <cite>B. Franklin;</cite>
+        </div>
 
-        <q>
-          Ever since humans learned how to cook food, they have been eating
-          twice as much as nature requires.
-        </q>
-        <cite>B. Franklin;</cite>
         {isLogged ? (
           <NavLink to="/diary" className={classes.MainBtn}>
             Open the diary

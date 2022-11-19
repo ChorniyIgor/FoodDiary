@@ -47,14 +47,14 @@ const AddDishToDiaryBoardModal = (props) => {
     <Modal onClose={onModalCloseHandler}>
       <h1 className={classes.BoardHeader}>{dishProps.dishName}</h1>
       <div className={classes.BoardInfo}>
-        <p>Калорійність: {dishProps.kkal}</p>
-        <p>Білки: {dishProps.proteins}</p>
-        <p>Жири: {dishProps.fats}</p>
-        <p>Вуглеводи: {dishProps.carbohydrates}</p>
+        <p>Caloric content: {dishProps.kkal}</p>
+        <p>Proteins: {dishProps.proteins}</p>
+        <p>Fats: {dishProps.fats}</p>
+        <p>Carbohydrates: {dishProps.carbohydrates}</p>
       </div>
       <form onSubmit={formSubmitHendler}>
         <Input
-          labelText="Кількість у граммах"
+          labelText="Weight"
           inputRefer={inputWeight}
           inputType="number"
           isRequired={true}
@@ -63,12 +63,12 @@ const AddDishToDiaryBoardModal = (props) => {
           autoFocus={true}
         />
         {dishProps.isEdit ? (
-          <Button type="submit" text="Зберегти зміни" color="green" />
+          <Button type="submit" text="Save changes" color="green" />
         ) : (
-          <Button type="submit" text="Додати у щоденник" color="green" />
+          <Button type="submit" text="Add to diary" color="green" />
         )}
 
-        <Button text="Закрити" onClick={onModalCloseHandler} />
+        <Button text="Close" onClick={onModalCloseHandler} />
       </form>
     </Modal>
   ) : null;
