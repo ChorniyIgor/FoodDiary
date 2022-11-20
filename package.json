@@ -1,5 +1,6 @@
 {
-  "name": "food",
+  "name": "food_diary",
+  "homepage": "https://chorniyigor.github.io/FoodDiary",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
