@@ -37,7 +37,7 @@ const App = () => {
           <>
             <Route
               path="/FoodDiary/auth"
-              element={<Navigate replace to="/diary" />}
+              element={<Navigate replace to="/FoodDiary/diary" />}
             />
             <Route path="/FoodDiary/diary" element={<Diary />}></Route>
             <Route path="/FoodDiary/logout" element={<Logout />} />
@@ -47,11 +47,11 @@ const App = () => {
             <Route path="/FoodDiary/auth" element={<Auth />}></Route>
             <Route
               path="/FoodDiary/diary"
-              element={<Navigate replace to="/auth" />}
+              element={<Navigate replace to="/FoodDiary/auth" />}
             />
             <Route
               path="/FoodDiary/logout"
-              element={<Navigate replace to="/" />}
+              element={<Navigate replace to="/FoodDiary/" />}
             />
           </>
         )}

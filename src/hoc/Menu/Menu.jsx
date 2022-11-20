@@ -12,19 +12,19 @@ const Menu = () => {
         <ul className={classes.MenuList}>
           <NavLink
             className={(navData) => (navData.isActive ? classes.Active : "")}
-            to="/"
+            to="/FoodDiary/"
           >
             Main
           </NavLink>
           <NavLink
             className={(navData) => (navData.isActive ? classes.Active : "")}
-            to="/diary"
+            to="/FoodDiary/diary"
           >
             Diary
           </NavLink>
           <NavLink
             className={(navData) => (navData.isActive ? classes.Active : "")}
-            to="/logout"
+            to="/FoodDiary/logout"
           >
             Sign Out
           </NavLink>
@@ -33,13 +33,13 @@ const Menu = () => {
         <ul className={classes.MenuList}>
           <NavLink
             className={(navData) => (navData.isActive ? classes.Active : "")}
-            to="/"
+            to="/FoodDiary/"
           >
             Main
           </NavLink>
           <NavLink
             className={(navData) => (navData.isActive ? classes.Active : "")}
-            to="/auth"
+            to="/FoodDiary/auth"
           >
             Sign In
           </NavLink>

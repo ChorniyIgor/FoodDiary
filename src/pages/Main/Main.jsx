@@ -19,11 +19,11 @@ const Main = () => {
         </div>
 
         {isLogged ? (
-          <NavLink to="/diary" className={classes.MainBtn}>
+          <NavLink to="/FoodDiary/diary" className={classes.MainBtn}>
             Open the diary
           </NavLink>
         ) : (
-          <NavLink to="/auth" className={classes.MainBtn}>
+          <NavLink to="/FoodDiary/auth" className={classes.MainBtn}>
             Login / Register
           </NavLink>
         )}
