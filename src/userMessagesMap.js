@@ -1,4 +1,8 @@
 export const userMessagesMap = {
+  SUCCESS: {
+    type: "success",
+    msg: `Success`,
+  },
   SUCCESS_REGISTER: {
     type: "success",
     msg: `You have successfully registered`,

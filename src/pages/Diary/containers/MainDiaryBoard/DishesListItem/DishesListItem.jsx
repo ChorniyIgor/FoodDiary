@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./DishesListItem.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteDishFromDiary } from "../../../../../store/Diary/DiarySlice";
+import { deleteDishFromDiary } from "../../../../../store/Diary/deleteDishFromDiary";
 import { openModalWithProps } from "../../../../../store/Modal/ModalSlice";
 
 const DishesListItem = (props) => {

@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { openModalWithProps } from "../../../../../../store/Modal/ModalSlice";
 import classes from "./CatalogListItem.module.css";
-import { deleteUserDishItem } from "../../../../../../store/FoodCatalog/FoodCatalogSlice";
+import { deleteUserDishItem } from "../../../../../../store/FoodCatalog/deleteUserDishItem";
 
 const CatalogListItem = (props) => {
   const dispatch = useDispatch();

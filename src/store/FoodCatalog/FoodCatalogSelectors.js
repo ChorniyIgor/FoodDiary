@@ -1,4 +1,4 @@
-import { getFullFoodCatalog } from "./FoodCatalogSlice";
+import { getFullFoodCatalog } from "./getFullFoodCatalog";
 
 export const getSearchVal = (state) => state.foodCatalog.searchVal;
 
@@ -11,6 +11,3 @@ export const getFiltratedDishesFromCatalog = (state, filter) => {
     return dish.name.toUpperCase().indexOf(filter.toUpperCase()) >= 0;
   });
 };
-//   state.foodCatalog.dishes.filter((dish) => {
-//     return dish.name.toUpperCase().indexOf(filter.toUpperCase()) >= 0;
-//   });

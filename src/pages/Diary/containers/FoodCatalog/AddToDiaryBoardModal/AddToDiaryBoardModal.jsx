@@ -3,10 +3,8 @@ import classes from "./AddToDiaryBoardModal.module.css";
 import Modal from "../../../../../hoc/Modal/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { closeModal } from "../../../../../store/Modal/ModalSlice";
-import {
-  addDishToDiary,
-  editDishInDiary,
-} from "../../../../../store/Diary/DiarySlice";
+import { addDishToDiary } from "../../../../../store/Diary/addDishToDiary";
+import { editDishInDiary } from "../../../../../store/Diary/editDishInDiary";
 import Input from "../../../../../UI/Input/Input";
 import Button from "../../../../../UI/Button/Button";
 

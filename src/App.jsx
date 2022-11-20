@@ -4,18 +4,14 @@ import Diary from "./pages/Diary/Diary";
 import Auth from "./pages/Auth/Auth";
 import Main from "./pages/Main/Main";
 import Logout from "./hoc/Logout/Logout";
-
-// import { Route } from "react-router";
 import InfoModal from "./hoc/InfoModal/InfoModal";
 import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useEffect } from "react";
 import { autoLogin } from "./store/Auth/autoLogin";
-import {
-  loadMainFoodCatalog,
-  loadUserFoodCatalog,
-} from "./store/FoodCatalog/FoodCatalogSlice";
-import { loadUserDiary } from "./store/Diary/DiarySlice";
+import { loadMainFoodCatalog } from "./store/FoodCatalog/loadMainFoodCatalog";
+import { loadUserFoodCatalog } from "./store/FoodCatalog/loadUserFoodCatalog";
+import { loadUserDiary } from "./store/Diary/loadUserDiary";
 
 const App = () => {
   const dispatch = useDispatch();

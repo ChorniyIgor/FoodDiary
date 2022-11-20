@@ -2,8 +2,8 @@ import React, { useRef } from "react";
 import Modal from "../../../../../hoc/Modal/Modal";
 import { useSelector, useDispatch } from "react-redux";
 import { closeModal } from "../../../../../store/Modal/ModalSlice";
-import { AddUserDish } from "../../../../../store/FoodCatalog/FoodCatalogSlice";
-import { editUserDish } from "../../../../../store/FoodCatalog/FoodCatalogSlice";
+import { AddUserDish } from "../../../../../store/FoodCatalog/AddUserDish";
+import { editUserDish } from "../../../../../store/FoodCatalog/editUserDish";
 
 import Input from "../../../../../UI/Input/Input";
 import Button from "../../../../../UI/Button/Button";
