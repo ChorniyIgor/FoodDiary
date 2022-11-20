@@ -31,19 +31,28 @@ const App = () => {
     <React.Fragment>
       <Menu />
       <Routes>
-        <Route exact path="/" element={<Main />} />
+        <Route exact path="/FoodDiary" element={<Main />} />
 
         {isLogged ? (
           <>
-            <Route path="/auth" element={<Navigate replace to="/diary" />} />
-            <Route path="/diary" element={<Diary />}></Route>
-            <Route path="/logout" element={<Logout />} />
+            <Route
+              path="/FoodDiary/auth"
+              element={<Navigate replace to="/diary" />}
+            />
+            <Route path="/FoodDiary/diary" element={<Diary />}></Route>
+            <Route path="/FoodDiary/logout" element={<Logout />} />
           </>
         ) : (
           <>
-            <Route path="/auth" element={<Auth />}></Route>
-            <Route path="/diary" element={<Navigate replace to="/auth" />} />
-            <Route path="/logout" element={<Navigate replace to="/" />} />
+            <Route path="/FoodDiary/auth" element={<Auth />}></Route>
+            <Route
+              path="/FoodDiary/diary"
+              element={<Navigate replace to="/auth" />}
+            />
+            <Route
+              path="/FoodDiary/logout"
+              element={<Navigate replace to="/" />}
+            />
           </>
         )}
       </Routes>
