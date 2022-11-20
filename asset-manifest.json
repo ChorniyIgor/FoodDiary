@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/FoodDiary/static/css/main.e6808211.css",
-    "main.js": "/FoodDiary/static/js/main.134b40f3.js",
+    "main.js": "/FoodDiary/static/js/main.86e0d149.js",
     "static/media/mainBg.jpg": "/FoodDiary/static/media/mainBg.905ed8d1843449efe839.jpg",
     "static/media/AuthBg.jpg": "/FoodDiary/static/media/AuthBg.5da521ff16a42d70e8ff.jpg",
     "static/media/pencil-alt-solid.svg": "/FoodDiary/static/media/pencil-alt-solid.7fb54747df67a93ba6fc.svg",
@@ -9,10 +9,10 @@
     "index.html": "/FoodDiary/index.html",
     "static/media/angle-down-solid.svg": "/FoodDiary/static/media/angle-down-solid.0f84cab8e9556b3fe7e6.svg",
     "main.e6808211.css.map": "/FoodDiary/static/css/main.e6808211.css.map",
-    "main.134b40f3.js.map": "/FoodDiary/static/js/main.134b40f3.js.map"
+    "main.86e0d149.js.map": "/FoodDiary/static/js/main.86e0d149.js.map"
   },
   "entrypoints": [
     "static/css/main.e6808211.css",
-    "static/js/main.134b40f3.js"
+    "static/js/main.86e0d149.js"
   ]
 }
