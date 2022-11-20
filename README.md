@@ -23,7 +23,12 @@ A food diary is a daily log of what you eat and drink each day. The diary helps 
 
 ### Link
 
-- Live Site URL: [chorniyigor.github.io/yapona](https://chorniyigor.github.io/yapona)
+- Live Site URL: [https://chorniyigor.github.io/FoodDiary](https://chorniyigor.github.io/FoodDiary/)
+
+You could register in the system or simply use a demo account.
+Access to a demo account:
+Login: iii@gmail.com  
+Password: 123456
 
 ### Built with
 
@@ -31,7 +36,6 @@ A food diary is a daily log of what you eat and drink each day. The diary helps 
 - CSS custom properties
 - Flexbox
 - CSS Grid
-- Mobile-first workflow
 - [React](https://reactjs.org/) - JS library
 
 ## Author
