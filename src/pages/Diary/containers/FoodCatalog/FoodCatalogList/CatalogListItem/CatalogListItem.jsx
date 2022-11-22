@@ -8,11 +8,11 @@ const CatalogListItem = (props) => {
   const dispatch = useDispatch();
   function onListItemClickHendler() {
     const info = {
-      dishName: props.item.name,
-      kkal: props.item.dishProps.kkal,
-      proteins: props.item.dishProps.proteins,
-      fats: props.item.dishProps.fats,
-      carbohydrates: props.item.dishProps.carbohydrates,
+      dishName: props.item.dishName,
+      kkal: props.item.kkal,
+      proteins: props.item.proteins,
+      fats: props.item.fats,
+      carbohydrates: props.item.carbohydrates,
     };
     AddDishToDiaryBoardModal(info);
   }
@@ -42,15 +42,15 @@ const CatalogListItem = (props) => {
     dispatch(deleteUserDishItem(dishItem));
   };
 
-  return props.item.dishProps.isUserDish ? (
+  return props.item.isUserDish ? (
     <li className={classes.CatalogListItem}>
-      <span onClick={onListItemClickHendler}>{props.item.name}</span>
+      <span onClick={onListItemClickHendler}>{props.item.dishName}</span>
       <span onClick={onEditBtnClickhendler}>Редагувати</span>
       <span onClick={onDeleteBtnClickhendler}>Видалити</span>
     </li>
   ) : (
     <li className={classes.CatalogListItem}>
-      <span onClick={onListItemClickHendler}>{props.item.name}</span>
+      <span onClick={onListItemClickHendler}>{props.item.dishName}</span>
     </li>
   );
 };

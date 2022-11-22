@@ -1,17 +1,21 @@
+import { userDishesSelector } from "./FoodCatalogSlice";
+
 export const getFullFoodCatalog = (state) => {
   function getDishesWithKey(data) {
     const userDishes = [];
     for (let dish in data) {
       userDishes.push({
-        name: dish,
-        dishProps: data[dish],
+        key: dish,
+        ...data[dish],
       });
     }
 
     return userDishes;
   }
+
   return [
-    ...getDishesWithKey(state.foodCatalog.userDishes),
+    ...userDishesSelector.selectAll(state),
     ...getDishesWithKey(state.foodCatalog.dishes),
   ];
+  // return [];
 };

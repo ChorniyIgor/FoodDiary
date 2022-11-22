@@ -40,7 +40,12 @@ class DataAdapter {
       };
 
       Object.assign(newData, {
-        [itemName]: { ...newItemInfo, key, isUserDish },
+        [key]: {
+          ...newItemInfo,
+          key,
+          isUserDish,
+          dishName: itemName.trim(),
+        },
       });
     }
 

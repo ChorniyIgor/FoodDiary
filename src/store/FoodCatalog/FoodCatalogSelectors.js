@@ -8,6 +8,6 @@ export const getFiltratedDishesFromCatalog = (state, filter) => {
   if (filter === "") return getAllDishesFromCataolog(state);
 
   return getAllDishesFromCataolog(state).filter((dish) => {
-    return dish.name.toUpperCase().indexOf(filter.toUpperCase()) >= 0;
+    return dish.dishName.toUpperCase().indexOf(filter.toUpperCase()) >= 0;
   });
 };

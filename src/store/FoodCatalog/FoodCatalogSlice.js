@@ -1,8 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createEntityAdapter, createSlice } from "@reduxjs/toolkit";
+
+const userDishesAdapter = createEntityAdapter({
+  selectId: (dish) => dish.key,
+});
 
 const initialState = {
   dishes: {},
-  userDishes: {},
+  userDishes: userDishesAdapter.getInitialState(),
   searchVal: "",
   userDishesIsLoading: false,
   mainDishesIsLoading: false,
@@ -17,7 +21,7 @@ const foodCatalogSlice = createSlice({
       state.mainDishesIsLoading = true;
     },
     loadUserFoodCatalog: (state, action) => {
-      state.userDishes = action.payload;
+      userDishesAdapter.setAll(state.userDishes, action.payload);
       state.userDishesIsLoading = true;
     },
     setCatalogSearchString: (state, action) => {
@@ -25,24 +29,18 @@ const foodCatalogSlice = createSlice({
     },
 
     addCustomUserDish: (state, action) => {
-      state.userDishes[action.payload.name] = action.payload.data;
+      userDishesAdapter.addOne(state.userDishes, action.payload);
     },
     editCustomUserDish: (state, action) => {
-      let userDishes = { ...state.userDishes };
-      delete userDishes[action.payload.lastItemName];
-      action.payload.dishItem[
-        Object.keys(action.payload.dishItem)[0]
-      ].isUserDish = true;
-      action.payload.dishItem[Object.keys(action.payload.dishItem)[0]].key =
-        action.payload.dishItem.key;
-      delete action.payload.dishItem.key;
-      state.userDishes = { ...userDishes, ...action.payload.dishItem };
+      userDishesAdapter.updateOne(state.userDishes, {
+        id: action.payload.key,
+        changes: {
+          ...action.payload,
+        },
+      });
     },
     deleteCustomUserDish: (state, action) => {
-      const newUserDishes = { ...state.userDishes };
-      delete newUserDishes[action.payload];
-
-      state.userDishes = newUserDishes;
+      userDishesAdapter.removeOne(state.userDishes, action.payload);
     },
   },
 });
@@ -57,3 +55,7 @@ export const {
 } = foodCatalogSlice.actions;
 
 export const FoodCatalogReducer = foodCatalogSlice.reducer;
+
+export const userDishesSelector = userDishesAdapter.getSelectors(
+  (state) => state.foodCatalog.userDishes
+);

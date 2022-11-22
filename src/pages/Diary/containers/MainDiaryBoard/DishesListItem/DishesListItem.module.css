@@ -8,6 +8,11 @@
   line-height: 1.6;
 }
 
+.ItemСolumn span:nth-child(6n),
+.ListTable span:nth-child(5n) {
+  display: none;
+}
+
 .ItemСolumn:nth-child(2n + 1) {
   background: #b5fa94;
   color: rgba(0, 0, 0);
@@ -43,4 +48,11 @@
 
 .Tools i:nth-child(2) {
   background: url("../../../../../image/icons/times-solid.svg") center no-repeat;
+}
+
+@media (min-width: 600px) {
+  .ItemСolumn span:nth-child(6n),
+  .ListTable span:nth-child(5n) {
+    display: block;
+  }
 }

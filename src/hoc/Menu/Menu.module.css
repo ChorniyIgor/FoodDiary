@@ -32,8 +32,8 @@
   cursor: auto;
 }
 
-.MenuList a[href="/logout"],
-.MenuList a[href="/auth"] {
+.MenuList a[href="/FoodDiary/logout"],
+.MenuList a[href="/FoodDiary/auth"] {
   margin-left: auto;
   margin-right: 0;
 }

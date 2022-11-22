@@ -29,21 +29,22 @@ const AddDishModal = (props) => {
     const fats = parseFloat(inputFatsRef.current.value);
     const carbohydrates = parseFloat(inputCarbohydratesRef.current.value);
     const newDish = {
-      [dishName]: {
-        kkal,
-        proteins,
-        fats,
-        carbohydrates,
-      },
+      dishName,
+      kkal,
+      proteins,
+      fats,
+      carbohydrates,
+      isUserDish: true,
     };
-    if (isWithProps) newDish.key = dishItem.dishProps.key;
+
+    if (isWithProps) newDish.key = dishItem.key;
     return newDish;
   };
 
   function onFormSubmitHendler(evt) {
     evt.preventDefault();
     if (isWithProps) {
-      console.log("edit");
+      //edit
       dispatch(editUserDish(dishItem.name, getDishPropsObj()));
     } else {
       dispatch(AddUserDish(getDishPropsObj()));
@@ -64,7 +65,7 @@ const AddDishModal = (props) => {
           inputRefer={inputNameRef}
           isRequired={true}
           autoFocus={true}
-          defaultValue={isWithProps ? dishItem.name : ""}
+          defaultValue={isWithProps ? dishItem.dishName : ""}
         />
         <Input
           labelText="Caloric content"
@@ -72,7 +73,7 @@ const AddDishModal = (props) => {
           inputType="number"
           isRequired={true}
           min={0}
-          defaultValue={isWithProps ? dishItem.dishProps.kkal : 0}
+          defaultValue={isWithProps ? dishItem.kkal : 0}
         />
         <Input
           labelText="Proteins"
@@ -80,7 +81,7 @@ const AddDishModal = (props) => {
           inputType="number"
           isRequired={true}
           min={0}
-          defaultValue={isWithProps ? dishItem.dishProps.proteins : 0}
+          defaultValue={isWithProps ? dishItem.proteins : 0}
         />
         <Input
           labelText="Fats"
@@ -88,7 +89,7 @@ const AddDishModal = (props) => {
           inputType="number"
           isRequired={true}
           min={0}
-          defaultValue={isWithProps ? dishItem.dishProps.fats : 0}
+          defaultValue={isWithProps ? dishItem.fats : 0}
         />
         <Input
           labelText="Carbohydrates"
@@ -96,7 +97,7 @@ const AddDishModal = (props) => {
           inputType="number"
           isRequired={true}
           min={0}
-          defaultValue={isWithProps ? dishItem.dishProps.carbohydrates : 0}
+          defaultValue={isWithProps ? dishItem.carbohydrates : 0}
         />
         <Button type="submit" text="Save" color="green" />
         <Button text="Close" onClick={onModalCloseHandler} />
