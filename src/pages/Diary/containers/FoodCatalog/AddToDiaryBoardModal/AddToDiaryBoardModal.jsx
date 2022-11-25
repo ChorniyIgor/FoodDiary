@@ -19,7 +19,7 @@ const AddDishToDiaryBoardModal = (props) => {
     if (dishProps.isEdit) {
       const dishInfo = {
         ...dishProps,
-        dishWeight: +inputWeight.current.value,
+        dishNewWeight: +inputWeight.current.value,
       };
       dispatch(editDishInDiary(dishInfo));
     } else {

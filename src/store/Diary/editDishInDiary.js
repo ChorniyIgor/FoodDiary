@@ -2,16 +2,27 @@ import Firebase from "../../Firebase";
 import { userMessagesMap } from "../../userMessagesMap";
 import { showMsg } from "../Modal/ModalSlice";
 import { calculateDishParam } from "./calculateDishParam";
-import { editDish } from "./DiarySlice";
+import { DiaryDaysSelector, editDish } from "./DiarySlice";
 
 export const editDishInDiary = (dishInfo) => {
   return async (dispatch, getState) => {
     const state = getState();
-    const dishProps = calculateDishParam({
-      ...dishInfo,
-      ...dishInfo.dishPropsPer100g,
-    });
     try {
+      const dishes = [
+        ...DiaryDaysSelector.selectById(state, dishInfo.keyOfList).dishes,
+      ];
+      let dishIndex = dishes.findIndex((dish) => dish.key === dishInfo.key);
+
+      const dishProps = calculateDishParam({
+        ...dishInfo,
+        ...dishInfo.dishPropsPer100g,
+      });
+
+      dishes[dishIndex] = {
+        ...dishes[dishIndex],
+        ...dishProps,
+      };
+
       await Firebase.editDishInDiary(
         dishProps,
         dishInfo.key,
@@ -22,6 +33,7 @@ export const editDishInDiary = (dishInfo) => {
       dispatch(
         editDish({
           dishInfo,
+          modificatedDishList: dishes,
           ...calculateDishParam({ ...dishInfo, ...dishInfo.dishPropsPer100g }),
         })
       );

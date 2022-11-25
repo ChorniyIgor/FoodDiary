@@ -1,7 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createEntityAdapter, createSlice } from "@reduxjs/toolkit";
+
+const diaryDaysAdapter = createEntityAdapter({
+  initialState: [],
+  selectId: (diaryDay) => diaryDay.key,
+});
 
 const initialState = {
-  diary: [],
+  diary: diaryDaysAdapter.getInitialState(),
   diaryIsLoading: false,
 };
 
@@ -10,23 +15,16 @@ const diarySlice = createSlice({
   initialState: initialState,
   reducers: {
     loadUserDiary: (state, action) => {
-      state.diary = action.payload;
+      diaryDaysAdapter.setAll(state.diary, action.payload);
       state.diaryIsLoading = true;
     },
     addDishToDiary: (state, action) => {
-      const newState = [];
-      state.diary.forEach((el) => {
-        if (el.date !== action.payload.dateNow) {
-          newState.push(el);
-        } else {
-          newState.push({
-            ...el,
-            dishes: [...el.dishes, action.payload.dishProps],
-          });
-        }
+      diaryDaysAdapter.updateOne(state.diary, {
+        id: action.payload.day.key,
+        changes: {
+          dishes: [...action.payload.day.dishes, action.payload.dishProps],
+        },
       });
-
-      state.diary = newState;
     },
     addDayToDiary: (state, action) => {
       state.diary.push({
@@ -37,25 +35,19 @@ const diarySlice = createSlice({
       });
     },
     editDishInDiary: (state, action) => {
-      state.diary.forEach((dayItem) => {
-        if (dayItem.key === action.payload.dishInfo.keyOfList) {
-          dayItem.dishes.forEach((dish, index) => {
-            if (dish.key === action.payload.dishInfo.key) {
-              dayItem.dishes[index] = action.payload.dishInfo;
-            }
-          });
-        }
+      diaryDaysAdapter.updateOne(state.diary, {
+        id: action.payload.dishInfo.keyOfList,
+        changes: {
+          dishes: action.payload.modificatedDishList,
+        },
       });
     },
     deleteDishFromDiary: (state, action) => {
-      state.diary.forEach((dayItem) => {
-        if (dayItem.key === action.payload.listKey) {
-          dayItem.dishes.forEach((dish, index) => {
-            if (dish.key === action.payload.dishKey) {
-              dayItem.dishes.splice(index, 1);
-            }
-          });
-        }
+      diaryDaysAdapter.updateOne(state.diary, {
+        id: action.payload.listKey,
+        changes: {
+          dishes: action.payload.newDishList,
+        },
       });
     },
   },
@@ -70,3 +62,7 @@ export const {
 } = diarySlice.actions;
 
 export const DiaryReducer = diarySlice.reducer;
+
+export const DiaryDaysSelector = diaryDaysAdapter.getSelectors(
+  (state) => state.foodDiary.diary
+);

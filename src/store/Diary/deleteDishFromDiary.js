@@ -1,7 +1,7 @@
 import Firebase from "../../Firebase";
 import { userMessagesMap } from "../../userMessagesMap";
 import { showMsg } from "../Modal/ModalSlice";
-import { deleteDish } from "./DiarySlice";
+import { deleteDish, DiaryDaysSelector } from "./DiarySlice";
 
 export const deleteDishFromDiary = (props) => {
   return async (dispatch, getState) => {
@@ -13,10 +13,18 @@ export const deleteDishFromDiary = (props) => {
         props.dateOfList,
         state.Auth.userId
       );
+
+      const dishList = DiaryDaysSelector.selectById(
+        state,
+        props.keyOfList
+      ).dishes;
+      const filtratedDishList = dishList.filter(
+        (dish) => dish.key !== props.dishKey
+      );
       dispatch(
         deleteDish({
           listKey: props.keyOfList,
-          dishKey: props.dishKey,
+          newDishList: filtratedDishList,
         })
       );
       const msg = userMessagesMap["SUCCESS"];

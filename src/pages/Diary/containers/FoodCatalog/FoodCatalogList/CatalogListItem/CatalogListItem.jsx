@@ -9,6 +9,7 @@ const CatalogListItem = (props) => {
   function onListItemClickHendler() {
     const info = {
       dishName: props.item.dishName,
+      key: props.item.key,
       kkal: props.item.kkal,
       proteins: props.item.proteins,
       fats: props.item.fats,

@@ -2,7 +2,7 @@ import Firebase from "../../Firebase";
 import { userMessagesMap } from "../../userMessagesMap";
 import { showMsg } from "../Modal/ModalSlice";
 import { calculateDishParam } from "./calculateDishParam";
-import { addDayToDiary, addDish } from "./DiarySlice";
+import { addDayToDiary, addDish, DiaryDaysSelector } from "./DiarySlice";
 
 const getDayElementByDate = (diary, date) => {
   return (
@@ -17,7 +17,11 @@ export const addDishToDiary = (dishProps) => {
     try {
       const state = getState();
       const date = new Date().toDateString();
-      const dayElement = getDayElementByDate(state.foodDiary.diary, date);
+      const dayElement = getDayElementByDate(
+        DiaryDaysSelector.selectAll(state),
+        date
+      );
+
       let dayKey = "";
       if (Array.isArray(dayElement)) {
         const res = await Firebase.sendNewDay(date, state.Auth.userId);

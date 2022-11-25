@@ -1,10 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { DiaryDaysSelector } from "../../../../store/Diary/DiarySlice";
 import DiaryDayItem from "../../components/DiaryDayItem/DiaryDayItem";
 import styles from "./MainDiaryBoard.module.css";
 
 const MainBoard = () => {
-  const foodDiary = useSelector((state) => state.foodDiary.diary);
+  const foodDiary = useSelector(DiaryDaysSelector.selectAll);
 
   let sortedByDateDiary = [...foodDiary].sort((a, b) => {
     return new Date(b.date) - new Date(a.date);
